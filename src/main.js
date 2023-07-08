@@ -1,10 +1,9 @@
 import { createApp } from 'vue'
 import './index.css'
 import App from './App.vue'
-import HelloWorld from './components/HelloWorld.vue'
-import Home from './components/Home.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-
+import Home from '@/components/Home.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
 
 
 
