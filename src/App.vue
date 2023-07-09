@@ -2,7 +2,6 @@
     <template v-if="isAdmin">
 
         <div class="min-h-full">
-
             <AdminNavigation></AdminNavigation>
             <router-view></router-view>
         </div>

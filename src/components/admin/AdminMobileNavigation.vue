@@ -64,7 +64,7 @@
                         >
                             <div class="absolute right-0 top-0 -mr-12 pt-2">
                                 <button type="button"
-                                        @click.prevent="show = false"
+                                        @click.prevent="openNavigation"
                                         class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                     <span class="sr-only">Close sidebar</span>
                                     <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -130,11 +130,25 @@
 
 <script setup>
 import AppLink from "@/components/AppLink.vue";
-import {ref} from "vue";
+import {ref, watch} from "vue";
+import {useNavigationStore} from '@/store/navigation';
 
 defineProps(['links', 'secondLinks'])
+const store = useNavigationStore()
+const show = ref(store.show)
 
-const show = ref(true)
+
+function openNavigation() {
+    store.apply(false)
+}
+
+watch(
+    () => store.show,
+    (newValue) => {
+        show.value = newValue;
+    }
+);
+
 </script>
 
 <style scoped>
