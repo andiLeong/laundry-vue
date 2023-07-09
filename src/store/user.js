@@ -18,7 +18,32 @@ export const useUserStore = defineStore({
             }
 
             const userData = JSON.parse(user);
-            return userData.is_admin || state.user?.is_admin;
+            return userData.type === 'admin' || state.user?.type === 'admin';
+        },
+
+        isStaff(state) {
+            const user = localStorage.getItem('user');
+
+            if (!this.isLoggedIn || user === null) {
+                return false;
+            }
+
+            const userData = JSON.parse(user);
+            return userData.type === 'employee'
+                || userData.type === 'admin'
+                || state.user?.type === 'employee'
+                || state.user?.type === 'admin';
+        },
+
+        isCustomer(state) {
+            const user = localStorage.getItem('user');
+
+            if (!this.isLoggedIn || user === null) {
+                return false;
+            }
+
+            const userData = JSON.parse(user);
+            return userData.type === 'customer' || state.user?.type === 'customer';
         },
     },
     actions: {
@@ -40,7 +65,8 @@ export const useUserStore = defineStore({
 
         logout() {
             localStorage.removeItem('user');
-            location.reload();
+            this.user = null;
+            // location.reload();
         },
 
         async login(credentials) {
@@ -48,6 +74,12 @@ export const useUserStore = defineStore({
             return await axios.post('/api/login', credentials).then(({data}) => {
                 this.setUser(data);
             });
+        },
+
+        async fetchUser() {
+            return await axios.get('/api/user').then(({data}) => {
+                this.setUser(data);
+            }).catch(() => this.logout());
         },
     },
 });

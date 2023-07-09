@@ -1,5 +1,5 @@
 <template>
-    <template v-if="isAdmin">
+    <template v-if="isStaff">
 
         <div class="min-h-full">
             <AdminNavigation></AdminNavigation>
@@ -18,6 +18,32 @@
 
 <script setup>
 import AdminNavigation from "@/components/admin/AdminNavigation.vue";
+import {useUserStore} from '@/store/user';
+import {ref, watch} from "vue";
+import {useRouter} from "vue-router";
 
-const isAdmin = false
+const userStore = useUserStore()
+
+userStore.fetchUser()
+
+const loggedIn = ref(userStore.isLoggedIn)
+const isAdmin = ref(userStore.isAdmin)
+const isStaff = ref(userStore.isStaff)
+const isCustomer = ref(userStore.isCustomer)
+const router = useRouter();
+
+// watch(
+//     () => userStore.isLoggedIn,
+//     (newValue) => {
+//         loggedIn.value = newValue;
+//     }
+// );
+
+// if (isAdmin || isStaff) {
+//     router.push({name: 'admin-home'});
+// }
+
+console.log('is admin ' + isAdmin.value)
+console.log('is staff ' + isStaff.value)
+console.log('is customer ' + isCustomer.value)
 </script>
