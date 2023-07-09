@@ -1,28 +1,22 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import Home from '@/components/Home.vue';
-import HelloWorld from '@/components/HelloWorld.vue';
-import AdminHome from '@/views/admin/home.vue'
-import AdminUser from '@/views/admin/user.vue'
-import AdminOrder from '@/views/admin/order.vue'
-import AdminStats from '@/views/admin/stats.vue'
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 // import { useUserStore } from '@/store/user';
 
 const routes = [
-    {path: '/', name: 'home', component: Home},
-    {path: '/about', name: 'about', component: HelloWorld},
-    {path: '/admin/home', name: 'admin-home', component: AdminHome},
-    {path: '/admin/order', name: 'admin-order', component: AdminOrder},
-    {path: '/admin/user', name: 'admin-user', component: AdminUser},
-    {path: '/admin/stats', name: 'admin-stats', component: AdminStats},
-    // {
-    //     path: '/login',
-    //     name: 'login',
-    //     component: () => import('@/views/Login.vue'),
-    //     meta: { redirectIfLogged: true },
-    // },
+    {path: '/admin/home', name: 'home', component: () => import ('@/views/Home.vue')},
+    {path: '/about', name: 'about', component: () => import ('@/views/About.vue')},
+    {path: '/admin/home', name: 'admin-home', component: () => import ('@/views/admin/home.vue')},
+    {path: '/admin/order', name: 'admin-order', component: () => import ('@/views/admin/order.vue')},
+    {path: '/admin/user', name: 'admin-user', component: () => import ('@/views/admin/user.vue')},
+    {path: '/admin/stats', name: 'admin-stats', component: () => import ('@/views/admin/stats.vue')},
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/Login.vue'),
+        // meta: {redirectIfLogged: true},
+    },
     // {
     //     path: '/posts/:slug',
     //     name: 'posts.show',
@@ -46,7 +40,6 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
-    // linkActiveClass: 'border-b-sky-500 text-gray-900 border-b-2',
     scrollBehavior(to, from, savedPosition) {
         return (
             savedPosition ||

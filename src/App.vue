@@ -12,11 +12,12 @@
             <router-link to="/">Go to Home</router-link>
             <router-link to="/about">Go to About</router-link>
         </p>
+        <router-view></router-view>
     </template>
 </template>
 
 <script setup>
 import AdminNavigation from "@/components/admin/AdminNavigation.vue";
 
-const isAdmin = true
+const isAdmin = false
 </script>

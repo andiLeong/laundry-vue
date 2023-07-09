@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .validation-error {
+        @apply text-red-500 text-xs italic mt-1;
+    }
+
+    .go-back-btn {
+        @apply uppercase inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none;
+    }
+
+    .primary-btn {
+        @apply bg-gradient-to-r
+
+        from-sky-500
+        to-sky-300
+        flex justify-center  duration-150 ease-in-out font-semibold hover:bg-sky-900 inline-flex items-center leading-6 px-4 py-2 rounded-md shadow text-sm text-white transition;
+    }
+
+    .table-heading {
+        @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+    }
+
+    .table-data {
+        @apply px-6 py-4 whitespace-nowrap text-sm text-gray-500;
+    }
+
+    .form-input {
+        @apply appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm;
+    }
+
+    .form-select {
+        @apply shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 dark:text-white;
+    }
+
+    .form-textarea {
+        @apply max-w-lg shadow-sm block w-full focus:ring-sky-500 focus:border-sky-500 sm:text-sm border border-gray-300 rounded-md;
+    }
+
+    .menu-button {
+        @apply inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500;
+    }
+
+    .theme-switcher {
+        @apply cursor-pointer dark:text-white text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 text-sm font-medium;
+    }
+
+    .drop-down-item {
+        @apply text-gray-700 block px-4 py-2 text-sm;
+    }
+
+    .count-up {
+        @apply px-4 py-2 shadow-lg bg-blue-400 rounded text-white;
+    }
+}
