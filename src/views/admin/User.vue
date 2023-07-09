@@ -1,8 +1,13 @@
 <template>
-    users
+    <AdminLayout>
+        <main class="flex-1 pb-8">
+            users
+        </main>
+    </AdminLayout>
 </template>
 
 <script setup>
+import AdminLayout from "@/components/admin/AdminLayout.vue";
 
 </script>
 
