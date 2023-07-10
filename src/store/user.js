@@ -10,6 +10,10 @@ export const useUserStore = defineStore({
             return state.user !== null || localStorage.getItem('user') !== null;
         },
 
+        firstName: (state) => {
+            return state.user.first_name;
+        },
+
         isAdmin(state) {
             if (!this.isLoggedIn) {
                 return false;
