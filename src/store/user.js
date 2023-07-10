@@ -11,39 +11,27 @@ export const useUserStore = defineStore({
         },
 
         isAdmin(state) {
-            const user = localStorage.getItem('user');
-
-            if (!this.isLoggedIn || user === null) {
+            if (!this.isLoggedIn) {
                 return false;
             }
 
-            const userData = JSON.parse(user);
-            return userData.type === 'admin' || state.user?.type === 'admin';
+            return state.user.type === 'admin';
         },
 
         isStaff(state) {
-            const user = localStorage.getItem('user');
-
-            if (!this.isLoggedIn || user === null) {
+            if (!this.isLoggedIn){
                 return false;
             }
 
-            const userData = JSON.parse(user);
-            return userData.type === 'employee'
-                || userData.type === 'admin'
-                || state.user?.type === 'employee'
-                || state.user?.type === 'admin';
+            return state.user.type === 'employee' || state.user.type === 'admin';
         },
 
         isCustomer(state) {
-            const user = localStorage.getItem('user');
-
-            if (!this.isLoggedIn || user === null) {
+            if (!this.isLoggedIn){
                 return false;
             }
 
-            const userData = JSON.parse(user);
-            return userData.type === 'customer' || state.user?.type === 'customer';
+            return state.user.type === 'customer';
         },
     },
     actions: {
@@ -63,10 +51,15 @@ export const useUserStore = defineStore({
             }
         },
 
-        logout() {
+        logoutFromLocal() {
             localStorage.removeItem('user');
             this.user = null;
-            // location.reload();
+        },
+
+        logout() {
+            return axios.post('/api/logout')
+                .then(() => this.logoutFromLocal())
+                .catch(() => this.logoutFromLocal());
         },
 
         async login(credentials) {
@@ -79,7 +72,9 @@ export const useUserStore = defineStore({
         async fetchUser() {
             return await axios.get('/api/user').then(({data}) => {
                 this.setUser(data);
-            }).catch(() => this.logout());
+            }).catch(() => {
+                this.logoutFromLocal()
+            });
         },
     },
 });

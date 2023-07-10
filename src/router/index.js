@@ -13,9 +13,24 @@ const routes = [
         component: () => import ('@/views/admin/home.vue'),
         meta: {staffOnly: true},
     },
-    {path: '/admin/order', name: 'admin-order', component: () => import ('@/views/admin/order.vue')},
-    {path: '/admin/user', name: 'admin-user', component: () => import ('@/views/admin/user.vue')},
-    {path: '/admin/stats', name: 'admin-stats', component: () => import ('@/views/admin/stats.vue')},
+    {
+        path: '/admin/order',
+        name: 'admin-order',
+        component: () => import ('@/views/admin/order.vue'),
+        meta: {staffOnly: true},
+    },
+    {
+        path: '/admin/user',
+        name: 'admin-user',
+        component: () => import ('@/views/admin/user.vue'),
+        meta: {adminOnly: true},
+    },
+    {
+        path: '/admin/stats',
+        name: 'admin-stats',
+        component: () => import ('@/views/admin/stats.vue'),
+        meta: {adminOnly: true},
+    },
     {
         path: '/login',
         name: 'login',
@@ -70,17 +85,17 @@ router.beforeEach((to, from) => {
     let isAdmin = userStore.isAdmin;
     let isStaff = userStore.isStaff;
 
-    if (to.meta.staffOnly && !loggedIn && !isStaff) {
+    if (to.meta.staffOnly && !isStaff) {
         return {name: 'login'};
     }
 
-    // if (to.meta.adminOnly && !isAdmin) {
-    //     return {name: 'home'};
-    // }
-    //
-    // if (to.meta.auth && !loggedIn) {
-    //     return {name: 'login'};
-    // }
+    if (to.meta.adminOnly && !isAdmin) {
+        return {name: 'home'};
+    }
+
+    if (to.meta.auth && !loggedIn) {
+        return {name: 'login'};
+    }
 
     if (to.meta.redirectIfLogged && loggedIn) {
         if (isAdmin || isStaff) {

@@ -81,8 +81,12 @@
                        tabindex="-1" id="user-menu-item-0">Your Profile</a>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
                        tabindex="-1" id="user-menu-item-1">Settings</a>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                       tabindex="-1" id="user-menu-item-2">Logout</a>
+                    <a
+                        @click.prevent="logout"
+                        href="#"
+                        class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                      Logout
+                    </a>
                 </div>
             </div>
         </div>
@@ -91,13 +95,18 @@
 
 <script setup>
 import {useNavigationStore} from '@/store/navigation';
+import {useUserStore} from "@/store/user.js";
 
 const navigationStore = useNavigationStore()
+const userStore = useUserStore()
 
 function openMobileNavigation() {
     navigationStore.apply(true);
 }
 
+function logout(){
+  userStore.logout();
+}
 </script>
 
 <style scoped>
