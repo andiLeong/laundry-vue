@@ -57,7 +57,10 @@ import { object, string } from 'yup';
 import BaseInput from '@/components/forms/BaseInput.vue';
 import SubmitButton from '@/components/forms/SubmitButton.vue';
 import { useUserStore } from '@/store/user';
+import { useRouter } from 'vue-router';
 
+const userStore = useUserStore();
+const router = useRouter();
 const validationSchema = ref(
     object({
         phone: string().required(),
@@ -83,12 +86,14 @@ const submit = ref(
 
 async function login(credentials) {
     isLoading.value = true;
-    useUserStore()
+    userStore
         .login(credentials)
         .then(() => {
             isLoading.value = false;
             console.log('login success');
             // window.location = '/';
+            let to = userStore.redirectTo;
+            router.push({ name: to });
         })
         .catch((err) => {
             isLoading.value = false;

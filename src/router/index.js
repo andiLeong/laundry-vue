@@ -94,7 +94,7 @@ router.beforeEach((to, from) => {
     }
 
     if (to.meta.adminOnly && !isAdmin) {
-        return { name: 'home' };
+        return isStaff ? { name: 'admin-home' } : { name: 'home' };
     }
 
     if (to.meta.auth && !loggedIn) {
@@ -102,7 +102,7 @@ router.beforeEach((to, from) => {
     }
 
     if (to.meta.redirectIfLogged && loggedIn) {
-        if (isAdmin || isStaff) {
+        if (isStaff) {
             return { name: 'admin-home' };
         }
         return { name: 'home' };

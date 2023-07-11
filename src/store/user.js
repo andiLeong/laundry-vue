@@ -7,7 +7,8 @@ export const useUserStore = defineStore({
     }),
     getters: {
         isLoggedIn: (state) => {
-            return state.user !== null || localStorage.getItem('user') !== null;
+            return state.user !== null;
+            // return state.user !== null || localStorage.getItem('user') !== null;
         },
 
         firstName: (state) => {
@@ -37,6 +38,10 @@ export const useUserStore = defineStore({
 
             return state.user.type === 'customer';
         },
+
+        redirectTo(state) {
+            return this.isCustomer ? 'home' : 'admin-home';
+        },
     },
     actions: {
         setUser(user, ref = null) {
@@ -46,13 +51,6 @@ export const useUserStore = defineStore({
                 ref.value = this.user;
             }
             return this.user;
-        },
-
-        setUserFromStorage() {
-            const user = localStorage.getItem('user');
-            if (user) {
-                this.setUser(JSON.parse(user));
-            }
         },
 
         logoutFromLocal() {
@@ -76,7 +74,7 @@ export const useUserStore = defineStore({
                 });
         },
 
-        fetchUser(app) {
+        fetchUser(app, router) {
             axios
                 .get('/api/user')
                 .then((response) => {
@@ -86,7 +84,13 @@ export const useUserStore = defineStore({
                     this.logoutFromLocal();
                 })
                 .finally(() => {
-                    app.mount('#app');
+                    // this.setUser({
+                    //     id: 1,
+                    //     type: 'admin',
+                    //     phone: '09272714285',
+                    //     first_name: 'anthony',
+                    // });
+                    app.use(router).mount('#app');
                 });
         },
     },

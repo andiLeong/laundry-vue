@@ -11,10 +11,10 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
 const pinia = createPinia();
-const app = createApp(App).use(pinia).use(router);
+const app = createApp(App).use(pinia);
 
 const userStore = useUserStore();
-userStore.fetchUser(app);
+userStore.fetchUser(app, router);
 
 console.log(userStore.user);
 console.log(userStore.isLoggedIn);
