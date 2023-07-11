@@ -51,26 +51,26 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
-import {useField, useForm} from 'vee-validate';
-import {object, string} from 'yup';
+import { ref } from 'vue';
+import { useField, useForm } from 'vee-validate';
+import { object, string } from 'yup';
 import BaseInput from '@/components/forms/BaseInput.vue';
 import SubmitButton from '@/components/forms/SubmitButton.vue';
-import {useUserStore} from '@/store/user';
+import { useUserStore } from '@/store/user';
 
 const validationSchema = ref(
     object({
         phone: string().required(),
         password: string().required().min(8),
-    })
+    }),
 );
 
-const {handleSubmit, errors} = useForm({
+const { handleSubmit, errors } = useForm({
     validationSchema,
 });
 
-const {value: phone} = useField('phone');
-const {value: password} = useField('password');
+const { value: phone } = useField('phone');
+const { value: password } = useField('password');
 
 const isLoading = ref(false);
 const loginError = ref('');
@@ -78,7 +78,7 @@ const loginError = ref('');
 const submit = ref(
     handleSubmit((values) => {
         login(values);
-    })
+    }),
 );
 
 async function login(credentials) {
@@ -87,7 +87,7 @@ async function login(credentials) {
         .login(credentials)
         .then(() => {
             isLoading.value = false;
-            console.log('login success')
+            console.log('login success');
             // window.location = '/';
         })
         .catch((err) => {

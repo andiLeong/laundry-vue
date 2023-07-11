@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore({
     id: 'user',
@@ -23,15 +23,15 @@ export const useUserStore = defineStore({
         },
 
         isStaff(state) {
-            if (!this.isLoggedIn){
+            if (!this.isLoggedIn) {
                 return false;
             }
 
-            return state.user.type === 'employee' || state.user.type === 'admin';
+            return ['employee', 'admin'].includes(state.user.type);
         },
 
         isCustomer(state) {
-            if (!this.isLoggedIn){
+            if (!this.isLoggedIn) {
                 return false;
             }
 
@@ -61,24 +61,33 @@ export const useUserStore = defineStore({
         },
 
         logout() {
-            return axios.post('/api/logout')
+            return axios
+                .post('/api/logout')
                 .then(() => this.logoutFromLocal())
                 .catch(() => this.logoutFromLocal());
         },
 
         async login(credentials) {
             await axios.get('/sanctum/csrf-cookie');
-            return await axios.post('/api/login', credentials).then(({data}) => {
-                this.setUser(data);
-            });
+            return await axios
+                .post('/api/login', credentials)
+                .then(({ data }) => {
+                    this.setUser(data);
+                });
         },
 
-        async fetchUser() {
-            return await axios.get('/api/user').then(({data}) => {
-                this.setUser(data);
-            }).catch(() => {
-                this.logoutFromLocal()
-            });
+        fetchUser(app) {
+            axios
+                .get('/api/user')
+                .then((response) => {
+                    this.setUser(response.data);
+                })
+                .catch((error) => {
+                    this.logoutFromLocal();
+                })
+                .finally(() => {
+                    app.mount('#app');
+                });
         },
     },
 });

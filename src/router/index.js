@@ -1,41 +1,45 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import {useUserStore} from '@/store/user';
+import { useUserStore } from '@/store/user';
 
 const routes = [
-    {path: '/', name: 'home', component: () => import ('@/views/Home.vue')},
-    {path: '/about', name: 'about', component: () => import ('@/views/About.vue')},
+    { path: '/', name: 'home', component: () => import('@/views/Home.vue') },
+    {
+        path: '/about',
+        name: 'about',
+        component: () => import('@/views/About.vue'),
+    },
     {
         path: '/admin/home',
         name: 'admin-home',
-        component: () => import ('@/views/admin/home.vue'),
-        meta: {staffOnly: true},
+        component: () => import('@/views/admin/home.vue'),
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/order',
         name: 'admin-order',
-        component: () => import ('@/views/admin/order.vue'),
-        meta: {staffOnly: true},
+        component: () => import('@/views/admin/order.vue'),
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/user',
         name: 'admin-user',
-        component: () => import ('@/views/admin/user.vue'),
-        meta: {adminOnly: true},
+        component: () => import('@/views/admin/user.vue'),
+        meta: { adminOnly: true },
     },
     {
         path: '/admin/stats',
         name: 'admin-stats',
-        component: () => import ('@/views/admin/stats.vue'),
-        meta: {adminOnly: true},
+        component: () => import('@/views/admin/stats.vue'),
+        meta: { adminOnly: true },
     },
     {
         path: '/login',
         name: 'login',
         component: () => import('@/views/Login.vue'),
-        meta: {redirectIfLogged: true},
+        meta: { redirectIfLogged: true },
     },
     // {
     //     path: '/posts/:slug',
@@ -64,7 +68,7 @@ const router = createRouter({
         return (
             savedPosition ||
             new Promise((resolve) => {
-                setTimeout(() => resolve({top: 0}), 300);
+                setTimeout(() => resolve({ top: 0 }), 300);
             })
         );
     },
@@ -86,22 +90,22 @@ router.beforeEach((to, from) => {
     let isStaff = userStore.isStaff;
 
     if (to.meta.staffOnly && !isStaff) {
-        return {name: 'login'};
+        return { name: 'login' };
     }
 
     if (to.meta.adminOnly && !isAdmin) {
-        return {name: 'home'};
+        return { name: 'home' };
     }
 
     if (to.meta.auth && !loggedIn) {
-        return {name: 'login'};
+        return { name: 'login' };
     }
 
     if (to.meta.redirectIfLogged && loggedIn) {
         if (isAdmin || isStaff) {
-            return {name: 'admin-home'};
+            return { name: 'admin-home' };
         }
-        return {name: 'home'};
+        return { name: 'home' };
     }
 });
 

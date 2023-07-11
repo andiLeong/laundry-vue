@@ -1,18 +1,20 @@
-import {createApp} from 'vue';
+import { createApp } from 'vue';
 import './index.css';
 import App from './App.vue';
-import {createPinia} from 'pinia'
+import { createPinia } from 'pinia';
 import router from '@/router';
 import axios from 'axios';
-
+import { useUserStore } from '@/store/user.js';
 
 window.axios = axios;
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 
+const pinia = createPinia();
+const app = createApp(App).use(pinia).use(router);
 
-const pinia = createPinia()
-const app = createApp(App)
-    .use(pinia)
-    .use(router)
-    .mount('#app');
+const userStore = useUserStore();
+userStore.fetchUser(app);
+
+console.log(userStore.user);
+console.log(userStore.isLoggedIn);
