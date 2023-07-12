@@ -5,7 +5,7 @@
         </h3>
 
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-2">
                 <BaseInput
                     labelClass="form-label"
                     placeHolder="Search user phone number"
@@ -16,7 +16,7 @@
                 />
             </div>
 
-            <div class="sm:col-span-3">
+            <div class="sm:col-span-2">
                 <BaseInput
                     labelClass="form-label"
                     placeHolder="Search customer first name"
@@ -30,6 +30,28 @@
             <div class="sm:col-span-2">
                 <BaseInput
                     labelClass="form-label"
+                    placeHolder="Search customer last name"
+                    class="mt-1 form-input"
+                    label="Last Name"
+                    type="text"
+                    v-model="search.last_name"
+                />
+            </div>
+
+            <div
+                class="sm:col-span-1 flex justify-center items-center flex-col"
+            >
+                <p class="form-label">Last Order Current Month</p>
+                <div class="mt-2">
+                    <toggle-button
+                        v-model="search.last_order_this_month"
+                    ></toggle-button>
+                </div>
+            </div>
+
+            <div class="sm:col-span-1">
+                <BaseInput
+                    labelClass="form-label"
                     placeHolder="Order Amount"
                     class="mt-1 form-input"
                     label="Amount Larger Than"
@@ -38,17 +60,7 @@
                 />
             </div>
 
-            <div class="sm:col-span-2">
-                <BaseSelect
-                    labelClass="form-label"
-                    class="mt-1 form-select"
-                    :options="last_order_this_month"
-                    v-model="search.last_order_this_month"
-                    label="Last Order Within Current Month"
-                />
-            </div>
-
-            <div class="sm:col-span-2">
+            <div class="sm:col-span-1">
                 <BaseSelect
                     labelClass="form-label"
                     class="mt-1 form-select"
@@ -84,9 +96,11 @@
 <script>
 import BaseInput from '@/components/forms/BaseInput.vue';
 import BaseSelect from '@/components/forms/BaseSelect.vue';
+import ToggleButton from '@/components/forms/ToggleButton.vue';
 
 export default {
     components: {
+        ToggleButton,
         BaseInput,
         BaseSelect,
     },
@@ -99,10 +113,10 @@ export default {
                 last_order_this_month: null,
                 phone: null,
                 first_name: null,
+                last_name: null,
                 order_amount_larger_than: null,
             },
             perPage: [10, 50, 100, 200],
-            last_order_this_month: [true, false],
         };
     },
 
@@ -115,6 +129,7 @@ export default {
                 last_order_this_month: null,
                 phone: null,
                 first_name: null,
+                last_name: null,
                 order_amount_larger_than: null,
             };
 
@@ -122,6 +137,10 @@ export default {
         },
 
         submit() {
+            if (this.search.last_order_this_month === false) {
+                this.search.last_order_this_month = null;
+            }
+
             let search = Object.fromEntries(
                 Object.entries(this.search).filter(([_, v]) => v != null),
             );
