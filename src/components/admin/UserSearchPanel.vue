@@ -44,7 +44,8 @@
                 <p class="form-label">Last Order Current Month</p>
                 <div class="mt-2">
                     <toggle-button
-                        v-model="search.last_order_this_month"
+                        :value="search.last_order_this_month"
+                        @changed="setLastOrderThisMonth"
                     ></toggle-button>
                 </div>
             </div>
@@ -110,7 +111,7 @@ export default {
         return {
             search: {
                 per_page: 10,
-                last_order_this_month: null,
+                last_order_this_month: false,
                 phone: null,
                 first_name: null,
                 last_name: null,
@@ -126,7 +127,7 @@ export default {
         reset() {
             this.search = {
                 per_page: 10,
-                last_order_this_month: null,
+                last_order_this_month: false,
                 phone: null,
                 first_name: null,
                 last_name: null,
@@ -136,9 +137,24 @@ export default {
             this.$emit('reset-query');
         },
 
+        setLastOrderThisMonth(value) {
+            this.search.last_order_this_month = value;
+        },
+
         submit() {
             if (this.search.last_order_this_month === false) {
-                this.search.last_order_this_month = null;
+                this.search.last_order_this_month = null
+
+                let search = Object.fromEntries(
+                    Object.entries(this.search).filter(([_, v]) => v != null),
+                );
+
+                if (Object.keys(search).length === 0) {
+                    search = {};
+                }
+
+                this.$emit('search-query', search);
+                return;
             }
 
             let search = Object.fromEntries(

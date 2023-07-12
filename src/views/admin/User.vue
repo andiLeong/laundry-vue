@@ -1,8 +1,8 @@
 <template>
     <AdminLayout>
         <main class="flex-1 pb-8">
-            <section class="max-w-7xl mx-auto mt-10">
-                <!--                {{ users }}-->
+            <section class="max-w-6xl mx-auto mt-10">
+                <!--                {{ queryString }}-->
                 <!-- {{ selected }} -->
                 <AppTableLayout>
                     <template v-slot:title>
@@ -106,8 +106,8 @@ import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
 import _ from 'lodash';
-import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {ref, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import UserSearchPanel from '@/components/admin/UserSearchPanel.vue';
 
 const route = useRoute();
