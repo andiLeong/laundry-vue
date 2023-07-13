@@ -141,31 +141,26 @@ export default {
             this.search.last_order_this_month = value;
         },
 
-        submit() {
-            if (this.search.last_order_this_month === false) {
-                this.search.last_order_this_month = null
-
-                let search = Object.fromEntries(
-                    Object.entries(this.search).filter(([_, v]) => v != null),
-                );
-
-                if (Object.keys(search).length === 0) {
-                    search = {};
-                }
-
-                this.$emit('search-query', search);
-                return;
-            }
-
+        getNotEmptySearch() {
             let search = Object.fromEntries(
-                Object.entries(this.search).filter(([_, v]) => v != null),
+                Object.entries(this.search)
+                    .filter(([_, v]) => v != null)
+                    .filter(([_, v]) => v !== ''),
             );
-
-            if (search.per_page == 10) {
+            if (search.per_page === 10) {
                 delete search.per_page;
             }
+            return search;
+        },
 
+        submit() {
+            if (this.search.last_order_this_month === false) {
+                this.search.last_order_this_month = null;
+            }
+
+            let search = this.getNotEmptySearch();
             if (Object.keys(search).length === 0) {
+                this.$emit('reset-query');
                 return;
             }
 

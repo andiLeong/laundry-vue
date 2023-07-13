@@ -11,13 +11,13 @@
                         <div class="my-2">
                             <button
                                 class="go-back-btn"
-                                @click.prevent="showPannel = !showPannel"
+                                @click.prevent="showPanel = !showPanel"
                             >
-                                {{ showPannel ? 'hide panel' : 'open panel' }}
+                                {{ showPanel ? 'hide panel' : 'open panel' }}
                             </button>
                         </div>
 
-                        <template v-if="showPannel">
+                        <template v-if="showPanel">
                             <UserSearchPanel
                                 @search-query="getherQuery"
                                 @reset-query="resetQuery"
@@ -105,9 +105,8 @@ import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import _ from 'lodash';
-import {ref, watch} from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import UserSearchPanel from '@/components/admin/UserSearchPanel.vue';
 
 const route = useRoute();
@@ -131,7 +130,7 @@ const pagination = ref({});
 const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
-const showPannel = ref(false);
+const showPanel = ref(false);
 
 function fetch(page, query = '') {
     return axios
