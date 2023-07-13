@@ -18,7 +18,7 @@
                         </div>
 
                         <template v-if="showPanel">
-                            <UserSearchPanel
+                            <UserFilterPanel
                                 @search-query="getherQuery"
                                 @reset-query="resetQuery"
                             />
@@ -105,9 +105,9 @@ import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import UserSearchPanel from '@/components/admin/UserSearchPanel.vue';
+import {ref, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
+import UserFilterPanel from '@/components/admin/UserFilterPanel.vue';
 
 const route = useRoute();
 const router = useRouter();

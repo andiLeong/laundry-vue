@@ -1,24 +1,24 @@
 <template>
     <AdminLayout>
         <main class="flex-1 pb-8">
-            <section class="max-w-7xl mx-auto mt-10">
+            <section class="max-w-6xl mx-auto mt-10">
                 <!--                {{ users }}-->
                 <!-- {{ selected }} -->
                 <AppTableLayout>
                     <template v-slot:title>
-                        <h2 class="text-gray-600">Users</h2>
+                        <h2 class="text-gray-600">Orders</h2>
 
                         <div class="my-2">
                             <button
                                 class="go-back-btn"
-                                @click.prevent="showPannel = !showPannel"
+                                @click.prevent="showPanel = !showPanel"
                             >
-                                {{ showPannel ? 'hide panel' : 'open panel' }}
+                                {{ showPanel ? 'hide panel' : 'open panel' }}
                             </button>
                         </div>
 
-                        <template v-if="showPannel">
-                            <UserSearchPanel
+                        <template v-if="showPanel">
+                            <OrderSearchPanel
                                 @search-query="getherQuery"
                                 @reset-query="resetQuery"
                             />
@@ -97,10 +97,9 @@ import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import _ from 'lodash';
-import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import UserSearchPanel from '@/components/admin/UserSearchPanel.vue';
+import {ref, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
+import OrderSearchPanel from "@/components/admin/OrderFilterPanel.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -121,7 +120,7 @@ const pagination = ref({});
 const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
-const showPannel = ref(false);
+const showPanel = ref(false);
 
 function fetch(page, query = '') {
     return axios
@@ -139,6 +138,12 @@ function orderQuery(query) {
 }
 
 function getherQuery(query) {
+    if (query.hasOwnProperty('include_user')) {
+        delete queryString.value.exclude_user
+    }
+    if (query.hasOwnProperty('exclude_user')) {
+        delete queryString.value.include_user
+    }
     Object.assign(queryString.value, query);
     fetch(page.value, toQueryString(queryString.value));
 }

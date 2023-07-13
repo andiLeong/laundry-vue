@@ -44,7 +44,8 @@
                 <p class="form-label">Make By User</p>
                 <div class="mt-2">
                     <toggle-button
-                        v-model="search.make_by_user"
+                        :value="search.make_by_user"
+                        @changed="setMakeByUser"
                     ></toggle-button>
                 </div>
             </div>
@@ -111,14 +112,19 @@ export default {
             this.$emit('reset-query');
         },
 
+        setMakeByUser(value) {
+            this.search.make_by_user = value;
+        },
         submit() {
             if (this.search.make_by_user !== null) {
                 if (this.search.make_by_user === true) {
                     this.search.include_user = true;
+                    delete this.search.exclude_user;
                 } else {
                     this.search.exclude_user = true;
+                    delete this.search.include_user;
                 }
-                delete search.make_by_user;
+                delete this.search.make_by_user;
             }
 
             let search = Object.fromEntries(
