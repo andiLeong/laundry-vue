@@ -55,11 +55,11 @@
                                 </td>
 
                                 <td class="table-data">
-                                    {{ order.user.phone }}
+                                    {{ order.user?.phone }}
                                 </td>
 
                                 <td class="table-data">
-                                    {{ order.user.first_name }}
+                                    {{ order.user?.first_name }}
                                 </td>
 
                                 <td class="table-data">
@@ -71,7 +71,7 @@
                                 </td>
 
                                 <td class="table-data">
-                                    {{ order.created_at }}
+                                    {{ moment(order.created_at).format('YYYY-MM-DD HH:mm') }}
                                 </td>
                             </tr>
                         </template>
@@ -100,6 +100,7 @@ import Sorting from '@/components/Sorting.vue';
 import {ref, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import OrderSearchPanel from "@/components/admin/OrderFilterPanel.vue";
+import moment from "moment";
 
 const route = useRoute();
 const router = useRouter();
