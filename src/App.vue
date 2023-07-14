@@ -30,7 +30,13 @@ const loggedIn = ref(userStore.isLoggedIn);
 const isAdmin = ref(userStore.isAdmin);
 const isStaff = ref(userStore.isStaff);
 const isCustomer = ref(userStore.isCustomer);
-const adminRoutes = ['admin-home', 'admin-order', 'admin-user', 'admin-stats'];
+const adminRoutes = [
+    'admin-home',
+    'admin-order',
+    'admin-user',
+    'admin-stats',
+    'admin-order-create',
+];
 
 const route = useRoute();
 // watch(

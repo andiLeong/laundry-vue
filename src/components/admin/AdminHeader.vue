@@ -3,6 +3,8 @@ import { useUserStore } from '@/store/user';
 
 const userStore = useUserStore();
 import { ref } from 'vue';
+import Check from '@/svg/Check.vue';
+import Building from '@/svg/Building.vue';
 
 const firstName = ref(userStore.firstName);
 </script>
@@ -41,36 +43,18 @@ const firstName = ref(userStore.firstName);
                                 <dd
                                     class="flex items-center text-sm font-medium capitalize text-gray-500 sm:mr-6"
                                 >
-                                    <svg
+                                    <Building
                                         class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M4 16.5v-13h-.25a.75.75 0 010-1.5h12.5a.75.75 0 010 1.5H16v13h.25a.75.75 0 010 1.5h-3.5a.75.75 0 01-.75-.75v-2.5a.75.75 0 00-.75-.75h-2.5a.75.75 0 00-.75.75v2.5a.75.75 0 01-.75.75h-3.5a.75.75 0 010-1.5H4zm3-11a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-1a.5.5 0 01-.5-.5v-1zM7.5 9a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-1zM11 5.5a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-1a.5.5 0 01-.5-.5v-1zm.5 3.5a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-1z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
+                                    />
                                     SBIN Laundry, Saint Paul Branch
                                 </dd>
                                 <dt class="sr-only">Account status</dt>
                                 <dd
                                     class="mt-3 flex items-center text-sm font-medium capitalize text-gray-500 sm:mr-6 sm:mt-0"
                                 >
-                                    <svg
+                                    <Check
                                         class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
+                                    />
                                     Verified
                                 </dd>
                             </dl>

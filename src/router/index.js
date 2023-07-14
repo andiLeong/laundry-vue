@@ -20,8 +20,14 @@ const routes = [
     {
         path: '/admin/order',
         name: 'admin-order',
-        component: () => import('@/views/admin/order.vue'),
+        component: () => import('@/views/admin/order/order.vue'),
         meta: { staffOnly: true },
+    },
+    {
+        path: '/admin/order/create',
+        name: 'admin-order-create',
+        component: () => import('@/views/admin/order/create.vue'),
+        meta: { adminOnly: true },
     },
     {
         path: '/admin/user',

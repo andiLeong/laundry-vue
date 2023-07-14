@@ -1,5 +1,14 @@
 <template>
     <AdminLayout>
+        <template v-slot:right-button>
+            <button
+                type="button"
+                @click.prevent="goToCreateOrder"
+                class="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+            >
+                Create Order
+            </button>
+        </template>
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-10">
                 <!--                {{ users }}-->
@@ -71,7 +80,11 @@
                                 </td>
 
                                 <td class="table-data">
-                                    {{ moment(order.created_at).format('YYYY-MM-DD HH:mm') }}
+                                    {{
+                                        moment(order.created_at).format(
+                                            'YYYY-MM-DD HH:mm',
+                                        )
+                                    }}
                                 </td>
                             </tr>
                         </template>
@@ -97,10 +110,10 @@ import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import {ref, watch} from 'vue';
-import {useRoute, useRouter} from 'vue-router';
-import OrderSearchPanel from "@/components/admin/OrderFilterPanel.vue";
-import moment from "moment";
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import OrderSearchPanel from '@/components/admin/OrderFilterPanel.vue';
+import moment from 'moment';
 
 const route = useRoute();
 const router = useRouter();
@@ -140,10 +153,10 @@ function orderQuery(query) {
 
 function getherQuery(query) {
     if (query.hasOwnProperty('include_user')) {
-        delete queryString.value.exclude_user
+        delete queryString.value.exclude_user;
     }
     if (query.hasOwnProperty('exclude_user')) {
-        delete queryString.value.include_user
+        delete queryString.value.include_user;
     }
     Object.assign(queryString.value, query);
     fetch(page.value, toQueryString(queryString.value));
@@ -173,6 +186,10 @@ function switchPage(page) {
 
 function setDefaultSortColumn(column) {
     defaultSortColumn.value = column;
+}
+
+function goToCreateOrder() {
+    router.push({ name: 'admin-order-create' });
 }
 
 watch(
