@@ -2,22 +2,22 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import AppTab from '@/components/AppTab.vue';
 import AppTabs from '@/components/AppTabs.vue';
-import { ref } from 'vue';
+import {ref} from 'vue';
 import BaseInput from '@/components/forms/BaseInput.vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store/user.js';
-import ValidationErrors from '@/components/validation/ValidationErrors.vue';
+import {useRouter} from 'vue-router';
+import ErrorManager from '@/components/validation/ErrorManager.vue';
+import Errors from "@/model/Errors.js";
 
-const services = ref([{ id: 23, name: 'full' }]);
+const services = ref([{id: 23, name: 'full'}]);
 const service_id = ref(null);
 const user_id = ref(null);
 const amount = ref(null);
 const router = useRouter();
-const userStore = useUserStore();
+
 const errors = ref({});
 
 function fetchService() {
-    axios.get('api/service').then(function ({ data }) {
+    axios.get('api/service').then(function ({data}) {
         services.value = data;
     });
 }
@@ -38,16 +38,12 @@ function submit() {
             user_id: user_id.value,
         })
         .then(function () {
-            router.push({ name: 'admin-order' });
+            router.push({name: 'admin-order'});
         })
         .catch((error) => {
-            if (error.response.status === 401) {
-                userStore.logoutFromLocal();
-                router.push({ name: 'login' });
-                return;
-            }
-
-            alert('error has occurred.');
+            let err = new Errors(error);
+            errors.value = err.handle();
+            console.log(errors.value)
         });
 }
 
@@ -112,7 +108,7 @@ fetchService();
 
                             <div class="pt-1">
                                 <div class="mb-2">
-                                    <ValidationErrors
+                                    <ErrorManager
                                         v-if="errors"
                                         :errors="errors"
                                     />
