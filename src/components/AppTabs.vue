@@ -14,6 +14,7 @@
                 <option>Billing</option>
             </select>
         </div>
+
         <div class="hidden sm:block">
             <nav class="flex space-x-4" aria-label="Tabs">
                 <a
@@ -53,8 +54,8 @@
 </template>
 
 <script setup>
-import { onMounted, provide, ref, useSlots, watch } from 'vue';
-import { useTabsStore } from '@/store/tabs';
+import {onMounted, provide, ref, useSlots, watch} from 'vue';
+import {useTabsStore} from '@/store/tabs';
 
 const props = defineProps({
     id: {
@@ -72,9 +73,10 @@ const tabsStore = useTabsStore();
 onMounted(() => {
     tabsStore.select({
         id: props.id,
-        title: iniTab(),
+        title: getTabTitle(),
     });
     tabs.value = slots.default();
+    selectedTitle.value = tabsStore.tab(props.id)
 });
 
 watch(
@@ -82,10 +84,13 @@ watch(
     () => {
         selectedTitle.value = tabsStore.tab(props.id);
     },
-    { deep: true },
+    {deep: true},
 );
 
-function iniTab() {
+function getTabTitle() {
+    if (tabsStore.selected.length > 0) {
+        return tabsStore.selected[0].title;
+    }
     let defaultActive = slots.default().filter((tab) => tab.props.active);
     if (defaultActive.length > 0) {
         return defaultActive[0].props.title;

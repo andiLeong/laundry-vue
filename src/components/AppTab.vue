@@ -1,12 +1,12 @@
 <template>
     <div v-if="show">
-        <slot />
+        <slot/>
     </div>
 </template>
 
 <script setup>
-import { inject, ref, watch } from 'vue';
-import { useTabsStore } from '@/store/tabs';
+import {inject, onMounted, ref, watch} from 'vue';
+import {useTabsStore} from '@/store/tabs';
 
 const tabsStore = useTabsStore();
 const props = defineProps({
@@ -26,14 +26,21 @@ const tabId = inject('tab-id');
 
 watch(
     () => tabsStore.selected,
-    () => {
-        let title = tabsStore.tab(tabId);
-        if (title === props.title) {
-            show.value = true;
-        } else {
-            show.value = false;
-        }
-    },
-    { deep: true }
+    () => display(),
+    {deep: true}
 );
+
+
+onMounted(() => {
+    display()
+});
+
+function display() {
+    let title = tabsStore.tab(tabId);
+    if (title === props.title) {
+        show.value = true;
+    } else {
+        show.value = false;
+    }
+}
 </script>

@@ -46,8 +46,8 @@ function submit() {
             let err = new Errors(error);
             errors.value = err.handle();
             console.log(errors.value)
+            isLoading.value = false;
         });
-    isLoading.value = false;
 }
 
 fetchService();
@@ -58,7 +58,7 @@ fetchService();
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-10">
                 <AppTabs id="create-order-tab">
-                    <AppTab title="Without Promotion">
+                    <AppTab title="Without Promotion" :active="true">
                         <form class="space-y-3 my-6" @submit.prevent="submit">
                             <SearchUserPhone v-model="user_id"/>
 
