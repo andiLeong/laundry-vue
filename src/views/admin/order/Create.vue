@@ -9,8 +9,9 @@ import ErrorManager from '@/components/validation/ErrorManager.vue';
 import Errors from "@/model/Errors.js";
 import SubmitButton from "@/components/forms/SubmitButton.vue";
 import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
+import useFetchServices from "@/composable/useFetchServices.js";
 
-const services = ref([{id: 23, name: 'full'}]);
+const {services} = useFetchServices();
 const service_id = ref(null);
 const user_id = ref(null);
 const amount = ref(null);
@@ -18,12 +19,6 @@ const router = useRouter();
 
 const errors = ref({});
 const isLoading = ref(false);
-
-function fetchService() {
-    axios.get('api/service').then(function ({data}) {
-        services.value = data;
-    });
-}
 
 function serviceChanged(e) {
     let serviceId = e.target.value;
@@ -50,7 +45,6 @@ function submit() {
         });
 }
 
-fetchService();
 </script>
 
 <template>

@@ -5,20 +5,7 @@
         class="border-r border-gray-200 px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
     >
         <span class="sr-only">Open sidebar</span>
-        <svg
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-        >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5"
-            />
-        </svg>
+        <Bar3CenterLeft class="h-6 w-6"/>
     </button>
     <!-- Search bar -->
     <div
@@ -138,6 +125,7 @@ import {ref} from "vue";
 import ArrowDown from "@/svg/ArrowDown.vue";
 import Bell from "@/svg/Bell.vue";
 import MagnifyingGlass from "@/svg/MagnifyingGlass.vue";
+import Bar3CenterLeft from "@/svg/Bar3CenterLeft.vue";
 
 const navigationStore = useNavigationStore();
 const userStore = useUserStore();
