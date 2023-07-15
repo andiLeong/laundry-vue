@@ -34,18 +34,7 @@
                         class="pointer-events-none absolute inset-y-0 left-0 flex items-center"
                         aria-hidden="true"
                     >
-                        <svg
-                            class="h-5 w-5"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            aria-hidden="true"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
+                        <MagnifyingGlass class="h-5 w-5"/>
                     </div>
                     <input
                         id="search-field"
@@ -63,20 +52,7 @@
                 class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
             >
                 <span class="sr-only">View notifications</span>
-                <svg
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
-                    />
-                </svg>
+                <Bell class="h-6 w-6"/>
             </button>
 
             <!-- Profile dropdown -->
@@ -98,22 +74,8 @@
                                 />
                                 <span
                                     class="ml-3 hidden text-sm font-medium text-gray-700 lg:block"
-                                    ><span class="sr-only"
-                                        >Open user menu for </span
-                                    >user</span
-                                >
-                                <svg
-                                    class="ml-1 hidden h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
+                                ><span class="sr-only">Open user menu for </span>{{ firstName }}</span>
+                                <ArrowDown class="ml-1 hidden h-5 w-5 flex-shrink-0 text-gray-400 lg:block"/>
                             </button>
                         </div>
                     </template>
@@ -141,7 +103,7 @@
                             role="menuitem"
                             tabindex="-1"
                             id="user-menu-item-0"
-                            >Your Profile</a
+                        >Your Profile</a
                         >
                         <a
                             href="#"
@@ -149,7 +111,7 @@
                             role="menuitem"
                             tabindex="-1"
                             id="user-menu-item-1"
-                            >Settings</a
+                        >Settings</a
                         >
                         <a
                             @click.prevent="logout"
@@ -169,12 +131,18 @@
 </template>
 
 <script setup>
-import { useNavigationStore } from '@/store/navigation';
-import { useUserStore } from '@/store/user.js';
+import {useNavigationStore} from '@/store/navigation';
+import {useUserStore} from '@/store/user.js';
 import AppDropDown from '@/components/AppDropDown.vue';
+import {ref} from "vue";
+import ArrowDown from "@/svg/ArrowDown.vue";
+import Bell from "@/svg/Bell.vue";
+import MagnifyingGlass from "@/svg/MagnifyingGlass.vue";
 
 const navigationStore = useNavigationStore();
 const userStore = useUserStore();
+
+const firstName = ref(userStore.firstName);
 
 function openMobileNavigation() {
     navigationStore.apply(true);
