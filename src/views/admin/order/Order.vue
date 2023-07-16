@@ -76,6 +76,10 @@
                                 </td>
 
                                 <td class="table-data">
+                                    {{ order.amount }}
+                                </td>
+
+                                <td class="table-data">
                                     {{ order.promotions_count }}
                                 </td>
 
@@ -110,8 +114,8 @@ import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import {ref, watch} from 'vue';
+import {useRoute, useRouter} from 'vue-router';
 import OrderSearchPanel from '@/components/admin/OrderFilterPanel.vue';
 import moment from 'moment';
 
@@ -125,6 +129,7 @@ const columns = ref([
     'phone',
     'first name',
     'service name',
+    'amount',
     'promotion count',
     'created at',
 ]);
@@ -189,7 +194,7 @@ function setDefaultSortColumn(column) {
 }
 
 function goToCreateOrder() {
-    router.push({ name: 'admin-order-create' });
+    router.push({name: 'admin-order-create'});
 }
 
 watch(

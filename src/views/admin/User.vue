@@ -81,6 +81,12 @@
                                 <td class="table-data">
                                     {{ user.total_order_amount }}
                                 </td>
+
+                                <td class="table-data">
+                                    {{
+                                        moment(user.created_at).format('YYYY-MM-DD HH:mm')
+                                    }}
+                                </td>
                             </tr>
                         </template>
                     </AppTable>
@@ -108,6 +114,7 @@ import Sorting from '@/components/Sorting.vue';
 import {ref, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import UserFilterPanel from '@/components/admin/UserFilterPanel.vue';
+import moment from "moment";
 
 const route = useRoute();
 const router = useRouter();
@@ -123,6 +130,7 @@ const columns = ref([
     'last name',
     'last order',
     'total order amount',
+    'registered at',
 ]);
 const per_page = ref(10);
 const users = ref([]);
