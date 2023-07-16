@@ -124,13 +124,18 @@ import ErrorManager from '@/components/validation/ErrorManager.vue';
 import Errors from "@/model/Errors.js";
 import SubmitButton from "@/components/forms/SubmitButton.vue";
 import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
-import useFetchServices from "@/composable/useFetchServices.js";
 import {computed, ref} from "vue";
 import {useRouter} from "vue-router";
 import ToggleButton from "@/components/forms/ToggleButton.vue";
 
+const props = defineProps({
+    services: {
+        type: Array,
+        default: [],
+    },
+});
+
 const router = useRouter();
-const {services} = useFetchServices();
 const service_id = ref(null);
 const user_id = ref(null);
 const amount = ref(null);
@@ -139,7 +144,6 @@ const isLoading = ref(false);
 const promotion_ids = ref([]);
 const promotions = ref(null);
 const isolated = ref(false);
-
 
 const isolatedPromotions = computed(() => promotions.value?.isolated)
 const nonIsolatedPromotions = computed(() => promotions.value !== null ? promotions.value['non-isolated'] : null)
@@ -178,9 +182,9 @@ function fetchPromotions() {
 function serviceChanged(e) {
     let serviceId = e.target.value;
     service_id.value = serviceId;
-    amount.value = services.value.filter((service) => {
-        return service.id === parseInt(serviceId);
-    })[0].price;
+    amount.value = props.services.filter((service) =>
+        service.id === parseInt(serviceId)
+    )[0].price;
 }
 
 function submit() {
