@@ -37,57 +37,12 @@
             </div>
         </div>
 
-        <div v-if="promotions !== null" class="mt-10 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-2">
-                <fieldset>
-                    <legend class="form-label">Isolated</legend>
-                    <div class="mt-2 space-y-1">
-                        <div
-                            v-for="promotion in isolatedPromotions"
-                            :key="promotion.id"
-                            class="relative flex gap-x-3"
-                        >
-                            <div class="flex h-6 items-center">
-                                <input
-                                    @change="addPromotions(promotion.id)"
-                                    :id="promotion.id" type="checkbox"
-                                    class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-600">
-                            </div>
-                            <div class="text-sm leading-6">
-                                <label :for="promotion.id" class="form-label">{{ promotion.name }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="sm:col-span-2">
-                <fieldset>
-                    <legend class="form-label">Non Isolated</legend>
-                    <div class="mt-2 space-y-1">
-                        <div
-                            v-for="promotion in nonIsolatedPromotions"
-                            :key="promotion.id"
-                            class="relative flex gap-x-3"
-                        >
-                            <div class="flex h-6 items-center">
-                                <input
-                                    @change="addPromotions(promotion.id)"
-                                    :id="promotion.id" type="checkbox"
-                                    class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-600">
-                            </div>
-                            <div class="text-sm leading-6">
-                                <label :for="promotion.id" class="form-label">{{ promotion.name }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="sm:col-span-2">
-                <ToggleButton :state="isolated" @changed="setIsolated"/>
-            </div>
-        </div>
+        <UserQualifyPromotions
+            :service_id="service_id"
+            :user_id="user_id"
+            @promotionUpdated="updatePromotionIds"
+            @getError="setError"
+        />
 
         <div class="pt-1">
             <div class="mb-2">
@@ -100,12 +55,7 @@
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div class="sm:col-span-2 flex justify-between">
 
-                    <button
-                        @click.prevent="fetchPromotions"
-                        type="button"
-                        class="rounded bg-sky-100 px-2 py-1 text-xs font-semibold text-sky-600 shadow-sm hover:bg-sky-100">
-                        Promotion
-                    </button>
+                    <div class="flex" id="fetch-promotion-button"></div>
 
                     <SubmitButton
                         :loading="isLoading"
@@ -124,9 +74,9 @@ import ErrorManager from '@/components/validation/ErrorManager.vue';
 import Errors from "@/model/Errors.js";
 import SubmitButton from "@/components/forms/SubmitButton.vue";
 import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import {useRouter} from "vue-router";
-import ToggleButton from "@/components/forms/ToggleButton.vue";
+import UserQualifyPromotions from "@/components/admin/UserQualifyPromotions.vue";
 
 const props = defineProps({
     services: {
@@ -142,41 +92,14 @@ const amount = ref(null);
 const errors = ref({});
 const isLoading = ref(false);
 const promotion_ids = ref([]);
-const promotions = ref(null);
 const isolated = ref(false);
 
-const isolatedPromotions = computed(() => promotions.value?.isolated)
-const nonIsolatedPromotions = computed(() => promotions.value !== null ? promotions.value['non-isolated'] : null)
-
-function addPromotions(id) {
-    if (promotion_ids.value.includes(id)) {
-        let index = promotion_ids.value.indexOf(id);
-        promotion_ids.value.splice(index, 1);
-        return;
-    }
-    promotion_ids.value.push(id);
+function updatePromotionIds(ids) {
+    promotion_ids.value = ids;
 }
 
-function setIsolated(value) {
-    isolated.value = value
-}
-
-function fetchPromotions() {
-    // isLoading.value = true;
-    if (user_id.value === null || service_id.value === null) {
-        return;
-    }
-
-    axios
-        .get(`api/admin/user/qualified-promotion/${user_id.value}/${service_id.value}`)
-        .then(({data}) => {
-            promotions.value = data;
-            console.log(data)
-        })
-        .catch((error) => {
-            let err = new Errors(error);
-            errors.value = err.handle();
-        });
+function setError(e) {
+    errors.value = e
 }
 
 function serviceChanged(e) {
@@ -194,7 +117,7 @@ function submit() {
             service_id: service_id.value,
             amount: amount.value,
             user_id: user_id.value,
-            promotion_ids: promotion_ids.value,
+            promotion_ids: promotion_ids.value.length === 0 ? null : promotion_ids.value,
             isolated: Number(isolated.value),
         })
         .then(() => router.push({name: 'admin-order'}))
