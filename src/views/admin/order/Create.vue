@@ -3,6 +3,7 @@ import AdminLayout from '@/components/admin/AdminLayout.vue';
 import AppTab from '@/components/AppTab.vue';
 import AppTabs from '@/components/AppTabs.vue';
 import CreateOrder from "@/components/admin/CreateOrder.vue";
+import CreateOrderWithPromotion from "@/components/admin/CreateOrderWithPromotion.vue";
 </script>
 
 <template>
@@ -14,7 +15,7 @@ import CreateOrder from "@/components/admin/CreateOrder.vue";
                         <CreateOrder/>
                     </AppTab>
                     <AppTab title="With Promotion">
-                        <p>Hello world again. second</p>
+                        <CreateOrderWithPromotion/>
                     </AppTab>
                 </AppTabs>
             </section>
