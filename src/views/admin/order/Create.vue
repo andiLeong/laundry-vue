@@ -2,23 +2,23 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import AppTab from '@/components/AppTab.vue';
 import AppTabs from '@/components/AppTabs.vue';
-import CreateOrder from "@/components/admin/CreateOrder.vue";
-import CreateOrderWithPromotion from "@/components/admin/CreateOrderWithPromotion.vue";
-import useFetchServices from "@/composable/useFetchServices.js";
+import CreateOrder from '@/components/admin/CreateOrder.vue';
+import CreateOrderWithPromotion from '@/components/admin/CreateOrderWithPromotion.vue';
+import useFetchServices from '@/composable/useFetchServices.js';
 
-const {services} = useFetchServices();
+const { services } = useFetchServices();
 </script>
 
 <template>
     <AdminLayout>
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-10">
-                <AppTabs id="create-order-tab">
+                <AppTabs id="create-order-tab" class="foo">
                     <AppTab title="Without Promotion" :active="true">
-                        <CreateOrder :services="services"/>
+                        <CreateOrder :services="services" />
                     </AppTab>
                     <AppTab title="With Promotion">
-                        <CreateOrderWithPromotion :services="services"/>
+                        <CreateOrderWithPromotion :services="services" />
                     </AppTab>
                 </AppTabs>
             </section>
