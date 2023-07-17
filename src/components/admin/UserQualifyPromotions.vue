@@ -1,49 +1,19 @@
 <template>
     <div v-if="promotions !== null" class="mt-10 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div class="sm:col-span-2">
-            <fieldset>
-                <legend class="form-label">Isolated</legend>
-                <div class="mt-2 space-y-1">
-                    <div
-                        v-for="promotion in isolatedPromotions"
-                        :key="promotion.id"
-                        class="relative flex gap-x-3"
-                    >
-                        <div class="flex h-6 items-center">
-                            <input
-                                @change="addPromotions(promotion.id)"
-                                :id="promotion.id" type="checkbox"
-                                class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-600">
-                        </div>
-                        <div class="text-sm leading-6">
-                            <label :for="promotion.id" class="form-label">{{ promotion.name }}</label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+            <UserQualifyPromotion
+                title="Isolated"
+                :promotions="isolatedPromotions"
+                @promotionAdded="addPromotions($event)"
+            />
         </div>
 
         <div class="sm:col-span-2">
-            <fieldset>
-                <legend class="form-label">Non Isolated</legend>
-                <div class="mt-2 space-y-1">
-                    <div
-                        v-for="promotion in nonIsolatedPromotions"
-                        :key="promotion.id"
-                        class="relative flex gap-x-3"
-                    >
-                        <div class="flex h-6 items-center">
-                            <input
-                                @change="addPromotions(promotion.id)"
-                                :id="promotion.id" type="checkbox"
-                                class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-600">
-                        </div>
-                        <div class="text-sm leading-6">
-                            <label :for="promotion.id" class="form-label">{{ promotion.name }}</label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
+            <UserQualifyPromotion
+                title="Non Isolated"
+                :promotions="nonIsolatedPromotions"
+                @promotionAdded="addPromotions($event)"
+            />
         </div>
 
         <div class="sm:col-span-2">
@@ -69,6 +39,7 @@ import ToggleButton from "@/components/forms/ToggleButton.vue";
 import {computed, ref} from "vue";
 import Errors from "@/model/Errors.js";
 import MountedTeleport from "@/components/MountedTeleport.vue";
+import UserQualifyPromotion from "@/components/admin/UserQualifyPromotion.vue";
 
 
 const props = defineProps({
