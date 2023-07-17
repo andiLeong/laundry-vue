@@ -129,15 +129,23 @@ function add(id) {
     emit('promotionUpdated', promotion_ids.value);
 }
 
-function fetch() {
+function shouldFetch() {
     if (props.user_id === null || props.service_id === null) {
-        return;
+        return false;
     }
 
     if (
         props.user_id === fetchedIds.value[0] &&
         props.service_id === fetchedIds.value[1]
     ) {
+        return false;
+    }
+
+    return true;
+}
+
+function fetch() {
+    if (!shouldFetch()) {
         return;
     }
 
