@@ -7,7 +7,7 @@
             <UserQualifyPromotion
                 title="Isolated"
                 :promotions="isolatedPromotions"
-                @promotionAdded="addPromotions($event)"
+                @promotionAdded="add($event)"
             />
         </div>
 
@@ -15,7 +15,7 @@
             <UserQualifyPromotion
                 title="Non Isolated"
                 :promotions="nonIsolatedPromotions"
-                @promotionAdded="addPromotions($event)"
+                @promotionAdded="add($event)"
             />
         </div>
 
