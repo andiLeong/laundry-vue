@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import {defineStore} from 'pinia';
 
 export const useUserStore = defineStore({
     id: 'user',
@@ -6,22 +6,15 @@ export const useUserStore = defineStore({
         user: null,
     }),
     getters: {
-        isLoggedIn: (state) => {
-            return state.user !== null;
-            // return state.user !== null || localStorage.getItem('user') !== null;
-        },
+        isLoggedIn: (state) => state.user !== null,
 
-        firstName: (state) => {
-            return state.user.first_name;
-        },
+        phone: (state) => state.user.phone,
 
-        lastName: (state) => {
-            return state.user.last_name;
-        },
+        firstName: (state) => state.user.first_name,
 
-        middleName: (state) => {
-            return state.user.middle_name;
-        },
+        lastName: (state) => state.user.last_name,
+
+        middleName: (state) => state.user.middle_name,
 
         isAdmin(state) {
             if (!this.isLoggedIn) {
@@ -80,7 +73,7 @@ export const useUserStore = defineStore({
             await axios.get('/sanctum/csrf-cookie');
             return await axios
                 .post('/api/login', credentials)
-                .then(({ data }) => {
+                .then(({data}) => {
                     this.setUser(data);
                 });
         },
@@ -95,7 +88,7 @@ export const useUserStore = defineStore({
                     this.logoutFromLocal();
                 })
                 .finally(() => {
-                    this.setUser({
+                    // this.setUser({
                     //     id: 1,
                     //     type: 'admin',
                     //     phone: '09272714285',

@@ -8,7 +8,7 @@ class Errors {
     }
 
     handle() {
-        let status = this.error.response.status;
+        let status = this.error.response?.status;
         let message = this.error.response?.data?.message;
 
         if (status === 401 || status === 419) {

@@ -2,12 +2,12 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import UserCircle from '@/svg/UserCircle.vue';
 import BaseInput from '@/components/forms/BaseInput.vue';
-import { ref } from 'vue';
+import {ref} from 'vue';
 import PrimaryButton from '@/components/forms/PrimaryButton.vue';
-import { useUserStore } from '@/store/user.js';
+import {useUserStore} from '@/store/user.js';
 import Errors from '@/model/Errors.js';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
-import { useNotificationStore } from '@/store/Notification.js';
+import {useNotificationStore} from '@/store/Notification.js';
 
 const userStore = useUserStore();
 const notificationStore = useNotificationStore();
@@ -22,12 +22,19 @@ function submit() {
     // notificationStore.show = true;
     // return;
     axios
-        .patch('api/admin/profile', {
+        .patch(`api/admin/user/${userStore.phone}`, {
             last_name: last_name.value,
             first_name: first_name.value,
             middle_name: middle_name.value,
         })
-        .then(() => console.log('update profile success'))
+        .then(() => {
+            let tem = userStore.user;
+            tem.first_name = first_name.value
+            tem.last_name = last_name.value
+            tem.middle_name = middle_name.value
+            userStore.user = tem;
+            console.log('update profile success')
+        })
         .catch((error) => {
             let err = new Errors(error);
             errors.value = err.handle();
@@ -143,7 +150,7 @@ function submit() {
                                 <div
                                     class="bg-gray-100 px-4 py-3 text-right sm:px-6"
                                 >
-                                    <PrimaryButton :loading="loading" />
+                                    <PrimaryButton :loading="loading"/>
                                 </div>
                             </div>
                         </form>
