@@ -13,12 +13,14 @@
             </AdminHeader>
             <slot />
         </main>
+        <Notification />
     </div>
 </template>
 
 <script setup>
 import AdminTopNavigation from '@/components/admin/AdminTopNavigation.vue';
 import AdminHeader from '@/components/admin/AdminHeader.vue';
+import Notification from '@/components/Notification.vue';
 </script>
 
 <style scoped></style>

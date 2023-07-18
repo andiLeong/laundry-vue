@@ -7,8 +7,10 @@ import PrimaryButton from '@/components/forms/PrimaryButton.vue';
 import { useUserStore } from '@/store/user.js';
 import Errors from '@/model/Errors.js';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
+import { useNotificationStore } from '@/store/Notification.js';
 
 const userStore = useUserStore();
+const notificationStore = useNotificationStore();
 const last_name = ref(userStore.lastName);
 const first_name = ref(userStore.firstName);
 const middle_name = ref(userStore.middleName);
@@ -17,7 +19,8 @@ const errors = ref({});
 
 function submit() {
     loading.value = true;
-
+    // notificationStore.show = true;
+    // return;
     axios
         .patch('api/admin/profile', {
             last_name: last_name.value,
