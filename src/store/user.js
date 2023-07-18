@@ -87,12 +87,12 @@ export const useUserStore = defineStore({
                     this.logoutFromLocal();
                 })
                 .finally(() => {
-                    this.setUser({
-                        id: 1,
-                        type: 'admin',
-                        phone: '09272714285',
-                        first_name: 'anthony',
-                    });
+                    // this.setUser({
+                    //     id: 1,
+                    //     type: 'admin',
+                    //     phone: '09272714285',
+                    //     first_name: 'anthony',
+                    // });
                     app.use(router).mount('#app');
                 });
         },

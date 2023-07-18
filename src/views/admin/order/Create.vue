@@ -12,7 +12,7 @@ const { services } = useFetchServices();
 <template>
     <AdminLayout>
         <main class="flex-1 pb-8">
-            <section class="max-w-6xl mx-auto mt-10">
+            <section class="max-w-6xl lg:mx-auto mt-10 mx-4">
                 <AppTabs id="create-order-tab">
                     <AppTab title="Without Promotion" :active="true">
                         <CreateOrder :services="services" />

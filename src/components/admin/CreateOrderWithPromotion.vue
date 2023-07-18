@@ -1,7 +1,6 @@
 <template>
-
     <form class="space-y-3 my-6" @submit.prevent="submit">
-        <SearchUserPhone v-model="user_id"/>
+        <SearchUserPhone v-model="user_id" />
 
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-2">
@@ -11,14 +10,12 @@
                     :value="service_id"
                     @change="serviceChanged"
                 >
-                    <option disabled value>
-                        please select
-                    </option>
+                    <option disabled value>please select</option>
                     <option
                         v-for="service in services"
                         :value="service.id"
                         :key="service.id"
-                        :selected=" service.id === service_id "
+                        :selected="service.id === service_id"
                     >
                         {{ service.name }}
                     </option>
@@ -38,6 +35,7 @@
         </div>
 
         <UserQualifyPromotions
+            :amount="amount"
             :service_id="service_id"
             :user_id="user_id"
             @promotionUpdated="updatePromotionIds"
@@ -46,15 +44,11 @@
 
         <div class="pt-1">
             <div class="mb-2">
-                <ErrorManager
-                    v-if="errors"
-                    :errors="errors"
-                />
+                <ErrorManager v-if="errors" :errors="errors" />
             </div>
 
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div class="sm:col-span-2 flex justify-between">
-
                     <div class="flex" id="fetch-promotion-button"></div>
 
                     <SubmitButton
@@ -71,12 +65,12 @@
 <script setup>
 import BaseInput from '@/components/forms/BaseInput.vue';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
-import Errors from "@/model/Errors.js";
-import SubmitButton from "@/components/forms/SubmitButton.vue";
-import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import UserQualifyPromotions from "@/components/admin/UserQualifyPromotions.vue";
+import Errors from '@/model/Errors.js';
+import SubmitButton from '@/components/forms/SubmitButton.vue';
+import SearchUserPhone from '@/components/admin/SearchUserPhone.vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import UserQualifyPromotions from '@/components/admin/UserQualifyPromotions.vue';
 
 const props = defineProps({
     services: {
@@ -99,14 +93,14 @@ function updatePromotionIds(ids) {
 }
 
 function setError(e) {
-    errors.value = e
+    errors.value = e;
 }
 
 function serviceChanged(e) {
     let serviceId = e.target.value;
     service_id.value = serviceId;
-    amount.value = props.services.filter((service) =>
-        service.id === parseInt(serviceId)
+    amount.value = props.services.filter(
+        (service) => service.id === parseInt(serviceId),
     )[0].price;
 }
 
@@ -117,19 +111,18 @@ function submit() {
             service_id: service_id.value,
             amount: amount.value,
             user_id: user_id.value,
-            promotion_ids: promotion_ids.value.length === 0 ? null : promotion_ids.value,
+            promotion_ids:
+                promotion_ids.value.length === 0 ? null : promotion_ids.value,
             isolated: Number(isolated.value),
         })
-        .then(() => router.push({name: 'admin-order'}))
+        .then(() => router.push({ name: 'admin-order' }))
         .catch((error) => {
             let err = new Errors(error);
             errors.value = err.handle();
-            console.log(errors.value)
+            console.log(errors.value);
             isLoading.value = false;
         });
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

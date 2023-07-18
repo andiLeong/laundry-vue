@@ -8,6 +8,7 @@
                 title="Isolated"
                 :promotions="isolatedPromotions"
                 @promotionAdded="add($event)"
+                @promotionRemoved="remove($event)"
             />
         </div>
 
@@ -16,13 +17,30 @@
                 title="Non Isolated"
                 :promotions="nonIsolatedPromotions"
                 @promotionAdded="add($event)"
+                @promotionRemoved="remove($event)"
             />
         </div>
 
         <div class="sm:col-span-2">
             <label class="form-label mb-3">Is Isolated</label>
-            <ToggleButton :state="isolated" @changed="setIsolated"/>
+            <ToggleButton :state="isolated" @changed="setIsolated" />
         </div>
+    </div>
+
+    <div
+        v-if="promotions !== null"
+        class="mt-10 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"
+    >
+        <div class="sm:col-span-2 flex items-center">
+            <p class="text-xs mr-2 line-through text-gray-400">
+                {{ amount }}
+            </p>
+            <p class="text-xl font-bold tracking-tight text-gray-900 italic">
+                P
+                {{ discountedPrice }}
+            </p>
+        </div>
+        {{ promotion_ids }}
     </div>
 
     <MountedTeleport to="#fetch-promotion-button">
@@ -36,19 +54,21 @@
 </template>
 
 <script setup>
-import UserQualifyPromotion from "@/components/admin/UserQualifyPromotion.vue";
+import UserQualifyPromotion from '@/components/admin/UserQualifyPromotion.vue';
 import ToggleButton from '@/components/forms/ToggleButton.vue';
-import {computed, ref, watch} from 'vue';
+import { computed, ref, watch } from 'vue';
 import Errors from '@/model/Errors.js';
 import MountedTeleport from '@/components/MountedTeleport.vue';
 import SecondaryButton from '@/components/forms/SecondaryButton.vue';
 
 const props = defineProps({
-    service_id: {required: true},
-    user_id: {required: true},
+    service_id: { required: true },
+    user_id: { required: true },
+    amount: { required: true },
 });
 const emit = defineEmits(['promotionUpdated', 'getError']);
 
+const discounts = ref(0);
 const loading = ref(false);
 const fetchedIds = ref([]);
 const promotions = ref(null);
@@ -58,6 +78,12 @@ const isolatedPromotions = computed(() => promotions.value?.isolated);
 const nonIsolatedPromotions = computed(() =>
     promotions.value !== null ? promotions.value['non-isolated'] : null,
 );
+const discountedPrice = computed(() => {
+    if (discounts.value === 0) {
+        return props.amount;
+    }
+    return props.amount - props.amount * discounts.value;
+});
 
 watch(
     () => props.service_id,
@@ -81,14 +107,16 @@ function setIsolated(value) {
     isolated.value = value;
 }
 
-function add(id) {
-    if (promotion_ids.value.includes(id)) {
-        let index = promotion_ids.value.indexOf(id);
-        promotion_ids.value.splice(index, 1);
-        emit('promotionUpdated', promotion_ids.value);
-        return;
-    }
-    promotion_ids.value.push(id);
+function add(promotion) {
+    discounts.value += promotion.discount;
+    promotion_ids.value.push(promotion.id);
+    emit('promotionUpdated', promotion_ids.value);
+}
+
+function remove(promotion) {
+    discounts.value -= promotion.discount;
+    let index = promotion_ids.value.indexOf(promotion.id);
+    promotion_ids.value.splice(index, 1);
     emit('promotionUpdated', promotion_ids.value);
 }
 
@@ -112,12 +140,13 @@ function fetch() {
         return;
     }
 
+    discounts.value = 0;
     loading.value = true;
     axios
         .get(
             `api/admin/user/qualified-promotion/${props.user_id}/${props.service_id}`,
         )
-        .then(({data}) => {
+        .then(({ data }) => {
             promotions.value = data;
             console.log(data);
         })

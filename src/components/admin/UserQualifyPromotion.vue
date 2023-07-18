@@ -9,12 +9,27 @@
             >
                 <div class="flex h-6 items-center">
                     <input
-                        @change="$emit('promotionAdded',promotion.id)"
-                        :id="promotion.id" type="checkbox"
-                        class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-600">
+                        @change="add(promotion, $event)"
+                        :id="promotion.id"
+                        type="checkbox"
+                        class="h-4 w-4 rounded border-gray-300 text-sky-600 focus:ring-sky-600"
+                    />
                 </div>
                 <div class="text-sm leading-6">
-                    <label :for="promotion.id" class="form-label">{{ promotion.name }}</label>
+                    <label
+                        :for="promotion.id"
+                        class="form-label flex items-center"
+                    >
+                        {{ promotion.name }} -
+                        <p
+                            class="ml-2 text-xs font-semibold text-gray-400"
+                            :class="{
+                                'line-through': selected.includes(promotion.id),
+                            }"
+                        >
+                            {{ discount(promotion.discount) }} off
+                        </p>
+                    </label>
                 </div>
             </div>
         </div>
@@ -22,8 +37,9 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 
-defineEmits(['promotionAdded']);
+const emit = defineEmits(['promotionAdded', 'promotionRemoved']);
 const props = defineProps({
     promotions: {
         type: Array,
@@ -34,8 +50,22 @@ const props = defineProps({
         required: true,
     },
 });
+
+const selected = ref([]);
+
+const discount = (dis) => dis * 100;
+function add(promotion, e) {
+    let id = promotion.id;
+    if (e.target.checked) {
+        selected.value.push(id);
+        emit('promotionAdded', promotion);
+    } else {
+        selected.value = selected.value.filter(
+            (selectedId) => selectedId !== id,
+        );
+        emit('promotionRemoved', promotion);
+    }
+}
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
