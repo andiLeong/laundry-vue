@@ -36,6 +36,7 @@ const adminRoutes = [
     'admin-user',
     'admin-stats',
     'admin-order-create',
+    'admin-profile',
 ];
 
 const route = useRoute();

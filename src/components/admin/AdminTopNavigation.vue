@@ -5,7 +5,7 @@
         class="border-r border-gray-200 px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
     >
         <span class="sr-only">Open sidebar</span>
-        <Bar3CenterLeft class="h-6 w-6"/>
+        <Bar3CenterLeft class="h-6 w-6" />
     </button>
     <!-- Search bar -->
     <div
@@ -21,7 +21,7 @@
                         class="pointer-events-none absolute inset-y-0 left-0 flex items-center"
                         aria-hidden="true"
                     >
-                        <MagnifyingGlass class="h-5 w-5"/>
+                        <MagnifyingGlass class="h-5 w-5" />
                     </div>
                     <input
                         id="search-field"
@@ -39,7 +39,7 @@
                 class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
             >
                 <span class="sr-only">View notifications</span>
-                <Bell class="h-6 w-6"/>
+                <Bell class="h-6 w-6" />
             </button>
 
             <!-- Profile dropdown -->
@@ -61,8 +61,13 @@
                                 />
                                 <span
                                     class="ml-3 hidden text-sm font-medium text-gray-700 lg:block"
-                                ><span class="sr-only">Open user menu for </span>{{ firstName }}</span>
-                                <ArrowDown class="ml-1 hidden h-5 w-5 flex-shrink-0 text-gray-400 lg:block"/>
+                                    ><span class="sr-only"
+                                        >Open user menu for </span
+                                    >{{ firstName }}</span
+                                >
+                                <ArrowDown
+                                    class="ml-1 hidden h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
+                                />
                             </button>
                         </div>
                     </template>
@@ -84,21 +89,10 @@
                         tabindex="-1"
                     >
                         <!-- Active: "bg-gray-100", Not Active: "" -->
-                        <a
-                            href="#"
+                        <router-link
+                            :to="{ name: 'admin-profile' }"
                             class="block px-4 py-2 text-sm text-gray-700"
-                            role="menuitem"
-                            tabindex="-1"
-                            id="user-menu-item-0"
-                        >Your Profile</a
-                        >
-                        <a
-                            href="#"
-                            class="block px-4 py-2 text-sm text-gray-700"
-                            role="menuitem"
-                            tabindex="-1"
-                            id="user-menu-item-1"
-                        >Settings</a
+                            >Your Profile</router-link
                         >
                         <a
                             @click.prevent="logout"
@@ -118,14 +112,14 @@
 </template>
 
 <script setup>
-import {useNavigationStore} from '@/store/navigation';
-import {useUserStore} from '@/store/user.js';
+import { useNavigationStore } from '@/store/navigation';
+import { useUserStore } from '@/store/user.js';
 import AppDropDown from '@/components/AppDropDown.vue';
-import {ref} from "vue";
-import ArrowDown from "@/svg/ArrowDown.vue";
-import Bell from "@/svg/Bell.vue";
-import MagnifyingGlass from "@/svg/MagnifyingGlass.vue";
-import Bar3CenterLeft from "@/svg/Bar3CenterLeft.vue";
+import { ref } from 'vue';
+import ArrowDown from '@/svg/ArrowDown.vue';
+import Bell from '@/svg/Bell.vue';
+import MagnifyingGlass from '@/svg/MagnifyingGlass.vue';
+import Bar3CenterLeft from '@/svg/Bar3CenterLeft.vue';
 
 const navigationStore = useNavigationStore();
 const userStore = useUserStore();

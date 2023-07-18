@@ -15,6 +15,14 @@ export const useUserStore = defineStore({
             return state.user.first_name;
         },
 
+        lastName: (state) => {
+            return state.user.last_name;
+        },
+
+        middleName: (state) => {
+            return state.user.middle_name;
+        },
+
         isAdmin(state) {
             if (!this.isLoggedIn) {
                 return false;
@@ -87,12 +95,14 @@ export const useUserStore = defineStore({
                     this.logoutFromLocal();
                 })
                 .finally(() => {
-                    // this.setUser({
-                    //     id: 1,
-                    //     type: 'admin',
-                    //     phone: '09272714285',
-                    //     first_name: 'anthony',
-                    // });
+                    this.setUser({
+                        id: 1,
+                        type: 'admin',
+                        phone: '09272714285',
+                        first_name: 'anthony',
+                        middle_name: 'na',
+                        last_name: 'lee',
+                    });
                     app.use(router).mount('#app');
                 });
         },

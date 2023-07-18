@@ -14,32 +14,38 @@ const routes = [
     {
         path: '/admin/home',
         name: 'admin-home',
-        component: () => import('@/views/admin/home.vue'),
+        component: () => import('@/views/admin/Home.vue'),
         meta: { staffOnly: true },
     },
     {
         path: '/admin/order',
         name: 'admin-order',
-        component: () => import('@/views/admin/order/order.vue'),
+        component: () => import('@/views/admin/order/Order.vue'),
         meta: { staffOnly: true },
     },
     {
         path: '/admin/order/create',
         name: 'admin-order-create',
-        component: () => import('@/views/admin/order/create.vue'),
+        component: () => import('@/views/admin/order/Create.vue'),
         meta: { adminOnly: true },
     },
     {
         path: '/admin/user',
         name: 'admin-user',
-        component: () => import('@/views/admin/user.vue'),
+        component: () => import('@/views/admin/User.vue'),
         meta: { adminOnly: true },
     },
     {
         path: '/admin/stats',
         name: 'admin-stats',
-        component: () => import('@/views/admin/stats.vue'),
+        component: () => import('@/views/admin/Stats.vue'),
         meta: { adminOnly: true },
+    },
+    {
+        path: '/admin/profile',
+        name: 'admin-profile',
+        component: () => import('@/views/admin/Profile.vue'),
+        meta: { staffOnly: true },
     },
     {
         path: '/login',
