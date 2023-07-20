@@ -2,12 +2,12 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import UserCircle from '@/svg/UserCircle.vue';
 import BaseInput from '@/components/forms/BaseInput.vue';
-import { ref } from 'vue';
+import {ref} from 'vue';
 import PrimaryButton from '@/components/forms/PrimaryButton.vue';
-import { useUserStore } from '@/store/user.js';
+import {useUserStore} from '@/store/user.js';
 import Errors from '@/model/Errors.js';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
-import { useNotificationStore } from '@/store/Notification.js';
+import {useNotificationStore} from '@/store/Notification.js';
 
 const userStore = useUserStore();
 const notificationStore = useNotificationStore();
@@ -19,10 +19,8 @@ const errors = ref({});
 
 function submit() {
     loading.value = true;
-    // notificationStore.show = true;
-    // return;
     axios
-        .patch(`api/admin/user/${userStore.phone}`, {
+        .patch(`api/admin/user/profile`, {
             last_name: last_name.value,
             first_name: first_name.value,
             middle_name: middle_name.value,
@@ -33,7 +31,9 @@ function submit() {
             tem.last_name = last_name.value;
             tem.middle_name = middle_name.value;
             userStore.user = tem;
-            console.log('update profile success');
+            notificationStore.title = 'Saved!';
+            notificationStore.message = 'Your information has saved';
+            notificationStore.show = true;
         })
         .catch((error) => {
             let err = new Errors(error);
@@ -55,15 +55,15 @@ function submit() {
                         class="px-2 py-6 sm:px-6 lg:col-span-3 lg:px-0 lg:py-0"
                     >
                         <nav class="space-y-1">
-                            <!-- Current: "bg-gray-50 text-indigo-700 hover:bg-white hover:text-indigo-700", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
+                            <!-- Current: "bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
                             <a
                                 href="#"
-                                class="bg-gray-50 text-indigo-700 hover:bg-white hover:text-indigo-700 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
+                                class="bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
                                 aria-current="page"
                             >
-                                <!-- Current: "text-indigo-500 group-hover:text-indigo-500", Default: "text-gray-400 group-hover:text-gray-500" -->
+                                <!-- Current: "text-sky-500 group-hover:text-sky-500", Default: "text-gray-400 group-hover:text-gray-500" -->
                                 <UserCircle
-                                    class="text-indigo-500 group-hover:text-indigo-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
+                                    class="text-sky-500 group-hover:text-sky-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
                                 />
                                 <span class="truncate">Profile</span>
                             </a>
@@ -150,7 +150,7 @@ function submit() {
                                 <div
                                     class="bg-gray-100 px-4 py-3 text-right sm:px-6"
                                 >
-                                    <PrimaryButton :loading="loading" />
+                                    <PrimaryButton :loading="loading"/>
                                 </div>
                             </div>
                         </form>

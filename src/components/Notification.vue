@@ -1,8 +1,8 @@
 <script setup>
-import { ref, watch } from 'vue';
+import {ref, watch} from 'vue';
 import X from '@/svg/X.vue';
 import Check from '@/svg/Check.vue';
-import { useNotificationStore } from '@/store/Notification.js';
+import {useNotificationStore} from '@/store/Notification.js';
 
 const notificationStore = useNotificationStore();
 const show = ref(false);
@@ -12,24 +12,21 @@ watch(
     (newValue) => {
         if (newValue) {
             open();
-        } else {
-            close();
         }
     },
-    { deep: true },
+    {deep: true},
 );
 
 function open() {
     show.value = true;
+    setTimeout(close, 2000);
 }
 
 function close() {
-    console.log('close');
     show.value = false;
     notificationStore.show = false;
 }
 
-setTimeout(close, 2000);
 </script>
 
 <template>
@@ -54,7 +51,7 @@ setTimeout(close, 2000);
                     <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <Check class="h-6 w-6 text-green-400" />
+                                <Check class="h-6 w-6 text-green-400"/>
                             </div>
                             <div class="ml-3 w-0 flex-1 pt-0.5">
                                 <p class="text-sm font-medium text-gray-900">
@@ -71,7 +68,7 @@ setTimeout(close, 2000);
                                     class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 >
                                     <span class="sr-only">Close</span>
-                                    <X class="h-5 w-5" />
+                                    <X class="h-5 w-5"/>
                                 </button>
                             </div>
                         </div>
