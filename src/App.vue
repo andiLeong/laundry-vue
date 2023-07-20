@@ -34,7 +34,7 @@ const adminRoutes = [
     'admin-home',
     'admin-order',
     'admin-user',
-    'admin-stats',
+    'admin-stat',
     'admin-order-create',
     'admin-profile',
 ];

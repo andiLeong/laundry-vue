@@ -36,9 +36,9 @@ const routes = [
         meta: { adminOnly: true },
     },
     {
-        path: '/admin/stats',
-        name: 'admin-stats',
-        component: () => import('@/views/admin/Stats.vue'),
+        path: '/admin/stat',
+        name: 'admin-stat',
+        component: () => import('@/views/admin/Stat.vue'),
         meta: { adminOnly: true },
     },
     {
