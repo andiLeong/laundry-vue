@@ -10,9 +10,7 @@
             />
         </div>
         <template v-if="loading">
-            <div class="border border-gray-300 shadow-lg rounded-lg bg-gray-300 animate-pulse"
-                 style="height: 384px; width: 768px">
-            </div>
+            <ChartLoadingSkeleton/>
         </template>
         <template v-if="orderCount.length > 0">
             <BarChart :data="orderCountChart"/>
@@ -34,6 +32,7 @@ import BarChart from "@/components/BarChart.vue";
 import ErrorManager from '@/components/validation/ErrorManager.vue';
 import BaseSelect from "@/components/forms/BaseSelect.vue";
 import useFetchGroupBy from "@/composable/useFetchGroupBy.js";
+import ChartLoadingSkeleton from "@/components/admin/stats/ChartLoadingSkeleton.vue";
 
 const months = ref(3);
 const monthsSelect = ref([3, 6, 9, 12, 18, 24]);

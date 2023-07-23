@@ -10,10 +10,7 @@
             />
         </div>
         <template v-if="loading">
-            <div class="border border-gray-300 shadow-lg rounded-lg bg-gray-300 animate-pulse"
-                 style="height: 384px; width: 768px">
-            </div>
-
+            <ChartLoadingSkeleton/>
             <!--            <div class="mt-8 border border-gray-300 shadow-lg rounded-lg bg-gray-300 animate-pulse"-->
             <!--                 style="height: 384px; width: 768px">-->
             <!--            </div>-->
@@ -45,6 +42,7 @@ import BarChart from "@/components/BarChart.vue";
 import ErrorManager from '@/components/validation/ErrorManager.vue';
 import BaseSelect from "@/components/forms/BaseSelect.vue";
 import useFetchGroupBy from "@/composable/useFetchGroupBy.js";
+import ChartLoadingSkeleton from "@/components/admin/stats/ChartLoadingSkeleton.vue";
 
 const days = ref(7);
 const daysSelect = ref([7, 10, 20, 30, 60, 90]);

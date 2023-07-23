@@ -2,14 +2,17 @@
 import StatCard from '@/components/admin/stats/StatCard.vue';
 import {ref} from 'vue';
 import Errors from '@/model/Errors.js';
+import StatLoadingSkeleton from "@/components/admin/stats/StatLoadingSkeleton.vue";
 
 const errors = ref({});
+const loading = ref(true);
 const userCount = ref(0);
 const orderCount = ref(0);
 const orderAmount = ref(0);
 const orderPromotionRate = ref(0);
 
 function fetch() {
+    loading.value = true
     axios
         .get('/api/admin/stats')
         .then(({data}) => {
@@ -22,8 +25,7 @@ function fetch() {
             let err = new Errors(error);
             errors.value = err.handle();
         })
-        .finally(() => {
-        });
+        .finally(() => loading.value = false);
 }
 
 fetch();
@@ -31,17 +33,38 @@ fetch();
 
 <template>
     <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard title="Users Count" :number="userCount"/>
 
-        <StatCard title="Orders Count" :number="orderCount"/>
+        <template v-if="loading">
+            <StatLoadingSkeleton/>
+        </template>
+        <template v-else>
+            <StatCard title="Users Count" :number="userCount"/>
+        </template>
 
-        <StatCard title="Order Amount" :number="orderAmount"/>
+        <template v-if="loading">
+            <StatLoadingSkeleton/>
+        </template>
+        <template v-else>
+            <StatCard title="Orders Count" :number="orderCount"/>
+        </template>
 
-        <StatCard
-            title="Order Promotion Rate"
-            :number="orderPromotionRate"
-            :percentage="true"
-        />
+        <template v-if="loading">
+            <StatLoadingSkeleton/>
+        </template>
+        <template v-else>
+            <StatCard title="Order Amount" :number="orderAmount"/>
+        </template>
+
+        <template v-if="loading">
+            <StatLoadingSkeleton/>
+        </template>
+        <template v-else>
+            <StatCard
+                title="Order Promotion Rate"
+                :number="orderPromotionRate"
+                :percentage="true"
+            />
+        </template>
     </div>
 </template>
 
