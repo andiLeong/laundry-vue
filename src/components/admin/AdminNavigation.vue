@@ -101,8 +101,8 @@ const links = [
 
 const secondLinks = [
     {
-        name: 'Setting',
-        route: 'admin-stat',
+        name: 'Promotion',
+        route: 'admin-promotion',
         svg: HomeSvg,
     },
     // {
