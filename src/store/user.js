@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore({
     id: 'user',
@@ -73,7 +73,7 @@ export const useUserStore = defineStore({
             await axios.get('/sanctum/csrf-cookie');
             return await axios
                 .post('/api/login', credentials)
-                .then(({data}) => {
+                .then(({ data }) => {
                     this.setUser(data);
                 });
         },

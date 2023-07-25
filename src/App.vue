@@ -20,9 +20,9 @@
 
 <script setup>
 import AdminNavigation from '@/components/admin/AdminNavigation.vue';
-import {useUserStore} from '@/store/user';
-import {computed, ref} from 'vue';
-import {useRoute} from 'vue-router';
+import { useUserStore } from '@/store/user';
+import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
 
@@ -38,6 +38,7 @@ const adminRoutes = [
     'admin-order-create',
     'admin-profile',
     'admin-promotion',
+    'admin-expense',
 ];
 
 const route = useRoute();

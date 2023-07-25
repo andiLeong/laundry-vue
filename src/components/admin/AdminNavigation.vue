@@ -105,11 +105,11 @@ const secondLinks = [
         route: 'admin-promotion',
         svg: HomeSvg,
     },
-    // {
-    //     name: 'Privacy',
-    //     route: 'admin-order',
-    //     svg: HistorySvg,
-    // },
+    {
+        name: 'Expense',
+        route: 'admin-expense',
+        svg: HistorySvg,
+    },
     // {
     //     name: 'Help',
     //     route: 'admin-order',
