@@ -5,6 +5,7 @@ export default function useFetchGroupBy(query) {
 
     const orderCount = ref([]);
     const orderTotalAmount = ref([]);
+    const margins = ref([]);
     const labels = ref([]);
     const errors = ref(null);
     const loading = ref(false);
@@ -19,10 +20,14 @@ export default function useFetchGroupBy(query) {
                     return order.dt;
                 });
                 orderTotalAmount.value = data.map((order) => {
-                    return order.order_total_amount;
+                    return order?.order_total_amount;
                 });
                 orderCount.value = data.map((order) => {
-                    return order.order_count;
+                    return order?.order_count;
+                });
+
+                margins.value = data.map((order) => {
+                    return order?.order_count;
                 });
             })
             .catch((error) => {
@@ -41,6 +46,7 @@ export default function useFetchGroupBy(query) {
         orderCount,
         orderTotalAmount,
         labels,
+        margins,
         fetch,
     }
 }

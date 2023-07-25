@@ -9,6 +9,7 @@
                     <StatCollection/>
                     <GroupByDays/>
                     <GroupByMonths/>
+                    <MarginGroupByMonths/>
                 </div>
             </div>
         </main>
@@ -20,6 +21,7 @@ import AdminLayout from '@/components/admin/AdminLayout.vue';
 import StatCollection from '@/components/admin/stats/StatCollection.vue';
 import GroupByDays from '@/components/admin/stats/GroupByDays.vue'
 import GroupByMonths from "@/components/admin/stats/GroupByMonths.vue";
+import MarginGroupByMonths from "@/components/admin/stats/MarginGroupByMonths.vue";
 
 </script>
 
