@@ -37,6 +37,37 @@
                     v-model="amount"
                 />
             </div>
+
+            <div class="sm:col-span-2">
+                <label class="form-label">Products</label>
+                <select
+                    class="field form-select mt-1"
+                    @change="selectProduct"
+                >
+                    <option disabled value selected>
+                        please select
+                    </option>
+                    <option
+                        v-for="product in products"
+                        :value="product.id"
+                        :key="product.id"
+                    >
+                        {{ product.name }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <!--        {{ product_ids }}-->
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div
+                v-for="(product,index) in product_ids"
+                :key="index"
+                class="sm:col-span-2 divide-y divide-gray-200 rounded-lg bg-white shadow"
+            >
+                <CreateOrderProductCard :product="product" :index="index" @updateProduct="setProduct"
+                                        @productRemoved="removeProduct"/>
+            </div>
         </div>
 
         <div class="pt-1">
@@ -65,6 +96,8 @@ import SubmitButton from "@/components/forms/SubmitButton.vue";
 import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import useFetchProducts from "@/composable/useFetchProducts.js";
+import CreateOrderProductCard from '@/components/admin/CreateOrderProductCard.vue'
 
 const props = defineProps({
     services: {
@@ -77,9 +110,12 @@ const router = useRouter();
 const service_id = ref(null);
 const user_id = ref(null);
 const amount = ref(null);
+const product_ids = ref([]);
+const selectedProductIds = ref([]);
 const errors = ref({});
 const isLoading = ref(false);
 
+const {products, error} = useFetchProducts();
 
 function serviceChanged(e) {
     let serviceId = e.target.value;
@@ -91,12 +127,22 @@ function serviceChanged(e) {
 
 function submit() {
     isLoading.value = true;
-    axios
-        .post('api/admin/order', {
-            service_id: service_id.value,
-            amount: amount.value,
-            user_id: user_id.value,
+
+    let payload = {
+        service_id: service_id.value,
+        amount: amount.value,
+        user_id: user_id.value,
+    }
+
+    if (product_ids.value.length > 0) {
+        let filtered = product_ids.value.map((product) => {
+            return {'id': product.id, 'quantity': product.quantity}
         })
+        payload.product_ids = filtered
+    }
+
+    axios
+        .post('api/admin/order', payload)
         .then(() => router.push({name: 'admin-order'}))
         .catch((error) => {
             let err = new Errors(error);
@@ -105,6 +151,44 @@ function submit() {
             isLoading.value = false;
         });
 }
+
+function selectProduct(e) {
+    let productId = parseInt(e.target.value);
+    if (!productIdIsSelected(productId)) {
+        let product = products.value.filter((p) => {
+            return p.id === productId;
+        })[0]
+        product.quantity = 1
+        product_ids.value.push(product);
+        selectedProductIds.value.push(productId)
+    }
+}
+
+function productIdIsSelected(id) {
+
+    return selectedProductIds.value.includes(id);
+    let filtered = product_ids.value.filter((product) => {
+        return product.id === id
+    });
+    return filtered.length > 0;
+}
+
+function setProduct(product, index) {
+
+    let oldProduct = product_ids.value[index]
+    oldProduct.stock = product[0]
+    oldProduct.quantity = product[1]
+    oldProduct.price = product[2]
+
+    product_ids.value[index] = oldProduct
+}
+
+function removeProduct(index) {
+    product_ids.value = product_ids.value.filter((value, key) => {
+        return key !== index
+    })
+}
+
 </script>
 
 <style scoped>

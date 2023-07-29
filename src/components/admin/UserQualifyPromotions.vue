@@ -23,7 +23,7 @@
 
         <div class="sm:col-span-2">
             <label class="form-label mb-3">Is Isolated</label>
-            <ToggleButton :state="isolated" @changed="setIsolated" />
+            <ToggleButton :state="isolated" @changed="setIsolated"/>
         </div>
     </div>
 
@@ -40,7 +40,6 @@
                 {{ discountedPrice }}
             </p>
         </div>
-        {{ promotion_ids }}
     </div>
 
     <MountedTeleport to="#fetch-promotion-button">
@@ -56,15 +55,15 @@
 <script setup>
 import UserQualifyPromotion from '@/components/admin/UserQualifyPromotion.vue';
 import ToggleButton from '@/components/forms/ToggleButton.vue';
-import { computed, ref, watch } from 'vue';
+import {computed, ref, watch} from 'vue';
 import Errors from '@/model/Errors.js';
 import MountedTeleport from '@/components/MountedTeleport.vue';
 import SecondaryButton from '@/components/forms/SecondaryButton.vue';
 
 const props = defineProps({
-    service_id: { required: true },
-    user_id: { required: true },
-    amount: { required: true },
+    service_id: {required: true},
+    user_id: {required: true},
+    amount: {required: true},
 });
 const emit = defineEmits(['promotionUpdated', 'getError']);
 
@@ -146,7 +145,7 @@ function fetch() {
         .get(
             `api/admin/user/qualified-promotion/${props.user_id}/${props.service_id}`,
         )
-        .then(({ data }) => {
+        .then(({data}) => {
             promotions.value = data;
             console.log(data);
         })
