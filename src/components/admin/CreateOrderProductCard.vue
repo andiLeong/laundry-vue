@@ -3,7 +3,7 @@
     <div class="flex w-full items-center justify-between space-x-6 py-3 px-4">
         <h3 class="truncate text-sm font-medium text-gray-900">
             {{ product.name }}
-            <span>{{ originalPrice }}</span>
+            <span>{{ product.originalPrice }}</span>
             * <span>{{ product.quantity }}</span>
         </h3>
         <p class=" font-bold text-gray-900">
@@ -30,12 +30,11 @@
 
 const props = defineProps(['product', 'index'])
 const emit = defineEmits(['updateProduct', 'productRemoved']);
-const originalPrice = props.product.price
 
 function increase() {
     let stock = props.product.stock - 1
     let quantity = props.product.quantity + 1
-    let price = props.product.price + originalPrice
+    let price = props.product.price + props.product.originalPrice
     if (stock < 0) {
         return;
     }
@@ -45,7 +44,7 @@ function increase() {
 function decrease() {
     let stock = props.product.stock + 1
     let quantity = props.product.quantity - 1
-    let price = props.product.price - originalPrice
+    let price = props.product.price - props.product.originalPrice
     if (quantity === 0) {
         emit('productRemoved', props.index, props.product.id)
         return;
