@@ -76,7 +76,15 @@
                                 </td>
 
                                 <td class="table-data">
+                                    {{ order.total_amount }}
+                                </td>
+
+                                <td class="table-data">
                                     {{ order.amount }}
+                                </td>
+
+                                <td class="table-data">
+                                    {{ order.product_amount }}
                                 </td>
 
                                 <td class="table-data">
@@ -129,7 +137,9 @@ const columns = ref([
     'phone',
     'first name',
     'service name',
+    'total amount',
     'amount',
+    'product amount',
     'promotion count',
     'created at',
 ]);

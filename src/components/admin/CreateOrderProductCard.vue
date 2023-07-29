@@ -1,7 +1,9 @@
 <template>
 
     <div class="flex w-full items-center justify-between space-x-6 py-3 px-4">
-        <h3 class="truncate text-sm font-medium text-gray-900">{{ product.name }}
+        <h3 class="truncate text-sm font-medium text-gray-900">
+            {{ product.name }}
+            <span>{{ originalPrice }}</span>
             * <span>{{ product.quantity }}</span>
         </h3>
         <p class=" font-bold text-gray-900">
@@ -45,7 +47,7 @@ function decrease() {
     let quantity = props.product.quantity - 1
     let price = props.product.price - originalPrice
     if (quantity === 0) {
-        emit('productRemoved', props.index)
+        emit('productRemoved', props.index, props.product.id)
         return;
     }
     emit('updateProduct', [stock, quantity, price], props.index)

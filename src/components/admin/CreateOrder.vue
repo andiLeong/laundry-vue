@@ -1,90 +1,98 @@
 <template>
 
-    <form class="space-y-3 my-6" @submit.prevent="submit">
-        <SearchUserPhone v-model="user_id"/>
+    <form @submit.prevent="submit">
+        <div class="space-y-3 my-6">
 
-        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div class="sm:col-span-2">
-                <label class="form-label">Service</label>
-                <select
-                    class="field form-select mt-1"
-                    :value="service_id"
-                    @change="serviceChanged"
-                >
-                    <option disabled value>
-                        please select
-                    </option>
-                    <option
-                        v-for="service in services"
-                        :value="service.id"
-                        :key="service.id"
-                        :selected="
+            <SearchUserPhone v-model="user_id"/>
+
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <div class="sm:col-span-2">
+                    <label class="form-label">Service</label>
+                    <select
+                        class="field form-select mt-1"
+                        :value="service_id"
+                        @change="serviceChanged"
+                    >
+                        <option disabled value>
+                            please select
+                        </option>
+                        <option
+                            v-for="service in services"
+                            :value="service.id"
+                            :key="service.id"
+                            :selected="
                                                 service.id === service_id
                                             "
+                        >
+                            {{ service.name }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <BaseInput
+                        labelClass="form-label"
+                        placeHolder="Amount"
+                        class="mt-1 form-input"
+                        label="Order Amount"
+                        type="text"
+                        v-model="amount"
+                    />
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label class="form-label">Products</label>
+                    <select
+                        class="field form-select mt-1"
+                        @change="selectProduct"
                     >
-                        {{ service.name }}
-                    </option>
-                </select>
+                        <option disabled value selected>
+                            please select
+                        </option>
+                        <option
+                            v-for="product in products"
+                            :value="product.id"
+                            :key="product.id"
+                        >
+                            {{ product.name }}
+                        </option>
+                    </select>
+                </div>
             </div>
 
-            <div class="sm:col-span-2">
-                <BaseInput
-                    labelClass="form-label"
-                    placeHolder="Amount"
-                    class="mt-1 form-input"
-                    label="Order Amount"
-                    type="text"
-                    v-model="amount"
-                />
-            </div>
-
-            <div class="sm:col-span-2">
-                <label class="form-label">Products</label>
-                <select
-                    class="field form-select mt-1"
-                    @change="selectProduct"
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <div
+                    v-for="(product,index) in product_ids"
+                    :key="index"
+                    class="sm:col-span-2 divide-y divide-gray-200 rounded-lg bg-white shadow"
                 >
-                    <option disabled value selected>
-                        please select
-                    </option>
-                    <option
-                        v-for="product in products"
-                        :value="product.id"
-                        :key="product.id"
-                    >
-                        {{ product.name }}
-                    </option>
-                </select>
+                    <CreateOrderProductCard :product="product" :index="index" @updateProduct="setProduct"
+                                            @productRemoved="removeProduct"/>
+                </div>
+            </div>
+
+            <div class="pt-1">
+                <div class="mb-2">
+                    <ErrorManager
+                        v-if="errors"
+                        :errors="errors"
+                    />
+                </div>
             </div>
         </div>
 
-        <!--        {{ product_ids }}-->
-        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <div
-                v-for="(product,index) in product_ids"
-                :key="index"
-                class="sm:col-span-2 divide-y divide-gray-200 rounded-lg bg-white shadow"
-            >
-                <CreateOrderProductCard :product="product" :index="index" @updateProduct="setProduct"
-                                        @productRemoved="removeProduct"/>
-            </div>
-        </div>
-
-        <div class="pt-1">
-            <div class="mb-2">
-                <ErrorManager
-                    v-if="errors"
-                    :errors="errors"
-                />
-            </div>
-            <div class="flex justify-start">
-                <SubmitButton
-                    :loading="isLoading"
-                    saving="Creating"
-                    not-saving="Create"
-                />
-            </div>
-        </div>
+        <AdminOrderPricingFooter
+            v-if="service_id"
+            :total-price="totalPrice"
+            :service-price="amount"
+            :product-price="totalProductPrice"
+        >
+            <SubmitButton
+                :loading="isLoading"
+                saving="Creating"
+                not-saving="Create"
+            />
+        </AdminOrderPricingFooter>
     </form>
 </template>
 
@@ -94,10 +102,11 @@ import ErrorManager from '@/components/validation/ErrorManager.vue';
 import Errors from "@/model/Errors.js";
 import SubmitButton from "@/components/forms/SubmitButton.vue";
 import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {useRouter} from "vue-router";
 import useFetchProducts from "@/composable/useFetchProducts.js";
 import CreateOrderProductCard from '@/components/admin/CreateOrderProductCard.vue'
+import AdminOrderPricingFooter from "@/components/admin/AdminOrderPricingFooter.vue";
 
 const props = defineProps({
     services: {
@@ -116,6 +125,23 @@ const errors = ref({});
 const isLoading = ref(false);
 
 const {products, error} = useFetchProducts();
+
+
+const totalProductPrice = computed(() => {
+    if (product_ids.value.length === 0) {
+        return 0;
+    }
+
+    let sum = 0;
+    product_ids.value.forEach((product) => {
+        sum += product.price;
+    })
+    return sum;
+});
+
+const totalPrice = computed(() => {
+    return parseInt(amount.value) + parseInt(totalProductPrice.value)
+});
 
 function serviceChanged(e) {
     let serviceId = e.target.value;
@@ -183,9 +209,13 @@ function setProduct(product, index) {
     product_ids.value[index] = oldProduct
 }
 
-function removeProduct(index) {
-    product_ids.value = product_ids.value.filter((value, key) => {
+function removeProduct(index, id) {
+    product_ids.value = product_ids.value.filter((product, key) => {
         return key !== index
+    })
+
+    selectedProductIds.value = selectedProductIds.value.filter((prodId) => {
+        return prodId !== id
     })
 }
 
