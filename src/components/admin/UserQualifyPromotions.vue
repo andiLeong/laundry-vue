@@ -7,6 +7,7 @@
             <UserQualifyPromotion
                 title="Isolated"
                 :promotions="isolatedPromotions"
+                :key="promotions"
                 @promotionAdded="add($event)"
                 @promotionRemoved="remove($event)"
             />
@@ -16,6 +17,7 @@
             <UserQualifyPromotion
                 title="Non Isolated"
                 :promotions="nonIsolatedPromotions"
+                :key="promotions"
                 @promotionAdded="add($event)"
                 @promotionRemoved="remove($event)"
             />
@@ -29,7 +31,7 @@
 
     <div
         v-if="promotions !== null"
-        class="mt-10 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"
+        class="hidden mt-10 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"
     >
         <div class="sm:col-span-2 flex items-center">
             <p class="text-xs mr-2 line-through text-gray-400">
@@ -65,7 +67,7 @@ const props = defineProps({
     user_id: {required: true},
     amount: {required: true},
 });
-const emit = defineEmits(['promotionUpdated', 'getError']);
+const emit = defineEmits(['promotionUpdated', 'getError', 'discountApplied', 'isolatedUpdated']);
 
 const discounts = ref(0);
 const loading = ref(false);
@@ -82,6 +84,22 @@ const discountedPrice = computed(() => {
         return props.amount;
     }
     return props.amount - props.amount * discounts.value;
+});
+
+watch(discounts, (newValue) => {
+    let discounted;
+    if (newValue === 0) {
+        discounted = 0
+        // discounted = props.amount;
+    } else {
+        discounted = props.amount * discounts.value;
+        // discounted = props.amount - props.amount * discounts.value;
+    }
+    emit('discountApplied', discounted)
+});
+
+watch(isolated, (newValue) => {
+    emit('isolatedUpdated', newValue)
 });
 
 watch(
@@ -114,6 +132,7 @@ function add(promotion) {
 
 function remove(promotion) {
     discounts.value -= promotion.discount;
+    discounts.value = parseFloat(discounts.value.toFixed(2))
     let index = promotion_ids.value.indexOf(promotion.id);
     promotion_ids.value.splice(index, 1);
     emit('promotionUpdated', promotion_ids.value);
@@ -156,6 +175,7 @@ function fetch() {
         .finally(() => {
             loading.value = false;
             fetchedIds.value = [props.user_id, props.service_id];
+            emit('promotionUpdated', []);
         });
 }
 </script>

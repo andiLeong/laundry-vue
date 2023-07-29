@@ -1,6 +1,6 @@
 <template>
     <form class="space-y-3 my-6" @submit.prevent="submit">
-        <SearchUserPhone v-model="user_id" />
+        <SearchUserPhone v-model="user_id"/>
 
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-2">
@@ -32,6 +32,14 @@
                     v-model="amount"
                 />
             </div>
+
+            <div class="sm:col-span-2">
+                <div id="products-selection"></div>
+            </div>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <AdminCreateOrderProductCards @productUpdated="updateProduct"/>
         </div>
 
         <UserQualifyPromotions
@@ -39,26 +47,34 @@
             :service_id="service_id"
             :user_id="user_id"
             @promotionUpdated="updatePromotionIds"
+            @discountApplied="updatediscount"
+            @isolatedUpdated="setIso"
             @getError="setError"
         />
 
+        <div class="flex" id="fetch-promotion-button"></div>
         <div class="pt-1">
             <div class="mb-2">
-                <ErrorManager v-if="errors" :errors="errors" />
-            </div>
-
-            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <div class="sm:col-span-2 flex justify-between">
-                    <div class="flex" id="fetch-promotion-button"></div>
-
-                    <SubmitButton
-                        :loading="isLoading"
-                        saving="Creating"
-                        not-saving="Create"
-                    />
-                </div>
+                <ErrorManager
+                    v-if="errors"
+                    :errors="errors"
+                />
             </div>
         </div>
+
+        <AdminOrderPricingFooter
+            v-if="service_id"
+            :total-price="totalPrice"
+            :service-price="amount"
+            :product-price="totalProductPrice"
+            :promotion-price="discountedPrice"
+        >
+            <SubmitButton
+                :loading="isLoading"
+                saving="Creating"
+                not-saving="Create"
+            />
+        </AdminOrderPricingFooter>
     </form>
 </template>
 
@@ -68,9 +84,11 @@ import ErrorManager from '@/components/validation/ErrorManager.vue';
 import Errors from '@/model/Errors.js';
 import SubmitButton from '@/components/forms/SubmitButton.vue';
 import SearchUserPhone from '@/components/admin/SearchUserPhone.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+import {computed, ref} from 'vue';
+import {useRouter} from 'vue-router';
 import UserQualifyPromotions from '@/components/admin/UserQualifyPromotions.vue';
+import AdminCreateOrderProductCards from "@/components/admin/AdminCreateOrderProductCards.vue";
+import AdminOrderPricingFooter from "@/components/admin/AdminOrderPricingFooter.vue";
 
 const props = defineProps({
     services: {
@@ -86,7 +104,37 @@ const amount = ref(null);
 const errors = ref({});
 const isLoading = ref(false);
 const promotion_ids = ref([]);
+const product_ids = ref([]);
 const isolated = ref(false);
+const discountedPrice = ref(0)
+
+const totalProductPrice = computed(() => {
+    if (product_ids.value.length === 0) {
+        return 0;
+    }
+
+    let sum = 0;
+    product_ids.value.forEach((product) => {
+        sum += product.price;
+    })
+    return sum;
+});
+
+const totalPrice = computed(() => {
+    return parseInt(amount.value) + parseInt(totalProductPrice.value) - parseInt(discountedPrice.value)
+});
+
+function updateProduct(product) {
+    product_ids.value = product
+}
+
+function setIso(val) {
+    isolated.value = val;
+}
+
+function updatediscount(price) {
+    discountedPrice.value = price
+}
 
 function updatePromotionIds(ids) {
     promotion_ids.value = ids;
@@ -106,16 +154,26 @@ function serviceChanged(e) {
 
 function submit() {
     isLoading.value = true;
-    axios
-        .post('api/admin/order', {
-            service_id: service_id.value,
-            amount: amount.value,
-            user_id: user_id.value,
-            promotion_ids:
-                promotion_ids.value.length === 0 ? null : promotion_ids.value,
-            isolated: Number(isolated.value),
+
+    let payload = {
+        service_id: service_id.value,
+        amount: amount.value,
+        user_id: user_id.value,
+        isolated: Number(isolated.value),
+        promotion_ids:
+            promotion_ids.value.length === 0 ? null : promotion_ids.value,
+    }
+
+    if (product_ids.value.length > 0) {
+        let filtered = product_ids.value.map((product) => {
+            return {'id': product.id, 'quantity': product.quantity}
         })
-        .then(() => router.push({ name: 'admin-order' }))
+        payload.product_ids = filtered
+    }
+
+    axios
+        .post('api/admin/order', payload)
+        .then(() => router.push({name: 'admin-order'}))
         .catch((error) => {
             let err = new Errors(error);
             errors.value = err.handle();
