@@ -68,15 +68,17 @@
 
 <script setup>
 import HomeSvg from '@/svg/Home.vue';
-import HistorySvg from '@/svg/Clock.vue';
-import RecipientSvg from '@/svg/People.vue';
-import CardSvg from '@/svg/Card.vue';
-import ReportSvg from '@/svg/Report.vue';
-import BalanceSvg from '@/svg/Balance.vue';
+import LightBulb from '@/svg/LightBulb.vue';
+import Gift from '@/svg/Gift.vue';
+import ToiletCell from '@/svg/ToiletCell.vue';
+import People from '@/svg/People.vue';
+import CircusStack from '@/svg/CircusStack.vue';
+import CurrencyDollar from '@/svg/CurrencyDollar.vue';
+import PencilSquare from '@/svg/PencilSquare.vue';
 import AppLink from '@/components/AppLink.vue';
 import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue';
 import {useUserStore} from "@/store/user.js";
-import {ref, shallowRef} from "vue";
+import {shallowRef} from "vue";
 
 
 const user = useUserStore();
@@ -89,17 +91,17 @@ const links = shallowRef([
     {
         name: 'Order',
         route: 'admin-order',
-        svg: HistorySvg,
+        svg: PencilSquare,
     },
     {
         name: 'Product',
         route: 'admin-product',
-        svg: HistorySvg,
+        svg: ToiletCell,
     },
     {
         name: 'Service',
         route: 'admin-service',
-        svg: HistorySvg,
+        svg: LightBulb,
     },
 ]);
 
@@ -107,7 +109,7 @@ const secondLinks = shallowRef([
     {
         name: 'Promotion',
         route: 'admin-promotion',
-        svg: HomeSvg,
+        svg: Gift,
     },
 ]);
 
@@ -115,18 +117,18 @@ if (user.isAdmin) {
     links.value.push({
         name: 'User',
         route: 'admin-user',
-        svg: BalanceSvg,
+        svg: People,
     })
     links.value.push({
         name: 'Stats',
         route: 'admin-stat',
-        svg: ReportSvg,
+        svg: CircusStack,
     })
 
     secondLinks.value.push({
         name: 'Expense',
         route: 'admin-expense',
-        svg: HistorySvg,
+        svg: CurrencyDollar,
     })
 }
 </script>
