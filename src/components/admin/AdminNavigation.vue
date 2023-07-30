@@ -75,8 +75,12 @@ import ReportSvg from '@/svg/Report.vue';
 import BalanceSvg from '@/svg/Balance.vue';
 import AppLink from '@/components/AppLink.vue';
 import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue';
+import {useUserStore} from "@/store/user.js";
+import {ref} from "vue";
 
-const links = [
+
+const user = useUserStore();
+const links = ref([
     {
         name: 'Home',
         route: 'admin-home',
@@ -87,35 +91,34 @@ const links = [
         route: 'admin-order',
         svg: HistorySvg,
     },
-    {
-        name: 'User',
-        route: 'admin-user',
-        svg: BalanceSvg,
-    },
-    {
-        name: 'Stats',
-        route: 'admin-stat',
-        svg: ReportSvg,
-    },
-];
+]);
 
-const secondLinks = [
+const secondLinks = ref([
     {
         name: 'Promotion',
         route: 'admin-promotion',
         svg: HomeSvg,
     },
-    {
+]);
+
+if (user.isAdmin) {
+    links.value.push({
+        name: 'User',
+        route: 'admin-user',
+        svg: BalanceSvg,
+    })
+    links.value.push({
+        name: 'Stats',
+        route: 'admin-stat',
+        svg: ReportSvg,
+    })
+
+    secondLinks.value.push({
         name: 'Expense',
         route: 'admin-expense',
         svg: HistorySvg,
-    },
-    // {
-    //     name: 'Help',
-    //     route: 'admin-order',
-    //     svg: HistorySvg,
-    // },
-];
+    })
+}
 </script>
 
 <style scoped></style>

@@ -39,7 +39,7 @@ const routes = [
         path: '/admin/order/create',
         name: 'admin-order-create',
         component: () => import('@/views/admin/order/Create.vue'),
-        meta: {adminOnly: true},
+        meta: {staffOnly: true},
     },
     {
         path: '/admin/user',
