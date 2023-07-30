@@ -49,6 +49,7 @@
                                     @sortedColumn="setDefaultSortColumn"
                                 />
                             </th>
+                            <th scope="col" class="table-heading">Detail</th>
                         </template>
 
                         <template v-slot:tb>
@@ -98,6 +99,13 @@
                                         )
                                     }}
                                 </td>
+
+                                <td class="table-data">
+                                    <AppLink class="underline text-blue-500"
+                                             :to="{ name: 'admin-order-detail', params: { id: order.id }}">
+                                        view
+                                    </AppLink>
+                                </td>
                             </tr>
                         </template>
                     </AppTable>
@@ -126,6 +134,7 @@ import {ref, watch} from 'vue';
 import {useRoute, useRouter} from 'vue-router';
 import OrderSearchPanel from '@/components/admin/OrderFilterPanel.vue';
 import moment from 'moment';
+import AppLink from "@/components/AppLink.vue";
 
 const route = useRoute();
 const router = useRouter();
