@@ -47,8 +47,7 @@
             :service_id="service_id"
             :user_id="user_id"
             @promotionUpdated="updatePromotionIds"
-            @discountApplied="updatediscount"
-            @isolatedUpdated="setIso"
+            @discountApplied="updateDiscount"
             @getError="setError"
         />
 
@@ -105,7 +104,6 @@ const errors = ref({});
 const isLoading = ref(false);
 const promotion_ids = ref([]);
 const product_ids = ref([]);
-const isolated = ref(false);
 const discountedPrice = ref(0)
 
 const totalProductPrice = computed(() => {
@@ -128,11 +126,7 @@ function updateProduct(product) {
     product_ids.value = product
 }
 
-function setIso(val) {
-    isolated.value = val;
-}
-
-function updatediscount(price) {
+function updateDiscount(price) {
     discountedPrice.value = price
 }
 
@@ -159,7 +153,6 @@ function submit() {
         service_id: service_id.value,
         amount: amount.value,
         user_id: user_id.value,
-        isolated: Number(isolated.value),
         promotion_ids:
             promotion_ids.value.length === 0 ? null : promotion_ids.value,
     }

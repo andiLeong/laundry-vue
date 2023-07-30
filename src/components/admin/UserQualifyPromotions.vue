@@ -22,11 +22,6 @@
                 @promotionRemoved="remove($event)"
             />
         </div>
-
-        <div class="sm:col-span-2">
-            <label class="form-label mb-3">Is Isolated</label>
-            <ToggleButton :state="isolated" @changed="setIsolated"/>
-        </div>
     </div>
 
     <div
@@ -56,7 +51,6 @@
 
 <script setup>
 import UserQualifyPromotion from '@/components/admin/UserQualifyPromotion.vue';
-import ToggleButton from '@/components/forms/ToggleButton.vue';
 import {computed, ref, watch} from 'vue';
 import Errors from '@/model/Errors.js';
 import MountedTeleport from '@/components/MountedTeleport.vue';
@@ -67,14 +61,13 @@ const props = defineProps({
     user_id: {required: true},
     amount: {required: true},
 });
-const emit = defineEmits(['promotionUpdated', 'getError', 'discountApplied', 'isolatedUpdated']);
+const emit = defineEmits(['promotionUpdated', 'getError', 'discountApplied']);
 
 const discounts = ref(0);
 const loading = ref(false);
 const fetchedIds = ref([]);
 const promotions = ref(null);
 const promotion_ids = ref([]);
-const isolated = ref(false);
 const isolatedPromotions = computed(() => promotions.value?.isolated);
 const nonIsolatedPromotions = computed(() =>
     promotions.value !== null ? promotions.value['non-isolated'] : null,
@@ -90,16 +83,10 @@ watch(discounts, (newValue) => {
     let discounted;
     if (newValue === 0) {
         discounted = 0
-        // discounted = props.amount;
     } else {
         discounted = props.amount * discounts.value;
-        // discounted = props.amount - props.amount * discounts.value;
     }
     emit('discountApplied', discounted)
-});
-
-watch(isolated, (newValue) => {
-    emit('isolatedUpdated', newValue)
 });
 
 watch(
@@ -119,10 +106,6 @@ watch(
         }
     },
 );
-
-function setIsolated(value) {
-    isolated.value = value;
-}
 
 function add(promotion) {
     discounts.value += promotion.discount;
