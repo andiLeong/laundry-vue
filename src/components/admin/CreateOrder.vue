@@ -35,7 +35,7 @@
                         placeHolder="Amount"
                         class="mt-1 form-input"
                         label="Order Amount"
-                        type="text"
+                        type="number"
                         v-model="amount"
                     />
                 </div>

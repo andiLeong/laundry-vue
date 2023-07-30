@@ -1,5 +1,11 @@
 <template>
     <div
+        v-if="loading"
+        class="mt-10 animate-pulse h-28 bg-gray-300"
+    >
+    </div>
+
+    <div
         v-if="promotions !== null"
         class="mt-10 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6"
     >
@@ -39,22 +45,20 @@
         </div>
     </div>
 
-    <MountedTeleport to="#fetch-promotion-button">
-        <SecondaryButton
-            :loading="loading"
-            @click.prevent="fetch"
-            not-saving="Promotions"
-            saving="Fetching"
-        />
-    </MountedTeleport>
+    <!--    <MountedTeleport to="#fetch-promotion-button">-->
+    <!--        <SecondaryButton-->
+    <!--            :loading="loading"-->
+    <!--            @click.prevent="fetch"-->
+    <!--            not-saving="Promotions"-->
+    <!--            saving="Fetching"-->
+    <!--        />-->
+    <!--    </MountedTeleport>-->
 </template>
 
 <script setup>
 import UserQualifyPromotion from '@/components/admin/UserQualifyPromotion.vue';
 import {computed, ref, watch} from 'vue';
 import Errors from '@/model/Errors.js';
-import MountedTeleport from '@/components/MountedTeleport.vue';
-import SecondaryButton from '@/components/forms/SecondaryButton.vue';
 
 const props = defineProps({
     service_id: {required: true},
@@ -76,18 +80,23 @@ const discountedPrice = computed(() => {
     if (discounts.value === 0) {
         return props.amount;
     }
-    return props.amount - props.amount * discounts.value;
+    let res = props.amount - props.amount * discounts.value;
+    return res.toFixed(2)
 });
 
 watch(discounts, (newValue) => {
-    let discounted;
-    if (newValue === 0) {
-        discounted = 0
-    } else {
-        discounted = props.amount * discounts.value;
-    }
-    emit('discountApplied', discounted)
+    calculateDiscount(newValue, props.amount)
 });
+
+watch(
+    () => props.amount,
+    (newAmount) => {
+        if (!newAmount) {
+            return calculateDiscount(discounts.value, 0)
+        }
+        calculateDiscount(discounts.value, newAmount)
+    },
+);
 
 watch(
     () => props.service_id,
@@ -106,6 +115,17 @@ watch(
         }
     },
 );
+
+function calculateDiscount(newValue, amount) {
+    let discounted;
+    if (newValue === 0) {
+        discounted = 0
+    } else {
+        discounted = amount * discounts.value;
+    }
+
+    emit('discountApplied', parseFloat(discounted.toFixed(2)))
+}
 
 function add(promotion) {
     discounts.value += promotion.discount;
@@ -143,13 +163,13 @@ function fetch() {
 
     discounts.value = 0;
     loading.value = true;
+    promotions.value = null
     axios
         .get(
             `api/admin/user/qualified-promotion/${props.user_id}/${props.service_id}`,
         )
         .then(({data}) => {
             promotions.value = data;
-            console.log(data);
         })
         .catch((error) => {
             let err = new Errors(error);

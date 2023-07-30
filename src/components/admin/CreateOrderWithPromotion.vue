@@ -28,7 +28,7 @@
                     placeHolder="Amount"
                     class="mt-1 form-input"
                     label="Order Amount"
-                    type="text"
+                    type="number"
                     v-model="amount"
                 />
             </div>
@@ -51,7 +51,6 @@
             @getError="setError"
         />
 
-        <div class="flex" id="fetch-promotion-button"></div>
         <div class="pt-1">
             <div class="mb-2">
                 <ErrorManager
@@ -119,7 +118,7 @@ const totalProductPrice = computed(() => {
 });
 
 const totalPrice = computed(() => {
-    return parseInt(amount.value) + parseInt(totalProductPrice.value) - parseInt(discountedPrice.value)
+    return (parseInt(amount.value) + parseInt(totalProductPrice.value) - parseInt(discountedPrice.value)) || 0;
 });
 
 function updateProduct(product) {

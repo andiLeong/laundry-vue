@@ -27,7 +27,7 @@ export default function useFetchGroupBy(query) {
                 });
 
                 margins.value = data.map((order) => {
-                    return order?.order_count;
+                    return order?.margin;
                 });
             })
             .catch((error) => {
