@@ -66,6 +66,18 @@ const routes = [
         meta: {staffOnly: true},
     },
     {
+        path: '/admin/product',
+        name: 'admin-product',
+        component: () => import('@/views/admin/Product.vue'),
+        meta: {staffOnly: true},
+    },
+    {
+        path: '/admin/service',
+        name: 'admin-service',
+        component: () => import('@/views/admin/Service.vue'),
+        meta: {staffOnly: true},
+    },
+    {
         path: '/login',
         name: 'login',
         component: () => import('@/views/Login.vue'),

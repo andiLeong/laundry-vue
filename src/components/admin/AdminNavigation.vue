@@ -76,11 +76,11 @@ import BalanceSvg from '@/svg/Balance.vue';
 import AppLink from '@/components/AppLink.vue';
 import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue';
 import {useUserStore} from "@/store/user.js";
-import {ref} from "vue";
+import {ref, shallowRef} from "vue";
 
 
 const user = useUserStore();
-const links = ref([
+const links = shallowRef([
     {
         name: 'Home',
         route: 'admin-home',
@@ -91,9 +91,19 @@ const links = ref([
         route: 'admin-order',
         svg: HistorySvg,
     },
+    {
+        name: 'Product',
+        route: 'admin-product',
+        svg: HistorySvg,
+    },
+    {
+        name: 'Service',
+        route: 'admin-service',
+        svg: HistorySvg,
+    },
 ]);
 
-const secondLinks = ref([
+const secondLinks = shallowRef([
     {
         name: 'Promotion',
         route: 'admin-promotion',

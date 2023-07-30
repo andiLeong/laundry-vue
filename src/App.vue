@@ -40,6 +40,8 @@ const adminRoutes = [
     'admin-promotion',
     'admin-expense',
     'admin-order-detail',
+    'admin-product',
+    'admin-service',
 ];
 
 const route = useRoute();
