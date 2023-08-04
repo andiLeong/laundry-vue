@@ -7,12 +7,11 @@
     </template>
     <template v-else>
         <div v-cloak>
-            <h1 class="text-sky-600">Hello App!</h1>
-            <p class="text-white bg-blue-400 p-2">
-                <router-link to="/" class="mr-2">Go to Home</router-link>
-                <router-link to="/about" class="mr-2">Go to About</router-link>
-                <router-link to="/login" class="mr-2">Go to login</router-link>
-            </p>
+            <!--            <p class="text-white bg-blue-400 p-2">-->
+            <!--                <router-link to="/" class="mr-2">Go to Home</router-link>-->
+            <!--                <router-link to="/about" class="mr-2">Go to About</router-link>-->
+            <!--                <router-link to="/login" class="mr-2">Go to login</router-link>-->
+            <!--            </p>-->
             <router-view></router-view>
         </div>
     </template>
@@ -20,9 +19,9 @@
 
 <script setup>
 import AdminNavigation from '@/components/admin/AdminNavigation.vue';
-import {useUserStore} from '@/store/user';
-import {computed, ref} from 'vue';
-import {useRoute} from 'vue-router';
+import { useUserStore } from '@/store/user';
+import { computed, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
 
@@ -63,4 +62,9 @@ console.log('is customer ' + isCustomer.value);
 const loadAdminView = computed(() => {
     return adminRoutes.includes(route.name);
 });
+
+if (loadAdminView.value) {
+    var root = document.getElementsByTagName('html')[0];
+    root.setAttribute('class', 'h-full bg-gray-100');
+}
 </script>
