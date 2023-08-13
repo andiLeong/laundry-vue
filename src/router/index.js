@@ -7,9 +7,9 @@ import {useUserStore} from '@/store/user';
 const routes = [
     {path: '/', name: 'home', component: () => import('@/views/Home.vue')},
     {
-        path: '/about',
-        name: 'about',
-        component: () => import('@/views/About.vue'),
+        path: '/service',
+        name: 'service',
+        component: () => import('@/views/Service.vue'),
     },
     {
         path: '/promotion',
