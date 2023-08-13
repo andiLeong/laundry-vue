@@ -49,7 +49,7 @@
         </section>
     </nav>
 
-    <main class=" md:max-w-5xl md:mx-auto my-9 space-y-9">
+    <main class="px-8 md:max-w-5xl mx-auto my-9 space-y-9">
         <div class="flex flex-col items-center space-y-2.5">
             <div class="self-start">
                 <button @click.prevent="goToPromotion" style="color: #5130D3;line-height:normal"
@@ -63,9 +63,11 @@
                     Go Back
                 </button>
             </div>
-            <h1 class="text-5xl font-black text-black">20% OFF if you avail at 8am to 12 pm.</h1>
-            <img src="/src/assets/promotion-details.png" alt="promotion-detail">
-            <p style="color: #6B7280;line-height: normal;width: 500px" class="text-base font-normal text-center">Lorem
+            <h1 class="text-center text-3xl md:text-5xl font-black text-black">20% OFF if you avail at 8am to 12
+                pm.</h1>
+            <img class="" src="/src/assets/promotion-details.png" alt="promotion-detail">
+            <p style="color: #6B7280;line-height: normal;max-width: 500px" class=" text-base font-normal text-center">
+                Lorem
                 ipsum, dolor
                 sit amet
                 consectetur
