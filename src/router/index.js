@@ -12,6 +12,17 @@ const routes = [
         component: () => import('@/views/About.vue'),
     },
     {
+        path: '/promotion',
+        name: 'promotion',
+        component: () => import('@/views/promotion/Promotion.vue'),
+    },
+    {
+        path: '/promotion/:id',
+        name: 'promotion-detail',
+        component: () => import('@/views/promotion/Show.vue'),
+        props: true,
+    },
+    {
         path: '/admin/home',
         name: 'admin-home',
         component: () => import('@/views/admin/Home.vue'),
@@ -27,7 +38,7 @@ const routes = [
         path: '/admin/order/:id',
         name: 'admin-order-detail',
         component: () => import('@/views/admin/order/Show.vue'),
-        props: true,
+        // props: true,
     },
     {
         path: '/admin/promotion',

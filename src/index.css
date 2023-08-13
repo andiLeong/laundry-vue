@@ -59,4 +59,25 @@
     .count-up {
         @apply px-4 py-2 shadow-lg bg-blue-400 rounded text-white;
     }
+
+    .need-line-bg {
+        position: relative;
+    }
+
+    .need-line-bg::before {
+        /*background: url('/src/assets/about-bg.jpg'), lightgray 50% / cover no-repeat;*/
+        content: '';
+        background-image: url('/src/assets/about-bg.jpg');
+        background-size: cover;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
+        opacity: 0.3;
+    }
+
+    .need-line-bg > * {
+        position: relative;
+    }
 }

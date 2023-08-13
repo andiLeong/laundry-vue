@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import RightArrow from '@/svg/RightArrow.vue';
 import AppFooter from '@/components/AppFooter.vue';
 </script>
@@ -20,7 +20,7 @@ import AppFooter from '@/components/AppFooter.vue';
                             href=""
                             class="font-bold text-sm"
                             style="color: #374151"
-                            >Home</a
+                        >Home</a
                         >
                     </li>
                     <li>
@@ -28,7 +28,7 @@ import AppFooter from '@/components/AppFooter.vue';
                             href=""
                             class="font-bold text-sm"
                             style="color: #374151"
-                            >Service</a
+                        >Service</a
                         >
                     </li>
                     <li>
@@ -36,7 +36,7 @@ import AppFooter from '@/components/AppFooter.vue';
                             href=""
                             class="font-bold text-sm"
                             style="color: #374151"
-                            >Promotions</a
+                        >Promotions</a
                         >
                     </li>
                 </ul>
@@ -48,7 +48,7 @@ import AppFooter from '@/components/AppFooter.vue';
                     class="flex items-center font-bold text-sm"
                 >
                     Login
-                    <RightArrow class="ml-2 w-5 h-5" />
+                    <RightArrow class="ml-2 w-5 h-5"/>
                 </button>
             </div>
         </section>
@@ -105,7 +105,7 @@ import AppFooter from '@/components/AppFooter.vue';
                 </div>
 
                 <div class="">
-                    <img src="src/assets/lady-laundry.png" alt="lady" />
+                    <img src="src/assets/lady-laundry.png" alt="lady"/>
                 </div>
             </div>
         </section>
@@ -184,7 +184,7 @@ import AppFooter from '@/components/AppFooter.vue';
         </section>
     </main>
 
-    <AppFooter />
+    <AppFooter/>
 </template>
 
 <style scoped>
@@ -201,9 +201,8 @@ import AppFooter from '@/components/AppFooter.vue';
     bottom: 0;
     z-index: 0;
     border-radius: 413px;
-    background:
-        url('src/assets/blue-bg.jpg'),
-        lightgray 50% / cover no-repeat;
+    background: url('src/assets/blue-bg.jpg'),
+    lightgray 50% / cover no-repeat;
     -webkit-filter: blur(117px);
     -moz-filter: blur(117px);
     -o-filter: blur(117px);
@@ -213,26 +212,5 @@ import AppFooter from '@/components/AppFooter.vue';
 .blue-bg-blur > * {
     position: relative;
     z-index: 1;
-}
-
-.need-line-bg {
-    position: relative;
-}
-
-.need-line-bg::before {
-    /*background: url('/src/assets/about-bg.jpg'), lightgray 50% / cover no-repeat;*/
-    content: '';
-    background-image: url('/src/assets/about-bg.jpg');
-    background-size: cover;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    left: 0px;
-    opacity: 0.3;
-}
-
-.need-line-bg > * {
-    position: relative;
 }
 </style>
