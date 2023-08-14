@@ -1,52 +1,6 @@
 <template>
-    <nav class="bg-gray-50 w-full">
-        <section
-            class="mx-auto max-w-screen-2xl flex justify-between px-10 py-4"
-        >
-            <div>
-                <p class="font-semibold">logo</p>
-            </div>
 
-            <div>
-                <ul class="flex space-x-3">
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                        >Home</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                        >Service</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                        >Promotions</a
-                        >
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <button
-                    style="color: #374151"
-                    class="flex items-center font-bold text-sm"
-                >
-                    Login
-                    <RightArrow class="ml-2 w-5 h-5"/>
-                </button>
-            </div>
-        </section>
-    </nav>
+    <AppNavigation/>
 
     <section class="promotion-bg py-12 md:py-8 px-4 w-full flex items-center justify-center">
         <div class="text-center">
@@ -114,10 +68,10 @@
 </template>
 
 <script setup>
-import RightArrow from '@/svg/RightArrow.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import {useRouter} from 'vue-router';
 import {ref} from "vue";
+import AppNavigation from '@/components/AppNavigation.vue'
 
 const router = useRouter();
 

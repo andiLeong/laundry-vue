@@ -1,53 +1,6 @@
 <template>
 
-    <nav class="bg-gray-50 w-full">
-        <section
-            class="mx-auto max-w-screen-2xl flex justify-between px-10 py-4"
-        >
-            <div>
-                <p class="font-semibold">logo</p>
-            </div>
-
-            <div>
-                <ul class="flex space-x-3">
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                        >Home</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                        >Service</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                        >Promotions</a
-                        >
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <button
-                    style="color: #374151"
-                    class="flex items-center font-bold text-sm"
-                >
-                    Login
-                    <RightArrow class="ml-2 w-5 h-5"/>
-                </button>
-            </div>
-        </section>
-    </nav>
+    <AppNavigation/>
 
     <main class="px-8 md:max-w-5xl mx-auto my-9 space-y-9">
         <div class="flex flex-col items-center space-y-2.5">
@@ -137,9 +90,9 @@
 </template>
 
 <script setup>
-import RightArrow from '@/svg/RightArrow.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import {useRouter, useRoute} from "vue-router";
+import AppNavigation from '@/components/AppNavigation.vue'
 
 const router = useRouter()
 const props = defineProps(['id'])

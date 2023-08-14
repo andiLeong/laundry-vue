@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import RightArrow from '@/svg/RightArrow.vue';
 import AppFooter from '@/components/AppFooter.vue';
+import AppNavigation from '@/components/AppNavigation.vue'
 
 const services = ref([
     {
@@ -28,54 +29,7 @@ const services = ref([
 </script>
 
 <template>
-    <nav class="bg-gray-50 w-full">
-        <section
-            class="mx-auto max-w-screen-2xl flex justify-between px-10 py-4"
-        >
-            <div>
-                <p class="font-semibold">logo</p>
-            </div>
-
-            <div>
-                <ul class="flex space-x-3">
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                            >Home</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                            >Service</a
-                        >
-                    </li>
-                    <li>
-                        <a
-                            href=""
-                            class="font-bold text-sm"
-                            style="color: #374151"
-                            >Promotions</a
-                        >
-                    </li>
-                </ul>
-            </div>
-
-            <div>
-                <button
-                    style="color: #374151"
-                    class="flex items-center font-bold text-sm"
-                >
-                    Login
-                    <RightArrow class="ml-2 w-5 h-5" />
-                </button>
-            </div>
-        </section>
-    </nav>
+    <AppNavigation/>
 
     <main class="mx-auto max-w-screen-2xl my-9 space-y-10">
         <div class="text-center">
@@ -118,11 +72,11 @@ const services = ref([
                     <p class="mt-4 flex items-baseline gap-x-1">
                         <span
                             class="text-3xl font-bold tracking-tight text-gray-900"
-                            >P{{ service.price }}</span
+                        >P{{ service.price }}</span
                         >
                         <span
                             class="text-sm font-semibold leading-6 text-gray-600"
-                            >/load</span
+                        >/load</span
                         >
                     </p>
                     <ul
@@ -236,7 +190,7 @@ const services = ref([
         </div>
     </main>
 
-    <AppFooter />
+    <AppFooter/>
 </template>
 
 <style scoped></style>
