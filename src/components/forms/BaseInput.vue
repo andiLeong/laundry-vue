@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import UniqueID from '@/features/UniqueID';
+import UniqueID from '@/features/UniqueId';
 
 export default {
     props: {
