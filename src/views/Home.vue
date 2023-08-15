@@ -58,7 +58,7 @@ import AppFooter from '@/components/AppFooter.vue';
                 </div>
 
                 <div class="">
-                    <img src="src/assets/lady-laundry.png" alt="lady"/>
+                    <img src="/src/assets/lady-laundry.png" alt="lady"/>
                 </div>
             </div>
         </section>
@@ -83,7 +83,7 @@ import AppFooter from '@/components/AppFooter.vue';
             <div class="my-6 md:grid grid-cols-2 gap-6">
                 <div class="grid-rows-1">
                     <img
-                        src="src/assets/about-us-first.png"
+                        src="/src/assets/about-us-first.png"
                         alt="about-us-first"
                     />
                 </div>
@@ -107,7 +107,7 @@ import AppFooter from '@/components/AppFooter.vue';
             <div class="my-6 md:flex gap-6 flex-col-reverse md:flex-row">
                 <div class="block md:hidden w-full md:w-1/2">
                     <img
-                        src="src/assets/about-us-second.png"
+                        src="/src/assets/about-us-second.png"
                         alt="about-us-second"
                     />
                 </div>
@@ -129,7 +129,7 @@ import AppFooter from '@/components/AppFooter.vue';
                 </div>
                 <div class="hidden md:block w-full md:w-1/2">
                     <img
-                        src="src/assets/about-us-second.png"
+                        src="/src/assets/about-us-second.png"
                         alt="about-us-second"
                     />
                 </div>
