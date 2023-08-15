@@ -25,9 +25,9 @@
                 style="box-shadow: 0px 10px 15px -3px rgba(15, 23, 42, 0.08);"
                 class="cursor-pointer bg-white rounded-sm md:flex border border-slate-200">
                 <div>
-                    <img class="hidden md:block mix-blend-multiply" :src="toImage(promotion.image)"
+                    <img class="hidden md:block mix-blend-multiply" :src="promotion.image"
                          alt="promotion-1">
-                    <img class="block md:hidden mix-blend-multiply" :src="toImage(promotion.largeImage)"
+                    <img class="block md:hidden mix-blend-multiply" :src="promotion.largeImage"
                          alt="promotion-1">
                 </div>
                 <div class="p-4">
@@ -78,48 +78,48 @@ const router = useRouter();
 const promotions = ref([
     {
         id: 1,
-        image: '/src/assets/promotion-1.png',
-        largeImage: '/src/assets/promotion-1-big.jpeg'
+        image: '/promotion-1.png',
+        largeImage: '/promotion-1-big.jpeg'
     },
     {
         id: 2,
-        image: '/src/assets/promotion-2.png',
-        largeImage: '/src/assets/promotion-2-big.jpeg'
+        image: '/promotion-2.png',
+        largeImage: '/promotion-2-big.jpeg'
     },
     {
         id: 3,
-        image: '/src/assets/promotion-3.png',
-        largeImage: '/src/assets/promotion-3-big.jpeg'
+        image: '/promotion-3.png',
+        largeImage: '/promotion-3-big.jpeg'
     },
     {
         id: 4,
-        image: '/src/assets/promotion-4.png',
-        largeImage: '/src/assets/promotion-4-big.jpeg'
+        image: '/promotion-4.png',
+        largeImage: '/promotion-4-big.jpeg'
     },
     {
         id: 5,
-        image: '/src/assets/promotion-3.png',
-        largeImage: '/src/assets/promotion-3-big.jpeg'
+        image: '/promotion-3.png',
+        largeImage: '/promotion-3-big.jpeg'
     },
     {
         id: 6,
-        image: '/src/assets/promotion-3.png',
-        largeImage: '/src/assets/promotion-3-big.jpeg'
+        image: '/promotion-3.png',
+        largeImage: '/promotion-3-big.jpeg'
     },
     {
         id: 7,
-        image: '/src/assets/promotion-2.png',
-        largeImage: '/src/assets/promotion-2-big.jpeg'
+        image: '/promotion-2.png',
+        largeImage: '/promotion-2-big.jpeg'
     },
     {
         id: 8,
-        image: '/src/assets/promotion-2.png',
-        largeImage: '/src/assets/promotion-2-big.jpeg'
+        image: '/promotion-2.png',
+        largeImage: '/promotion-2-big.jpeg'
     },
     {
         id: 9,
-        image: '/src/assets/promotion-4.png',
-        largeImage: '/src/assets/promotion-4-big.jpeg'
+        image: '/promotion-4.png',
+        largeImage: '/promotion-4-big.jpeg'
     },
 ]);
 
@@ -127,9 +127,10 @@ function goToDetail(promId) {
     router.push({name: 'promotion-detail', params: {id: promId}})
 }
 
-function toImage(img) {
-    return new URL(img, import.meta.url).href
-}
+// function toImage(img) {
+//     console.log(new URL(img, import.meta.url).href)
+//     return new URL(img, import.meta.url).href
+// }
 </script>
 
 <style scoped>
