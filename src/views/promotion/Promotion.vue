@@ -25,9 +25,9 @@
                 style="box-shadow: 0px 10px 15px -3px rgba(15, 23, 42, 0.08);"
                 class="cursor-pointer bg-white rounded-sm md:flex border border-slate-200">
                 <div>
-                    <img class="hidden md:block mix-blend-multiply" :src="promotion.image"
+                    <img class="hidden md:block mix-blend-multiply" :src="toImage(promotion.image)"
                          alt="promotion-1">
-                    <img class="block md:hidden mix-blend-multiply" :src="promotion.largeImage"
+                    <img class="block md:hidden mix-blend-multiply" :src="toImage(promotion.largeImage)"
                          alt="promotion-1">
                 </div>
                 <div class="p-4">
@@ -127,6 +127,9 @@ function goToDetail(promId) {
     router.push({name: 'promotion-detail', params: {id: promId}})
 }
 
+function toImage(img) {
+    return new URL(img, import.meta.url).href
+}
 </script>
 
 <style scoped>
