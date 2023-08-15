@@ -154,7 +154,7 @@ import AppFooter from '@/components/AppFooter.vue';
     bottom: 0;
     z-index: 0;
     border-radius: 413px;
-    background: url('src/assets/blue-bg.jpg'),
+    background: url('/src/assets/blue-bg.jpg'),
     lightgray 50% / cover no-repeat;
     -webkit-filter: blur(117px);
     -moz-filter: blur(117px);
