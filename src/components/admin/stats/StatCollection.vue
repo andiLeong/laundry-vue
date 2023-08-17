@@ -1,9 +1,9 @@
 <script setup>
 import StatCard from '@/components/admin/stats/StatCard.vue';
-import {ref, watch} from 'vue';
+import { ref, watch } from 'vue';
 import Errors from '@/model/Errors.js';
-import StatLoadingSkeleton from "@/components/admin/stats/StatLoadingSkeleton.vue";
-import BaseSelect from "@/components/forms/BaseSelect.vue";
+import StatLoadingSkeleton from '@/components/skeleton/StatLoadingSkeleton.vue';
+import BaseSelect from '@/components/forms/BaseSelect.vue';
 
 const errors = ref({});
 const loading = ref(true);
@@ -15,14 +15,14 @@ const daysOption = ref(['all', 7, 30, 60, 90, 120, 180]);
 const day = ref('all');
 
 watch(day, async (newValue, oldValue) => {
-    fetch()
-})
+    fetch();
+});
 
 function fetch() {
-    loading.value = true
+    loading.value = true;
     axios
         .get(`/api/admin/stats?days=${day.value}`)
-        .then(({data}) => {
+        .then(({ data }) => {
             userCount.value = data.user_count;
             orderCount.value = data.order_count;
             orderAmount.value = data.total_order_amount;
@@ -32,7 +32,7 @@ function fetch() {
             let err = new Errors(error);
             errors.value = err.handle();
         })
-        .finally(() => loading.value = false);
+        .finally(() => (loading.value = false));
 }
 
 fetch();
@@ -50,30 +50,29 @@ fetch();
     </div>
 
     <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-
         <template v-if="loading">
-            <StatLoadingSkeleton/>
+            <StatLoadingSkeleton />
         </template>
         <template v-else>
-            <StatCard title="Users Count" :number="userCount"/>
+            <StatCard title="Users Count" :number="userCount" />
         </template>
 
         <template v-if="loading">
-            <StatLoadingSkeleton/>
+            <StatLoadingSkeleton />
         </template>
         <template v-else>
-            <StatCard title="Orders Count" :number="orderCount"/>
+            <StatCard title="Orders Count" :number="orderCount" />
         </template>
 
         <template v-if="loading">
-            <StatLoadingSkeleton/>
+            <StatLoadingSkeleton />
         </template>
         <template v-else>
-            <StatCard title="Order Amount" :number="orderAmount"/>
+            <StatCard title="Order Amount" :number="orderAmount" />
         </template>
 
         <template v-if="loading">
-            <StatLoadingSkeleton/>
+            <StatLoadingSkeleton />
         </template>
         <template v-else>
             <StatCard

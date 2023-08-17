@@ -1,35 +1,15 @@
 <script setup>
-import {ref} from 'vue';
-import RightArrow from '@/svg/RightArrow.vue';
 import AppFooter from '@/components/AppFooter.vue';
-import AppNavigation from '@/components/AppNavigation.vue'
+import AppNavigation from '@/components/AppNavigation.vue';
+import Check from '@/svg/Check.vue';
+import useFetchServices from '@/composable/useFetchServices.js';
+import ServiceSkeleton from '@/components/skeleton/ServiceSkeleton.vue';
 
-const services = ref([
-    {
-        id: 1,
-        name: 'Full Service up to 10kg',
-        price: 200,
-    },
-    {
-        id: 2,
-        name: 'Self Service wash only',
-        price: 65,
-    },
-    {
-        id: 3,
-        name: 'Self Service dryer only',
-        price: 75,
-    },
-    {
-        id: 4,
-        name: 'Full Service up to 4kg',
-        price: 180,
-    },
-]);
+const { services, loading, error } = useFetchServices();
 </script>
 
 <template>
-    <AppNavigation/>
+    <AppNavigation />
 
     <main class="mx-auto max-w-screen-2xl my-9 space-y-10">
         <div class="text-center">
@@ -47,105 +27,84 @@ const services = ref([
         <div
             class="isolate mt-10 grid grid-cols-1 gap-8 mx-8 lg:mx-5 lg:max-w-none lg:grid-cols-4"
         >
-            <div
-                v-for="(service, index) in services"
-                :key="index"
-                :class="
-                    service.id === 1
-                        ? 'ring-2 ring-indigo-500'
-                        : 'ring-1 ring-gray-200'
-                "
-                class="flex flex-col justify-between rounded-3xl bg-white px-8 py-10 mt-2 lg:mt-0"
-            >
-                <div>
-                    <div class="flex items-center justify-between gap-x-4">
-                        <h3
-                            id="tier-freelancer"
-                            class="text-lg font-semibold leading-8 text-gray-900"
-                        >
-                            {{ service.name }}
-                        </h3>
-                    </div>
-                    <p class="mt-4 text-sm leading-6 text-gray-600">
-                        The essentials to provide your best work for clients.
+            <template v-if="loading">
+                <ServiceSkeleton v-for="index in 4" :key="index" />
+            </template>
+            <template v-else>
+                <template v-if="error">
+                    <p class="validation-error">
+                        Error loading service please try again
                     </p>
-                    <p class="mt-4 flex items-baseline gap-x-1">
-                        <span
-                            class="text-3xl font-bold tracking-tight text-gray-900"
-                        >P{{ service.price }}</span
-                        >
-                        <span
-                            class="text-sm font-semibold leading-6 text-gray-600"
-                        >/load</span
-                        >
-                    </p>
-                    <ul
-                        role="list"
-                        class="mt-8 space-y-1 text-sm leading-6 text-gray-600"
+                </template>
+                <template v-else>
+                    <div
+                        v-for="(service, index) in services"
+                        :key="index"
+                        :class="
+                            service.id === 1
+                                ? 'ring-2 ring-indigo-500'
+                                : 'ring-1 ring-gray-200'
+                        "
+                        class="flex flex-col justify-between rounded-3xl bg-white px-8 py-10 mt-2 lg:mt-0"
                     >
-                        <li class="flex gap-x-3">
-                            <svg
-                                class="h-6 w-5 flex-none text-indigo-600"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
+                        <div>
+                            <div
+                                class="flex items-center justify-between gap-x-4"
                             >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            5 products
-                        </li>
-                        <li class="flex gap-x-3">
-                            <svg
-                                class="h-6 w-5 flex-none text-indigo-600"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
+                                <h3
+                                    id="tier-freelancer"
+                                    class="text-lg font-semibold leading-8 text-gray-900"
+                                >
+                                    {{ service.name }}
+                                </h3>
+                            </div>
+                            <p class="mt-4 text-sm leading-6 text-gray-600">
+                                The essentials to provide your best work for
+                                clients.
+                            </p>
+                            <p class="mt-4 flex items-baseline gap-x-1">
+                                <span
+                                    class="text-3xl font-bold tracking-tight text-gray-900"
+                                    >P{{ service.price }}</span
+                                >
+                                <span
+                                    class="text-sm font-semibold leading-6 text-gray-600"
+                                    >/load</span
+                                >
+                            </p>
+                            <ul
+                                role="list"
+                                class="mt-8 space-y-1 text-sm leading-6 text-gray-600"
                             >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            Up to 1,000 subscribers
-                        </li>
-                        <li class="flex gap-x-3">
-                            <svg
-                                class="h-6 w-5 flex-none text-indigo-600"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            Basic analytics
-                        </li>
-                        <li class="flex gap-x-3">
-                            <svg
-                                class="h-6 w-5 flex-none text-indigo-600"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            48-hour support response time
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                                <li class="flex gap-x-3">
+                                    <Check
+                                        class="h-6 w-5 flex-none text-indigo-600"
+                                    />
+                                    5 products
+                                </li>
+                                <li class="flex gap-x-3">
+                                    <Check
+                                        class="h-6 w-5 flex-none text-indigo-600"
+                                    />
+                                    Up to 1,000 subscribers
+                                </li>
+                                <li class="flex gap-x-3">
+                                    <Check
+                                        class="h-6 w-5 flex-none text-indigo-600"
+                                    />
+                                    Basic analytics
+                                </li>
+                                <li class="flex gap-x-3">
+                                    <Check
+                                        class="h-6 w-5 flex-none text-indigo-600"
+                                    />
+                                    48-hour support response time
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </template>
+            </template>
         </div>
 
         <div class="max-w-xl mx-auto px-2">
@@ -190,7 +149,7 @@ const services = ref([
         </div>
     </main>
 
-    <AppFooter/>
+    <AppFooter />
 </template>
 
 <style scoped></style>

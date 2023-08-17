@@ -10,14 +10,14 @@
             />
         </div>
         <template v-if="loading">
-            <ChartLoadingSkeleton/>
+            <ChartLoadingSkeleton />
             <!--            <div class="mt-8 border border-gray-300 shadow-lg rounded-lg bg-gray-300 animate-pulse"-->
             <!--                 style="height: 384px; width: 768px">-->
             <!--            </div>-->
         </template>
         <div class="mb-10">
             <template v-if="orderCount.length > 0">
-                <BarChart :data="orderCountChart"/>
+                <BarChart :data="orderCountChart" />
             </template>
         </div>
         <div>
@@ -27,50 +27,41 @@
         </div>
         <template v-if="errors">
             <div class="mt-2">
-                <ErrorManager
-                    v-if="errors"
-                    :errors="errors"
-                />
+                <ErrorManager v-if="errors" :errors="errors" />
             </div>
         </template>
     </div>
 </template>
 
 <script setup>
-import {computed, ref, watch} from "vue";
-import BarChart from "@/components/BarChart.vue";
+import { computed, ref, watch } from 'vue';
+import BarChart from '@/components/BarChart.vue';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
-import BaseSelect from "@/components/forms/BaseSelect.vue";
-import useFetchGroupBy from "@/composable/useFetchGroupBy.js";
-import ChartLoadingSkeleton from "@/components/admin/stats/ChartLoadingSkeleton.vue";
+import BaseSelect from '@/components/forms/BaseSelect.vue';
+import useFetchGroupBy from '@/composable/useFetchGroupBy.js';
+import ChartLoadingSkeleton from '@/components/skeleton/ChartLoadingSkeleton.vue';
 
 const days = ref(7);
 const daysSelect = ref([7, 10, 20, 30, 60, 90]);
 let groupBy = new useFetchGroupBy(`group_by_days=${days.value}`);
-const {
-    orderCount,
-    loading,
-    labels,
-    errors,
-} = groupBy
+const { orderCount, loading, labels, errors } = groupBy;
 
 watch(days, async (newValue, oldValue) => {
-    groupBy.fetch(`group_by_days=${newValue}`)
-})
+    groupBy.fetch(`group_by_days=${newValue}`);
+});
 
 const orderCountChart = computed(() => {
     return {
         labels: labels.value,
         datasets: [
             {
-                label: "Order Count By Days",
+                label: 'Order Count By Days',
                 data: orderCount.value,
                 backgroundColor: '#a5b4fc',
             },
-        ]
-    }
-})
-
+        ],
+    };
+});
 
 // const orderAmountTotalChart = computed(() => {
 //     return {
@@ -86,9 +77,6 @@ const orderCountChart = computed(() => {
 //         ]
 //     }
 // })
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

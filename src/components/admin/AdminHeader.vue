@@ -3,7 +3,7 @@ import { useUserStore } from '@/store/user';
 
 const userStore = useUserStore();
 import { ref } from 'vue';
-import Check from '@/svg/Check.vue';
+import CheckCircle from '@/svg/CheckCircle.vue';
 import Building from '@/svg/Building.vue';
 
 const firstName = ref(userStore.firstName);
@@ -52,7 +52,7 @@ const firstName = ref(userStore.firstName);
                                 <dd
                                     class="mt-3 flex items-center text-sm font-medium capitalize text-gray-500 sm:mr-6 sm:mt-0"
                                 >
-                                    <Check
+                                    <CheckCircle
                                         class="mr-1.5 h-5 w-5 flex-shrink-0 text-green-400"
                                     />
                                     Verified
