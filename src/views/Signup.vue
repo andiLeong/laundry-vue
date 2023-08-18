@@ -1,5 +1,6 @@
 <script setup>
 import Check from '@/svg/Check.vue';
+import AppLink from '@/components/AppLink.vue';
 
 const features = [
     'SMS marketing',
@@ -12,27 +13,28 @@ const features = [
 <template>
     <main id="main" class="min-h-screen">
         <div class="max-w-7xl mx-auto">
-            <nav class="flex items-center justify-end px-9 py-4">
+            <nav class="md:flex items-center justify-end px-9 py-4">
                 <p class="text-white mr-4">Already have an account ?</p>
-                <a href="" class="bg-white rounded-lg px-6 py-2 text-purple-500"
-                    >Sign In</a
-                >
+                <div class="mt-3 md:mt-0">
+                    <AppLink :to="{ name: 'login' }" class="bg-white rounded-lg px-6 py-2 text-purple-500">
+                        Sign In
+                    </AppLink>
+                </div>
             </nav>
-            <section class="max-w-4xl mx-auto space-y-9 mt-6 pb-16">
+            <section class="max-w-4xl mx-auto space-y-9 mt-6 px-6 pb-0 md:pb-16">
                 <div class="flex justify-center">
-                    <img class="w-24 h-24" src="/logo-bnw.png" alt="logo" />
+                    <img class="w-24 h-24" src="/logo-bnw.png" alt="logo"/>
                 </div>
                 <h1
                     style="font-size: 32px; line-height: 44px"
                     class="text-white font-medium text-center"
                 >
-                    Get started with a free SBIN account.
+                    Sign Up To Wash Now
                 </h1>
 
                 <div class="flex">
                     <div
-                        style="border-radius: 8px 0px 0px 8px"
-                        class="hidden md:block px-9 py-10 left-part bg-gray-100"
+                        class="hidden md:block px-9 py-10 left-part bg-gray-100 rounded-l-lg"
                     >
                         <p
                             style="color: #1e293b"
@@ -46,7 +48,7 @@ const features = [
                                 :key="feature"
                                 class="flex items-center"
                             >
-                                <check class="text-green-500 h-6 w-6 mr-3" />
+                                <check class="text-green-500 h-6 w-6 mr-3"/>
                                 <p
                                     style="color: #475569"
                                     class="font-light text-sm"
@@ -57,8 +59,7 @@ const features = [
                         </ul>
                     </div>
                     <div
-                        style="border-radius: 0px 8px 8px 0px"
-                        class="bg-white px-9 py-6 flex-1"
+                        class="bg-white px-9 py-6 flex-1 md:rounded-r-lg"
                     >
                         <form action="">
                             <div class="space-y-5">
@@ -67,9 +68,9 @@ const features = [
                                         style="color: #1c2434"
                                         class="mb-2.5 text-base font-medium"
                                         for="first_name"
-                                        >First Name
+                                    >First Name
                                         <span style="color: #ff2e3b" class=""
-                                            >*</span
+                                        >*</span
                                         >
                                     </label>
                                     <input
@@ -86,7 +87,7 @@ const features = [
                                         style="color: #1c2434"
                                         class="mb-2.5 text-base font-medium"
                                         for="last_name"
-                                        >Last Name
+                                    >Last Name
                                     </label>
                                     <input
                                         style="border: 1px solid #e2e8f0"
@@ -102,7 +103,7 @@ const features = [
                                         style="color: #1c2434"
                                         class="mb-2.5 text-base font-medium"
                                         for="middle_name"
-                                        >Middle Name
+                                    >Middle Name
                                     </label>
                                     <input
                                         style="border: 1px solid #e2e8f0"
@@ -118,9 +119,9 @@ const features = [
                                         style="color: #1c2434"
                                         class="mb-2.5 text-base font-medium"
                                         for="middle_name"
-                                        >Password
+                                    >Password
                                         <span style="color: #ff2e3b" class=""
-                                            >*</span
+                                        >*</span
                                         >
                                     </label>
                                     <input
@@ -137,9 +138,9 @@ const features = [
                                         style="color: #1c2434"
                                         class="mb-2.5 text-base font-medium"
                                         for="phone"
-                                        >Phone Number
+                                    >Phone Number
                                         <span style="color: #ff2e3b" class=""
-                                            >*</span
+                                        >*</span
                                         >
                                     </label>
                                     <input
@@ -174,6 +175,7 @@ const features = [
     background-image: url('/signup-bg.png');
     background-size: cover;
 }
+
 .left-part {
     opacity: 0.7;
 }
