@@ -6,14 +6,7 @@
         </div>
     </template>
     <template v-else>
-        <div v-cloak>
-            <!--            <p class="text-white bg-blue-400 p-2">-->
-            <!--                <router-link to="/" class="mr-2">Go to Home</router-link>-->
-            <!--                <router-link to="/about" class="mr-2">Go to About</router-link>-->
-            <!--                <router-link to="/login" class="mr-2">Go to login</router-link>-->
-            <!--            </p>-->
-            <router-view></router-view>
-        </div>
+        <router-view></router-view>
     </template>
 </template>
 

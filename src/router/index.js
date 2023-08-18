@@ -1,11 +1,23 @@
-import {createRouter, createWebHistory} from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
-import {useUserStore} from '@/store/user';
+import { useUserStore } from '@/store/user';
 
 const routes = [
-    {path: '/', name: 'home', component: () => import('@/views/Home.vue')},
+    { path: '/', name: 'home', component: () => import('@/views/Home.vue') },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/views/Login.vue'),
+        meta: { redirectIfLogged: true },
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: () => import('@/views/Signup.vue'),
+        meta: { redirectIfLogged: true },
+    },
     {
         path: '/service',
         name: 'service',
@@ -26,13 +38,13 @@ const routes = [
         path: '/admin/home',
         name: 'admin-home',
         component: () => import('@/views/admin/Home.vue'),
-        meta: {staffOnly: true},
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/order',
         name: 'admin-order',
         component: () => import('@/views/admin/order/Order.vue'),
-        meta: {staffOnly: true},
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/order/:id',
@@ -44,55 +56,49 @@ const routes = [
         path: '/admin/promotion',
         name: 'admin-promotion',
         component: () => import('@/views/admin/Promotion.vue'),
-        meta: {staffOnly: true},
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/order/create',
         name: 'admin-order-create',
         component: () => import('@/views/admin/order/Create.vue'),
-        meta: {staffOnly: true},
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/user',
         name: 'admin-user',
         component: () => import('@/views/admin/User.vue'),
-        meta: {adminOnly: true},
+        meta: { adminOnly: true },
     },
     {
         path: '/admin/stat',
         name: 'admin-stat',
         component: () => import('@/views/admin/Stat.vue'),
-        meta: {adminOnly: true},
+        meta: { adminOnly: true },
     },
     {
         path: '/admin/expense',
         name: 'admin-expense',
         component: () => import('@/views/admin/Expense.vue'),
-        meta: {adminOnly: true},
+        meta: { adminOnly: true },
     },
     {
         path: '/admin/profile',
         name: 'admin-profile',
         component: () => import('@/views/admin/Profile.vue'),
-        meta: {staffOnly: true},
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/product',
         name: 'admin-product',
         component: () => import('@/views/admin/Product.vue'),
-        meta: {staffOnly: true},
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/service',
         name: 'admin-service',
         component: () => import('@/views/admin/Service.vue'),
-        meta: {staffOnly: true},
-    },
-    {
-        path: '/login',
-        name: 'login',
-        component: () => import('@/views/Login.vue'),
-        meta: {redirectIfLogged: true},
+        meta: { staffOnly: true },
     },
 
     // {
@@ -116,7 +122,7 @@ const router = createRouter({
         return (
             savedPosition ||
             new Promise((resolve) => {
-                setTimeout(() => resolve({top: 0}), 300);
+                setTimeout(() => resolve({ top: 0 }), 300);
             })
         );
     },
@@ -138,22 +144,22 @@ router.beforeEach((to, from) => {
     let isStaff = userStore.isStaff;
 
     if (to.meta.staffOnly && !isStaff) {
-        return {name: 'login'};
+        return { name: 'login' };
     }
 
     if (to.meta.adminOnly && !isAdmin) {
-        return isStaff ? {name: 'admin-home'} : {name: 'home'};
+        return isStaff ? { name: 'admin-home' } : { name: 'home' };
     }
 
     if (to.meta.auth && !loggedIn) {
-        return {name: 'login'};
+        return { name: 'login' };
     }
 
     if (to.meta.redirectIfLogged && loggedIn) {
         if (isStaff) {
-            return {name: 'admin-home'};
+            return { name: 'admin-home' };
         }
-        return {name: 'home'};
+        return { name: 'home' };
     }
 });
 
