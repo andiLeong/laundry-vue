@@ -73,9 +73,8 @@ const showPassword = ref(false);
                             <div class="space-y-5">
                                 <div class="flex flex-col">
                                     <label
-                                        class="mb-2.5 text-base font-medium"
+                                        class="mb-2.5 text-base font-medium label-color"
                                         for="first_name"
-                                        style="color: #1c2434"
                                         >First Name
                                         <span class="" style="color: #ff2e3b"
                                             >*</span
@@ -83,50 +82,44 @@ const showPassword = ref(false);
                                     </label>
                                     <input
                                         id="first_name"
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
                                         placeholder="enter your first name"
-                                        style="border: 1px solid #e2e8f0"
                                         type="text"
                                     />
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label
-                                        class="mb-2.5 text-base font-medium"
+                                        class="mb-2.5 text-base font-medium label-color"
                                         for="last_name"
-                                        style="color: #1c2434"
                                         >Last Name
                                     </label>
                                     <input
                                         id="last_name"
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
                                         placeholder="last name"
-                                        style="border: 1px solid #e2e8f0"
                                         type="text"
                                     />
                                 </div>
 
                                 <div class="flex flex-col">
                                     <label
-                                        class="mb-2.5 text-base font-medium"
+                                        class="mb-2.5 text-base font-medium label-color"
                                         for="middle_name"
-                                        style="color: #1c2434"
                                         >Middle Name
                                     </label>
                                     <input
                                         id="middle_name"
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
                                         placeholder="middle name"
-                                        style="border: 1px solid #e2e8f0"
                                         type="text"
                                     />
                                 </div>
 
                                 <div class="flex flex-col relative">
                                     <label
-                                        class="mb-2.5 text-base font-medium"
+                                        class="mb-2.5 text-base font-medium label-color"
                                         for="middle_name"
-                                        style="color: #1c2434"
                                         >Password
                                         <span class="" style="color: #ff2e3b"
                                             >*</span
@@ -137,9 +130,8 @@ const showPassword = ref(false);
                                         :type="
                                             showPassword ? 'text' : 'password'
                                         "
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
                                         placeholder="enter your password"
-                                        style="border: 1px solid #e2e8f0"
                                     />
                                     <div
                                         class="absolute bottom-0 right-0 mr-2 mb-3 cursor-pointer"
@@ -163,8 +155,7 @@ const showPassword = ref(false);
 
                             <div class="mt-20">
                                 <button
-                                    class="rounded-md text-white w-full py-4"
-                                    style="background: #5130d3"
+                                    class="rounded-md text-white w-full py-4 bg-primary"
                                     type="submit"
                                 >
                                     Sign Up

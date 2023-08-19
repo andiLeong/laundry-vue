@@ -1,53 +1,102 @@
 <template>
-    <div class="pt-10">
-        <div
-            class="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-800"
+    <main
+        class="min-h-screen flex justify-center items-center"
+        style="background: #f8f9fe"
+    >
+        <section
+            class="max-w-5xl mx-auto flex rounded-lg shadow-2xl"
+            style="height: 487px"
         >
-            <div class="mt-8 sm:mx-auto mx-6 sm:w-full sm:max-w-md">
-                <div
-                    class="dark:bg-gray-700 bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10"
-                >
-                    <form class="space-y-6" @submit.prevent="submit">
-                        <div>
-                            <BaseInput
-                                labelClass="block text-sm font-medium text-gray-700 dark:text-white"
-                                placeHolder="09272714239"
-                                class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                                label="Phone"
-                                type="text"
-                                v-model="phone"
-                                :error="errors.phone"
-                            />
+            <div class="bg-white px-6 py-9" style="width: 498px">
+                <h1 class="text-3xl" style="color: #212b36">Sign In</h1>
+                <div class="my-5">
+                    <form action="">
+                        <div class="space-y-5">
+                            <div class="flex flex-col">
+                                <label
+                                    class="mb-2.5 text-base font-medium label-color"
+                                    for="phone"
+                                    >Phone
+                                </label>
+                                <input
+                                    id="phone"
+                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                                    placeholder="Phone"
+                                    type="text"
+                                />
+                            </div>
+
+                            <div class="flex flex-col">
+                                <label
+                                    class="mb-2.5 text-base font-medium label-color"
+                                    for="password"
+                                    >Password
+                                </label>
+                                <input
+                                    id="password"
+                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                                    placeholder="Password"
+                                    type="password"
+                                />
+                            </div>
+
+                            <div class="flex justify-between">
+                                <div class="flex items-center">
+                                    <input
+                                        id="remember-me"
+                                        class="h-4 w-4 rounded border-gray-300"
+                                        name="remember-me"
+                                        type="checkbox"
+                                    />
+                                    <label
+                                        class="ml-3 block text-sm leading-6 label-color"
+                                        for="remember-me"
+                                        >Remember me</label
+                                    >
+                                </div>
+                                <div>
+                                    <a
+                                        class="text-violet-500 text-sm font-normal underline"
+                                        href="#"
+                                        >Forgot Password?</a
+                                    >
+                                </div>
+                            </div>
                         </div>
 
-                        <div>
-                            <BaseInput
-                                labelClass="block text-sm font-medium text-gray-700 dark:text-white"
-                                placeHolder="Your strong password"
-                                class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-sky-500 focus:border-sky-500 sm:text-sm"
-                                label="Password"
-                                type="password"
-                                v-model="password"
-                                :error="errors.password"
-                            />
-                        </div>
-
-                        <div>
-                            <SubmitButton
-                                :loading="isLoading"
-                                saving="Logging In"
-                                not-saving="Login"
-                            />
-                        </div>
-
-                        <div class="text-red-500 text-sm italic font-medium">
-                            {{ loginError }}
+                        <div class="mt-16">
+                            <button
+                                :class="
+                                    isLoading ? 'bg-loading-gray' : 'bg-primary'
+                                "
+                                class="rounded-md text-white w-full py-4"
+                                type="submit"
+                            >
+                                Login
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
+            <div
+                class="hidden gradient-bg md:flex flex-col justify-center items-center"
+                style="width: 541px"
+            >
+                <h1 class="text-4xl font-semibold text-white text-center">
+                    Welcome to SBIN!
+                </h1>
+                <p class="text-sm font-normal text-white text-center mt-1">
+                    Don’t have an account?
+                </p>
+                <AppLink
+                    :to="{ name: 'signup' }"
+                    class="underline underline-offset-2 mt-3 text-white"
+                >
+                    Sign Up
+                </AppLink>
+            </div>
+        </section>
+    </main>
 </template>
 
 <script setup>
@@ -58,6 +107,7 @@ import BaseInput from '@/components/forms/BaseInput.vue';
 import SubmitButton from '@/components/forms/SubmitButton.vue';
 import { useUserStore } from '@/store/user';
 import { useRouter } from 'vue-router';
+import AppLink from '@/components/AppLink.vue';
 
 const userStore = useUserStore();
 const router = useRouter();
@@ -102,3 +152,9 @@ async function login(credentials) {
         });
 }
 </script>
+<style>
+.gradient-bg {
+    background: url('/login-bg.png');
+    background-size: cover;
+}
+</style>
