@@ -44,7 +44,7 @@ const showPassword = ref(false);
 
                 <div class="flex">
                     <div
-                        class="hidden md:block px-9 py-10 left-part bg-gray-100 rounded-l-lg"
+                        class="hidden md:block px-9 py-10 opacity-70 bg-gray-100 rounded-l-lg"
                     >
                         <p
                             class="text-base font-medium mb-4"
@@ -83,7 +83,7 @@ const showPassword = ref(false);
                                     </label>
                                     <input
                                         id="first_name"
-                                        class="rounded-lg py-3 px-4"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
                                         placeholder="enter your first name"
                                         style="border: 1px solid #e2e8f0"
                                         type="text"
@@ -99,8 +99,8 @@ const showPassword = ref(false);
                                     </label>
                                     <input
                                         id="last_name"
-                                        class="rounded-lg py-3 px-4"
-                                        placeholder="enter your last name"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                        placeholder="last name"
                                         style="border: 1px solid #e2e8f0"
                                         type="text"
                                     />
@@ -115,8 +115,8 @@ const showPassword = ref(false);
                                     </label>
                                     <input
                                         id="middle_name"
-                                        class="rounded-lg py-3 px-4"
-                                        placeholder="enter your middle name"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                        placeholder="middle name"
                                         style="border: 1px solid #e2e8f0"
                                         type="text"
                                     />
@@ -137,13 +137,13 @@ const showPassword = ref(false);
                                         :type="
                                             showPassword ? 'text' : 'password'
                                         "
-                                        class="rounded-lg py-3 px-4"
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400"
                                         placeholder="enter your password"
                                         style="border: 1px solid #e2e8f0"
                                     />
                                     <div
                                         class="absolute bottom-0 right-0 mr-2 mb-3 cursor-pointer"
-                                        @click.prvent="
+                                        @click.prevent="
                                             showPassword = !showPassword
                                         "
                                     >
@@ -158,25 +158,6 @@ const showPassword = ref(false);
                                             style="color: #d9d9d9"
                                         />
                                     </div>
-                                </div>
-
-                                <div class="flex flex-col">
-                                    <label
-                                        class="mb-2.5 text-base font-medium"
-                                        for="phone"
-                                        style="color: #1c2434"
-                                        >Phone Number
-                                        <span class="" style="color: #ff2e3b"
-                                            >*</span
-                                        >
-                                    </label>
-                                    <input
-                                        id="phone"
-                                        class="rounded-lg py-3 px-4"
-                                        placeholder="enter your phone number"
-                                        style="border: 1px solid #e2e8f0"
-                                        type="text"
-                                    />
                                 </div>
                             </div>
 
@@ -201,9 +182,5 @@ const showPassword = ref(false);
 #main {
     background-image: url('/signup-bg.png');
     background-size: cover;
-}
-
-.left-part {
-    opacity: 0.7;
 }
 </style>
