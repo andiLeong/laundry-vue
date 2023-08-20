@@ -3,14 +3,11 @@
         class="min-h-screen flex justify-center items-center"
         style="background: #f8f9fe"
     >
-        <section
-            class="max-w-5xl mx-auto flex rounded-lg shadow-2xl"
-            style="height: 487px"
-        >
+        <section class="max-w-5xl mx-auto flex rounded-lg shadow-2xl">
             <div class="bg-white px-6 py-9" style="width: 498px">
                 <h1 class="text-3xl" style="color: #212b36">Sign In</h1>
                 <div class="my-5">
-                    <form action="">
+                    <form @submit.prevent="submit">
                         <div class="space-y-5">
                             <div class="flex flex-col">
                                 <label
@@ -20,10 +17,19 @@
                                 </label>
                                 <input
                                     id="phone"
-                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                                    v-model="phone"
+                                    :class="
+                                        errors.phone
+                                            ? 'input-error-border'
+                                            : 'input-border'
+                                    "
+                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400"
                                     placeholder="Phone"
                                     type="text"
                                 />
+                                <p v-if="errors.phone" class="validation-error">
+                                    {{ errors.phone }}
+                                </p>
                             </div>
 
                             <div class="flex flex-col">
@@ -34,10 +40,22 @@
                                 </label>
                                 <input
                                     id="password"
-                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                                    v-model="password"
+                                    :class="
+                                        errors.password
+                                            ? 'input-error-border'
+                                            : 'input-border'
+                                    "
+                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400"
                                     placeholder="Password"
                                     type="password"
                                 />
+                                <p
+                                    v-if="errors.password"
+                                    class="validation-error"
+                                >
+                                    {{ errors.password }}
+                                </p>
                             </div>
 
                             <div class="flex justify-between">
@@ -55,16 +73,16 @@
                                     >
                                 </div>
                                 <div>
-                                    <a
+                                    <AppLink
+                                        :to="{ name: 'signup' }"
                                         class="text-violet-500 text-sm font-normal underline"
-                                        href="#"
-                                        >Forgot Password?</a
-                                    >
+                                        >Forgot Password?
+                                    </AppLink>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-16">
+                        <div class="mt-32">
                             <button
                                 :class="
                                     isLoading ? 'bg-loading-gray' : 'bg-primary'
@@ -103,8 +121,6 @@
 import { ref } from 'vue';
 import { useField, useForm } from 'vee-validate';
 import { object, string } from 'yup';
-import BaseInput from '@/components/forms/BaseInput.vue';
-import SubmitButton from '@/components/forms/SubmitButton.vue';
 import { useUserStore } from '@/store/user';
 import { useRouter } from 'vue-router';
 import AppLink from '@/components/AppLink.vue';
@@ -113,7 +129,11 @@ const userStore = useUserStore();
 const router = useRouter();
 const validationSchema = ref(
     object({
-        phone: string().required(),
+        phone: string()
+            .required()
+            .min(11)
+            .min(11)
+            .matches(/^[0-9]+$/, 'Its not a number'),
         password: string().required().min(8),
     }),
 );
@@ -126,7 +146,6 @@ const { value: phone } = useField('phone');
 const { value: password } = useField('password');
 
 const isLoading = ref(false);
-const loginError = ref('');
 
 const submit = ref(
     handleSubmit((values) => {
@@ -140,14 +159,12 @@ async function login(credentials) {
         .login(credentials)
         .then(() => {
             isLoading.value = false;
-            console.log('login success');
-            // window.location = '/';
             let to = userStore.redirectTo;
             router.push({ name: to });
         })
         .catch((err) => {
             isLoading.value = false;
-            loginError.value = err.response.data.message;
+            errors.value.password = err.response.data.message;
             console.log(err.response.data.message);
         });
 }

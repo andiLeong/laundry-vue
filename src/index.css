@@ -72,6 +72,10 @@
         border: 1px solid #e2e8f0
     }
 
+    .input-error-border {
+        border: 1px solid #FF2E3B
+    }
+
     .label-color {
         color: #1c2434
     }
