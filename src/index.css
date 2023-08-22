@@ -92,6 +92,11 @@
         background: #E9E9E9
     }
 
+    .need-signup-bg {
+        background-image: url('../public/signup-bg.png');
+        background-size: cover;
+    }
+
     .need-line-bg {
         position: relative;
     }

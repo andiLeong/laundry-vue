@@ -1,5 +1,5 @@
 <template>
-    <nav style="background: #eef1fa" class="w-full hidden md:block">
+    <nav class="w-full hidden md:block" style="background: #eef1fa">
         <section
             class="mx-auto max-w-screen-2xl flex justify-between items-center px-10 py-2"
         >
@@ -13,12 +13,12 @@
                 <ul class="flex space-x-3">
                     <li v-for="(link, index) in links" :key="index">
                         <AppLink
-                            style="font-size: 14px; line-height: 12px"
                             :to="{ name: link.route }"
-                            v-bind="$attrs"
-                            class="font-medium"
                             active-class="text-violet-500"
+                            class="font-medium"
                             inactive-class="sbin-text-gray-700"
+                            style="font-size: 14px; line-height: 12px"
+                            v-bind="$attrs"
                         >
                             {{ link.name }}
                         </AppLink>
@@ -27,31 +27,32 @@
             </div>
 
             <div>
-                <button
-                    style="background: #5130d3"
+                <AppLink
+                    :to="{ name: 'login' }"
                     class="flex items-center font-bold text-sm text-white rounded px-3 py-2"
+                    style="background: #5130d3"
                 >
                     Sign In
                     <RightArrow class="ml-1 w-5 h-5 text-white" />
-                </button>
+                </AppLink>
             </div>
         </section>
     </nav>
 
-    <nav style="background: #eef1fa" class="block md:hidden">
+    <nav class="block md:hidden" style="background: #eef1fa">
         <section
             class="mx-auto max-w-screen-2xl flex justify-between items-center px-4 py-4"
         >
             <div>
                 <AppLink :to="{ name: 'home' }">
-                    <img class="h-12 w-12" :src="logo" alt="logo" />
+                    <img :src="logo" alt="logo" class="h-12 w-12" />
                 </AppLink>
             </div>
 
             <div>
                 <button
-                    @click.prevent="open = !open"
                     class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    @click.prevent="open = !open"
                 >
                     <X v-if="open" class="w-6 h-6" />
                     <Bars3BottomRight v-else class="w-6 h-6" />
@@ -61,17 +62,17 @@
     </nav>
 
     <section v-if="open" class="block md:hidden">
-        <div class="lg:hidden" id="mobile-menu">
+        <div id="mobile-menu" class="lg:hidden">
             <div class="space-y-1 pb-3 pt-2">
                 <AppLink
                     v-for="(link, index) in links"
                     :key="index"
-                    style="font-size: 14px; line-height: 12px"
                     :to="{ name: link.route }"
-                    v-bind="$attrs"
-                    class="font-medium block py-2 pl-3 pr-4"
                     active-class="text-violet-500"
+                    class="font-medium block py-2 pl-3 pr-4"
                     inactive-class="sbin-text-gray-700"
+                    style="font-size: 14px; line-height: 12px"
+                    v-bind="$attrs"
                 >
                     {{ link.name }}
                 </AppLink>
@@ -80,9 +81,9 @@
                 <div class="flex items-center px-4">
                     <div class="flex-shrink-0">
                         <img
+                            alt=""
                             class="h-9 w-9 rounded-full"
                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
                         />
                     </div>
                     <div class="ml-3">
@@ -96,8 +97,8 @@
                 </div>
                 <div class="mt-3 space-y-1">
                     <a
-                        href="#"
                         class="block px-4 py-2 text-sm font-normal sbin-text-gray-900"
+                        href="#"
                         >Sign out</a
                     >
                 </div>

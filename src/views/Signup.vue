@@ -1,177 +1,204 @@
 <script setup>
-import Check from '@/svg/Check.vue';
-import AppLink from '@/components/AppLink.vue';
 import LockClosed from '@/svg/LockClosed.vue';
 import LockOpen from '@/svg/LockOpen.vue';
 import { ref } from 'vue';
-
-const features = [
-    'SMS marketing',
-    'Omnichannel contact center',
-    'Call tracking',
-    'Push notifications',
-];
+import { useField, useForm } from 'vee-validate';
+import { object, string } from 'yup';
+import { useRouter } from 'vue-router';
+import SignupLayout from '@/components/SignupLayout.vue';
+import { useSignVerifyStore } from '@/store/signupVerify.js';
+import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
 
 const showPassword = ref(false);
+const isLoading = ref(false);
+const verifyStore = useSignVerifyStore();
+
+const router = useRouter();
+const validationSchema = ref(
+    object({
+        phone: string()
+            .required()
+            .min(11)
+            .max(11)
+            .matches(/^[0-9]+$/, 'Its not a number'),
+        password: string().required().min(8).max(90),
+        first_name: string().required().max(50),
+        middle_name: string().nullable(true).max(50),
+        last_name: string().required().max(50),
+    }),
+);
+
+const { handleSubmit, errors } = useForm({
+    validationSchema,
+});
+
+const { value: phone } = useField('phone');
+const { value: first_name } = useField('first_name');
+const { value: middle_name } = useField('middle_name');
+const { value: last_name } = useField('last_name');
+const { value: password } = useField('password');
+
+const submit = ref(
+    handleSubmit((values) => {
+        signup(values);
+    }),
+);
+
+async function signup(user) {
+    isLoading.value = true;
+    Object.keys(user).forEach((key) =>
+        user[key] === undefined ? delete user[key] : {},
+    );
+
+    axios
+        .post('/api/signup', user)
+        .then(() => {
+            verifyStore.setPhone(user.phone);
+            router.push({ name: 'verify' });
+        })
+        .catch((err) => {
+            errors.value.password = err.response?.data?.message;
+            console.log(err.response?.data);
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
+}
 </script>
 
 <template>
-    <main id="main" class="min-h-screen">
-        <div class="max-w-7xl mx-auto">
-            <nav class="md:flex items-center justify-end px-9 py-4">
-                <p class="text-white mr-4">Already have an account ?</p>
-                <div class="mt-3 md:mt-0">
-                    <AppLink
-                        :to="{ name: 'login' }"
-                        class="bg-white rounded-lg px-6 py-2 text-purple-500"
-                    >
-                        Sign In
-                    </AppLink>
-                </div>
-            </nav>
-            <section
-                class="max-w-4xl mx-auto space-y-9 mt-6 px-6 pb-0 md:pb-16"
+    <SignupLayout>
+        <template v-slot:header>
+            <div class="flex justify-center">
+                <img alt="logo" class="w-24 h-24" src="/logo-bnw.png" />
+            </div>
+            <h1
+                class="text-white font-medium text-center"
+                style="font-size: 32px; line-height: 44px"
             >
-                <div class="flex justify-center">
-                    <img alt="logo" class="w-24 h-24" src="/logo-bnw.png" />
-                </div>
-                <h1
-                    class="text-white font-medium text-center"
-                    style="font-size: 32px; line-height: 44px"
-                >
-                    Sign Up To Wash Now
-                </h1>
+                Sign Up To Wash Now
+            </h1>
+        </template>
 
-                <div class="flex">
-                    <div
-                        class="hidden md:block px-9 py-10 opacity-70 bg-gray-100 rounded-l-lg"
-                    >
-                        <p
-                            class="text-base font-medium mb-4"
-                            style="color: #1e293b"
+        <form @submit.prevent="submit">
+            <div class="space-y-5">
+                <div class="flex flex-col">
+                    <label
+                        class="mb-2.5 text-base font-medium label-color"
+                        for="first_name"
+                        >Phone
+                        <span class="" style="color: #ff2e3b">*</span>
+                    </label>
+                    <input
+                        id="phone"
+                        v-model="phone"
+                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                        placeholder="Phone Number"
+                        type="text"
+                    />
+                    <p v-if="errors.phone" class="validation-error">
+                        {{ errors.phone }}
+                    </p>
+                </div>
+
+                <div class="flex flex-col">
+                    <label
+                        class="mb-2.5 text-base font-medium label-color"
+                        for="first_name"
+                        >First Name
+                        <span class="" style="color: #ff2e3b">*</span>
+                    </label>
+                    <input
+                        id="first_name"
+                        v-model="first_name"
+                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                        placeholder="first name"
+                        type="text"
+                    />
+                    <p v-if="errors.first_name" class="validation-error">
+                        {{ errors.first_name }}
+                    </p>
+                </div>
+
+                <div class="flex flex-col">
+                    <label
+                        class="mb-2.5 text-base font-medium label-color"
+                        for="middle_name"
+                        >Middle Name
+                    </label>
+                    <input
+                        id="middle_name"
+                        v-model="middle_name"
+                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                        placeholder="middle name"
+                        type="text"
+                    />
+                    <p v-if="errors.middle_name" class="validation-error">
+                        {{ errors.middle_name }}
+                    </p>
+                </div>
+
+                <div class="flex flex-col">
+                    <label
+                        class="mb-2.5 text-base font-medium label-color"
+                        for="last_name"
+                        >Last Name
+                        <span class="" style="color: #ff2e3b">*</span>
+                    </label>
+                    <input
+                        id="last_name"
+                        v-model="last_name"
+                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
+                        placeholder="last name"
+                        type="text"
+                    />
+                    <p v-if="errors.last_name" class="validation-error">
+                        {{ errors.last_name }}
+                    </p>
+                </div>
+
+                <div class="flex flex-col">
+                    <label
+                        class="mb-2.5 text-base font-medium label-color"
+                        for="password"
+                        >Password
+                        <span class="" style="color: #ff2e3b">*</span>
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="password"
+                            v-model="password"
+                            :type="showPassword ? 'text' : 'password'"
+                            class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border w-full"
+                            placeholder="enter your password"
+                        />
+                        <div
+                            class="absolute bottom-0 right-0 mr-2 mb-3 cursor-pointer"
+                            @click.prevent="showPassword = !showPassword"
                         >
-                            WITH SBIN LAUNDRY YOU CAN BUILD:
-                        </p>
-                        <ul class="space-y-4">
-                            <li
-                                v-for="feature in features"
-                                :key="feature"
-                                class="flex items-center"
-                            >
-                                <check class="text-green-500 h-6 w-6 mr-3" />
-                                <p
-                                    class="font-light text-sm"
-                                    style="color: #475569"
-                                >
-                                    {{ feature }}
-                                </p>
-                            </li>
-                        </ul>
+                            <LockOpen
+                                v-if="showPassword"
+                                class="w-6 h-6"
+                                style="color: #d9d9d9"
+                            />
+                            <LockClosed
+                                v-else
+                                class="w-6 h-6"
+                                style="color: #d9d9d9"
+                            />
+                        </div>
                     </div>
-                    <div class="bg-white px-9 py-6 flex-1 md:rounded-r-lg">
-                        <form action="">
-                            <div class="space-y-5">
-                                <div class="flex flex-col">
-                                    <label
-                                        class="mb-2.5 text-base font-medium label-color"
-                                        for="first_name"
-                                        >First Name
-                                        <span class="" style="color: #ff2e3b"
-                                            >*</span
-                                        >
-                                    </label>
-                                    <input
-                                        id="first_name"
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
-                                        placeholder="enter your first name"
-                                        type="text"
-                                    />
-                                </div>
-
-                                <div class="flex flex-col">
-                                    <label
-                                        class="mb-2.5 text-base font-medium label-color"
-                                        for="last_name"
-                                        >Last Name
-                                    </label>
-                                    <input
-                                        id="last_name"
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
-                                        placeholder="last name"
-                                        type="text"
-                                    />
-                                </div>
-
-                                <div class="flex flex-col">
-                                    <label
-                                        class="mb-2.5 text-base font-medium label-color"
-                                        for="middle_name"
-                                        >Middle Name
-                                    </label>
-                                    <input
-                                        id="middle_name"
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
-                                        placeholder="middle name"
-                                        type="text"
-                                    />
-                                </div>
-
-                                <div class="flex flex-col relative">
-                                    <label
-                                        class="mb-2.5 text-base font-medium label-color"
-                                        for="middle_name"
-                                        >Password
-                                        <span class="" style="color: #ff2e3b"
-                                            >*</span
-                                        >
-                                    </label>
-                                    <input
-                                        id="password"
-                                        :type="
-                                            showPassword ? 'text' : 'password'
-                                        "
-                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 input-border"
-                                        placeholder="enter your password"
-                                    />
-                                    <div
-                                        class="absolute bottom-0 right-0 mr-2 mb-3 cursor-pointer"
-                                        @click.prevent="
-                                            showPassword = !showPassword
-                                        "
-                                    >
-                                        <LockOpen
-                                            v-if="showPassword"
-                                            class="w-6 h-6"
-                                            style="color: #d9d9d9"
-                                        />
-                                        <LockClosed
-                                            v-else
-                                            class="w-6 h-6"
-                                            style="color: #d9d9d9"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-20">
-                                <button
-                                    class="rounded-md text-white w-full py-4 bg-primary"
-                                    type="submit"
-                                >
-                                    Sign Up
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                    <p v-if="errors.password" class="validation-error">
+                        {{ errors.password }}
+                    </p>
                 </div>
-            </section>
-        </div>
-    </main>
+            </div>
+
+            <div class="mt-20">
+                <PrimarySubmitButton :is-loading="isLoading" name="Sign Up" />
+            </div>
+        </form>
+    </SignupLayout>
 </template>
 
-<style scoped>
-#main {
-    background-image: url('/signup-bg.png');
-    background-size: cover;
-}
-</style>
+<style scoped></style>

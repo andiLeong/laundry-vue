@@ -19,6 +19,12 @@ const routes = [
         meta: { redirectIfLogged: true },
     },
     {
+        path: '/verify',
+        name: 'verify',
+        component: () => import('@/views/Verify.vue'),
+        meta: { redirectIfLogged: true },
+    },
+    {
         path: '/service',
         name: 'service',
         component: () => import('@/views/Service.vue'),

@@ -1,28 +1,28 @@
 <script setup>
-import {ref} from 'vue';
-import AppNavigation from '@/components/AppNavigation.vue'
+import AppNavigation from '@/components/AppNavigation.vue';
 import AppFooter from '@/components/AppFooter.vue';
+import AppLink from '@/components/AppLink.vue';
 </script>
 
 <template>
-    <AppNavigation/>
+    <AppNavigation />
 
     <main class="mx-auto max-w-screen-2xl">
         <section class="need-line-bg pt-10 px-20">
-            <div style="" class="md:grid grid-cols-2 gap-6 pb-40">
+            <div class="md:grid grid-cols-2 gap-6 pb-40" style="">
                 <div
-                    style=""
                     class="space-y-4 flex flex-col justify-end pb-6 blue-bg-blur"
+                    style=""
                 >
                     <h1
-                        style="color: #000; line-height: normal"
                         class="text-5xl font-black"
+                        style="color: #000; line-height: normal"
                     >
                         We’re changing the way people connect.
                     </h1>
                     <p
-                        style="color: #6b7280; line-height: normal"
                         class="font-normal text-base"
+                        style="color: #6b7280; line-height: normal"
                     >
                         Anim aute id magna aliqua ad ad non deserunt sunt. Qui
                         irure qui lorem cupidatat commodo. Elit sunt amet fugiat
@@ -31,34 +31,35 @@ import AppFooter from '@/components/AppFooter.vue';
                         commodo.
                     </p>
                     <div>
-                        <button
+                        <AppLink
+                            :to="{ name: 'signup' }"
+                            class="inline-flex items-center justify-center rounded-md px-4 py-2 text-white font-medium text-sm mt-4"
                             style="
                                 background: #b170c3;
                                 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
                             "
-                            class="flex items-center justify-center rounded-md px-4 py-2 text-white font-medium text-sm mt-4"
                         >
                             Get Started
                             <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="21"
+                                fill="none"
                                 height="20"
                                 viewBox="0 0 21 20"
-                                fill="none"
+                                width="21"
+                                xmlns="http://www.w3.org/2000/svg"
                             >
                                 <path
-                                    fill-rule="evenodd"
                                     clip-rule="evenodd"
                                     d="M5.77502 10C5.77502 9.58579 6.11081 9.25 6.52502 9.25H13.1629L11.0052 7.29063C10.7066 7.00353 10.6973 6.52875 10.9844 6.23017C11.2715 5.93159 11.7463 5.92228 12.0449 6.20938L15.5449 9.45938C15.6919 9.60078 15.775 9.79599 15.775 10C15.775 10.204 15.6919 10.3992 15.5449 10.5406L12.0449 13.7906C11.7463 14.0777 11.2715 14.0684 10.9844 13.7698C10.6973 13.4713 10.7066 12.9965 11.0052 12.7094L13.1629 10.75H6.52502C6.11081 10.75 5.77502 10.4142 5.77502 10Z"
                                     fill="white"
+                                    fill-rule="evenodd"
                                 />
                             </svg>
-                        </button>
+                        </AppLink>
                     </div>
                 </div>
 
                 <div class="">
-                    <img src="/src/assets/lady-laundry.png" alt="lady"/>
+                    <img alt="lady" src="/src/assets/lady-laundry.png" />
                 </div>
             </div>
         </section>
@@ -68,13 +69,13 @@ import AppFooter from '@/components/AppFooter.vue';
                 <div class="text-center">
                     <h2 class="text-black text-5xl font-black">About Us</h2>
                     <p
-                        style="color: #6b7280"
                         class="mt-2.5 font-normal text-base"
+                        style="color: #6b7280"
                     >
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit.
                     </p>
-                    <p style="color: #6b7280" class="font-normal text-base">
+                    <p class="font-normal text-base" style="color: #6b7280">
                         Maiores impedit perferendis suscipit eaque, iste dolor
                         cupiditate blanditiis.
                     </p>
@@ -83,8 +84,8 @@ import AppFooter from '@/components/AppFooter.vue';
             <div class="my-6 md:grid grid-cols-2 gap-6">
                 <div class="grid-rows-1">
                     <img
-                        src="/src/assets/about-us-first.png"
                         alt="about-us-first"
+                        src="/src/assets/about-us-first.png"
                     />
                 </div>
                 <div
@@ -94,7 +95,7 @@ import AppFooter from '@/components/AppFooter.vue';
                         <h3 class="font-black text-5xl">
                             We’re changing the way people connect.
                         </h3>
-                        <p style="color: #6b7280" class="mt-4 text-base">
+                        <p class="mt-4 text-base" style="color: #6b7280">
                             Anim aute id magna aliqua ad ad non deserunt sunt.
                             Qui irure qui lorem cupidatat commodo. Elit sunt
                             amet fugiat veniam occaecat fugiat aliqua. Anim aute
@@ -107,8 +108,8 @@ import AppFooter from '@/components/AppFooter.vue';
             <div class="my-6 md:flex gap-6 flex-col-reverse md:flex-row">
                 <div class="block md:hidden w-full md:w-1/2">
                     <img
-                        src="/src/assets/about-us-second.png"
                         alt="about-us-second"
+                        src="/src/assets/about-us-second.png"
                     />
                 </div>
                 <div
@@ -118,7 +119,7 @@ import AppFooter from '@/components/AppFooter.vue';
                         <h3 class="font-black text-5xl">
                             We’re changing the way people connect.
                         </h3>
-                        <p style="color: #6b7280" class="mt-4 text-base">
+                        <p class="mt-4 text-base" style="color: #6b7280">
                             Anim aute id magna aliqua ad ad non deserunt sunt.
                             Qui irure qui lorem cupidatat commodo. Elit sunt
                             amet fugiat veniam occaecat fugiat aliqua. Anim aute
@@ -129,15 +130,15 @@ import AppFooter from '@/components/AppFooter.vue';
                 </div>
                 <div class="hidden md:block w-full md:w-1/2">
                     <img
-                        src="/src/assets/about-us-second.png"
                         alt="about-us-second"
+                        src="/src/assets/about-us-second.png"
                     />
                 </div>
             </div>
         </section>
     </main>
 
-    <AppFooter/>
+    <AppFooter />
 </template>
 
 <style scoped>
@@ -154,8 +155,9 @@ import AppFooter from '@/components/AppFooter.vue';
     bottom: 0;
     z-index: 0;
     border-radius: 413px;
-    background: url('/src/assets/blue-bg.jpg'),
-    lightgray 50% / cover no-repeat;
+    background:
+        url('/src/assets/blue-bg.jpg'),
+        lightgray 50% / cover no-repeat;
     -webkit-filter: blur(117px);
     -moz-filter: blur(117px);
     -o-filter: blur(117px);

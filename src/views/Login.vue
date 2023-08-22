@@ -58,19 +58,27 @@
                                 </p>
                             </div>
 
+                            <div class="flex items-center">
+                                <input
+                                    id="remember-me"
+                                    class="h-4 w-4 rounded border-gray-300"
+                                    name="remember-me"
+                                    type="checkbox"
+                                />
+                                <label
+                                    class="ml-3 block text-sm leading-6 label-color"
+                                    for="remember-me"
+                                    >Remember me</label
+                                >
+                            </div>
+
                             <div class="flex justify-between">
                                 <div class="flex items-center">
-                                    <input
-                                        id="remember-me"
-                                        class="h-4 w-4 rounded border-gray-300"
-                                        name="remember-me"
-                                        type="checkbox"
-                                    />
-                                    <label
-                                        class="ml-3 block text-sm leading-6 label-color"
-                                        for="remember-me"
-                                        >Remember me</label
-                                    >
+                                    <AppLink
+                                        :to="{ name: 'verify' }"
+                                        class="text-gray-400 text-sm font-normal underline"
+                                        >Need Verify?
+                                    </AppLink>
                                 </div>
                                 <div>
                                     <AppLink
@@ -83,15 +91,10 @@
                         </div>
 
                         <div class="mt-32">
-                            <button
-                                :class="
-                                    isLoading ? 'bg-loading-gray' : 'bg-primary'
-                                "
-                                class="rounded-md text-white w-full py-4"
-                                type="submit"
-                            >
-                                Login
-                            </button>
+                            <PrimarySubmitButton
+                                :is-loading="isLoading"
+                                name="Login"
+                            />
                         </div>
                     </form>
                 </div>
@@ -124,6 +127,7 @@ import { object, string } from 'yup';
 import { useUserStore } from '@/store/user';
 import { useRouter } from 'vue-router';
 import AppLink from '@/components/AppLink.vue';
+import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
 
 const userStore = useUserStore();
 const router = useRouter();
