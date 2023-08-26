@@ -15,6 +15,3 @@ const app = createApp(App).use(pinia);
 
 const userStore = useUserStore();
 userStore.fetchUser(app, router);
-
-console.log(userStore.user);
-console.log(userStore.isLoggedIn);

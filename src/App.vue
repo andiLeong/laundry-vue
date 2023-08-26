@@ -1,6 +1,6 @@
 <template>
     <template v-if="loadAdminView">
-        <div class="min-h-full" v-cloak>
+        <div v-cloak class="min-h-full">
             <AdminNavigation></AdminNavigation>
             <router-view></router-view>
         </div>
@@ -13,7 +13,7 @@
 <script setup>
 import AdminNavigation from '@/components/admin/AdminNavigation.vue';
 import { useUserStore } from '@/store/user';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
@@ -37,27 +37,18 @@ const adminRoutes = [
 ];
 
 const route = useRoute();
-// watch(
-//     () => userStore.isLoggedIn,
-//     (newValue) => {
-//         loggedIn.value = newValue;
-//     }
-// );
-
-// if (isAdmin || isStaff) {
-//     router.push({name: 'admin-home'});
-// }
-
-console.log('is admin ' + isAdmin.value);
-console.log('is staff ' + isStaff.value);
-console.log('is customer ' + isCustomer.value);
 
 const loadAdminView = computed(() => {
     return adminRoutes.includes(route.name);
 });
 
+onMounted(() => {
+    let loader = document.getElementById('loader-wrapper');
+    loader.parentNode.removeChild(loader);
+});
+
 if (loadAdminView.value) {
-    var root = document.getElementsByTagName('html')[0];
+    let root = document.getElementsByTagName('html')[0];
     root.setAttribute('class', 'h-full bg-gray-100');
 }
 </script>
