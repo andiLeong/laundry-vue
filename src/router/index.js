@@ -41,6 +41,12 @@ const routes = [
         props: true,
     },
     {
+        path: '/order',
+        name: 'order',
+        component: () => import('@/views/Order.vue'),
+        // meta: { auth: true },
+    },
+    {
         path: '/admin/home',
         name: 'admin-home',
         component: () => import('@/views/admin/Home.vue'),
