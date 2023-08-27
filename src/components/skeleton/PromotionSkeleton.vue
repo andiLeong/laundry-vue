@@ -1,35 +1,55 @@
 <template>
-
-    <div
-        style="box-shadow: 0px 10px 15px -3px rgba(15, 23, 42, 0.08);"
-        class="bg-gray-100 rounded-sm md:flex animate-pulse mt-2 md:mt-0">
-        <div class="w-56 h-56 bg-gray-200"></div>
-        <div class="p-0 md:p-4 flex flex-col">
-            <div>
-                <div class="bg-gray-300 mt-2 rounded-2xl py-2 w-28"></div>
-            </div>
-
-            <div class="flex-1 mt-2">
-                <div>
-                    <div class="bg-gray-300 mt-2 rounded-2xl py-2 w-32"></div>
-                    <div class="bg-gray-300 mt-2 rounded-2xl py-2 w-48"></div>
-                </div>
-
-                <div class="mt-1">
-                    <div class="bg-gray-300 mt-2 rounded-2xl py-2 w-60 md:w-96"></div>
-                    <div class="bg-gray-300 mt-2 rounded-2xl py-2 w-48"></div>
-                </div>
-            </div>
-
-            <div class="bg-gray-200 mt-1 rounded-2xl py-2 w-20"></div>
-        </div>
+    <div class="animate-pulse max-w-5xl mx-auto w-full mt-10 px-8">
+        <h1
+            class="rounded-md mt-2 block text-3xl text-center bg-gray-200 text-transparent"
+        >
+            title
+        </h1>
+        <p class="rounded-md mt-8 text-xl bg-gray-200 text-transparent">
+            Ut sed iure a pariatur. Laboriosam temporibus exercitationem et et
+            non. Autem rem porro velit nisi placeat quia. Occaecati qui ratione
+            velit molestiae nihil facilis provident. Ut sed iure a pariatur.
+            Laboriosam temporibus exercitationem et et non. Autem rem porro
+            velit nisi placeat quia. Occaecati qui ratione velit molestiae nihil
+            facilis provident. Ut sed iure a pariatur. Laboriosam temporibus
+            exercitationem et et non. Autem rem porro velit nisi placeat quia.
+            Occaecati qui ratione velit molestiae nihil facilis provident. Ut
+            sed iure a pariatur. Laboriosam temporibus exercitationem et et non.
+            Autem rem porro velit nisi placeat quia. Occaecati qui ratione velit
+            molestiae nihil facilis provident. Ut sed iure a pariatur.
+            Laboriosam temporibus exercitationem et et non. Autem rem porro
+            velit nisi placeat quia. Occaecati qui ratione velit molestiae nihil
+            facilis provident.Ut sed iure a pariatur. Laboriosam temporibus
+            exercitationem et et non. Autem rem porro velit nisi placeat quia.
+            Occaecati qui ratione velit molestiae nihil facilis provident.Ut sed
+            iure a pariatur. Laboriosam temporibus exercitationem et et non.
+            Autem rem porro velit nisi placeat quia. Occaecati qui ratione velit
+            molestiae nihil facilis provident.Ut sed iure a pariatur. Laboriosam
+            temporibus exercitationem et et non. Autem rem porro velit nisi Ut
+            sed iure a pariatur. Laboriosam temporibus exercitationem et et non.
+            Autem rem porro velit nisi placeat quia. Occaecati qui ratione velit
+            molestiae nihil facilis provident. Ut sed iure a pariatur.
+            Laboriosam temporibus exercitationem et et non. Autem rem porro
+            velit nisi placeat quia. Occaecati qui ratione velit molestiae nihil
+            facilis provident. Ut sed iure a pariatur. Laboriosam temporibus
+            exercitationem et et non. Autem rem porro velit nisi placeat quia.
+            Occaecati qui ratione velit molestiae nihil facilis provident. Ut
+            sed iure a pariatur. Laboriosam temporibus exercitationem et et non.
+            Autem rem porro velit nisi placeat quia. Occaecati qui ratione velit
+            molestiae nihil facilis provident. Ut sed iure a pariatur.
+            Laboriosam temporibus exercitationem et et non. Autem rem porro
+            velit nisi placeat quia. Occaecati qui ratione velit molestiae nihil
+            facilis provident.Ut sed iure a pariatur. Laboriosam temporibus
+            exercitationem et et non. Autem rem porro velit nisi placeat quia.
+            Occaecati qui ratione velit molestiae nihil facilis provident.Ut sed
+            iure a pariatur. Laboriosam temporibus exercitationem et et non.
+            Autem rem porro velit nisi placeat quia. Occaecati qui ratione velit
+            molestiae nihil facilis provident.Ut sed iure a pariatur. Laboriosam
+            temporibus exercitationem et et non. Autem rem porro velit nisi
+        </p>
     </div>
 </template>
 
-<script setup>
+<script setup></script>
 
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

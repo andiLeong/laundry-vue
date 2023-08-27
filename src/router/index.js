@@ -35,7 +35,7 @@ const routes = [
         component: () => import('@/views/promotion/Promotion.vue'),
     },
     {
-        path: '/promotion/:id',
+        path: '/promotion/:slug',
         name: 'promotion-detail',
         component: () => import('@/views/promotion/Show.vue'),
         props: true,
