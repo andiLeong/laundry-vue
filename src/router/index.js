@@ -44,7 +44,7 @@ const routes = [
         path: '/order',
         name: 'order',
         component: () => import('@/views/Order.vue'),
-        // meta: { auth: true },
+        meta: { auth: true },
     },
     {
         path: '/admin/home',

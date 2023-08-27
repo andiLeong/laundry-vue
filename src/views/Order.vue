@@ -12,21 +12,21 @@ import { useRoute, useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import moment from 'moment';
 import AppDashboardNavigation from '@/components/AppDashboardNavigation.vue';
+import CheckCircle from '@/svg/CheckCircle.vue';
+import X from '@/svg/X.vue';
 
 const route = useRoute();
 const router = useRouter();
 const endpoint = ref('/api/order');
 const columns = ref([
     'id',
-    'phone',
-    'first name',
     'service name',
-    'total amount',
     'amount',
     'product amount',
-    'promotion count',
-    'updated at',
+    'total amount',
     'created at',
+    'payment',
+    'paid',
 ]);
 const orders = ref([]);
 const pagination = ref({});
@@ -141,19 +141,7 @@ fetch(page.value);
                                                 </td>
 
                                                 <td class="table-data">
-                                                    {{ order.user?.phone }}
-                                                </td>
-
-                                                <td class="table-data">
-                                                    {{ order.user?.first_name }}
-                                                </td>
-
-                                                <td class="table-data">
                                                     {{ order.service.name }}
-                                                </td>
-
-                                                <td class="table-data">
-                                                    {{ order.total_amount }}
                                                 </td>
 
                                                 <td class="table-data">
@@ -163,8 +151,9 @@ fetch(page.value);
                                                 <td class="table-data">
                                                     {{ order.product_amount }}
                                                 </td>
+
                                                 <td class="table-data">
-                                                    {{ order.promotions_count }}
+                                                    {{ order.total_amount }}
                                                 </td>
 
                                                 <td class="table-data">
@@ -177,13 +166,18 @@ fetch(page.value);
                                                     }}
                                                 </td>
                                                 <td class="table-data">
-                                                    {{
-                                                        moment(
-                                                            order.created_at,
-                                                        ).format(
-                                                            'YYYY-MM-DD HH:mm',
-                                                        )
-                                                    }}
+                                                    {{ order.payment }}
+                                                </td>
+
+                                                <td class="table-data">
+                                                    <CheckCircle
+                                                        v-if="order.paid"
+                                                        class="h-5 w-5 text-green-500"
+                                                    />
+                                                    <X
+                                                        v-else
+                                                        class="h-5 w-5 text-red-500"
+                                                    />
                                                 </td>
 
                                                 <td class="table-data">
