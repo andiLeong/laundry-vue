@@ -34,6 +34,10 @@ function setActiveLink() {
         if (routeName === link.route) {
             link.active = true;
         }
+
+        if (link.route === 'order' && routeName === 'order-detail') {
+            link.active = true;
+        }
         return link;
     });
 }

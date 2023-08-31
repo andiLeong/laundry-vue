@@ -80,6 +80,10 @@
         color: #1c2434
     }
 
+    .border-primary {
+        border-color: #5130d3
+    }
+
     .text-primary {
         color: #5130d3
     }

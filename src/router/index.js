@@ -43,8 +43,14 @@ const routes = [
     {
         path: '/order',
         name: 'order',
-        component: () => import('@/views/Order.vue'),
+        component: () => import('@/views/order/Order.vue'),
         meta: { auth: true },
+    },
+    {
+        path: '/order/:id',
+        name: 'order-detail',
+        component: () => import('@/views/order/Show.vue'),
+        // props: true,
     },
     {
         path: '/admin/home',
