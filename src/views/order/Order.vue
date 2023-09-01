@@ -71,7 +71,7 @@ fetch(page.value);
 <template>
     <MainLayout>
         <AppNavigation />
-        <main class="px-8 max-auto max-w-screen-2xl w-full">
+        <main class="px-8 mx-auto max-w-screen-2xl w-full">
             <div class="my-6 flex items-center space-x-2 px-8">
                 <div>
                     <Home class="h-5 w-5" style="color: #6b7280" />

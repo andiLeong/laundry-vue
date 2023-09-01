@@ -6,6 +6,12 @@ import ProfileUser from '@/svg/ProfileUser.vue';
 import { shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
 
+const props = defineProps({
+    needBorder: {
+        required: false,
+        default: true,
+    },
+});
 const route = useRoute();
 const links = shallowRef([
     {
@@ -46,7 +52,10 @@ setActiveLink();
 </script>
 
 <template>
-    <nav class="col-span-1 p-4 border-r-2 border-gray-100">
+    <nav
+        :class="needBorder ? 'border-r-2' : ''"
+        class="col-span-1 p-4 border-gray-100"
+    >
         <ul class="space-y-2">
             <li
                 v-for="link in links"
@@ -65,16 +74,16 @@ setActiveLink();
                 <div class="mr-2">
                     <component
                         :is="link.svg"
-                        :class="link.active ? 'text-white' : 'text-gray-400'"
+                        :class="link.active ? 'text-white' : 'text-slate-200'"
                         class="h-5 w-5"
                     ></component>
                 </div>
 
                 <div>
                     <AppLink
-                        :class="link.active ? 'text-white' : 'text-gray-400'"
+                        :class="link.active ? 'text-white' : 'text-slate-200'"
                         :to="{ name: link.route }"
-                        class="text-sm font-normal"
+                        class="text-sm font-semibold"
                     >
                         {{ link.name }}
                     </AppLink>
