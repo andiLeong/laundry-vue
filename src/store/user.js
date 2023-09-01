@@ -16,6 +16,17 @@ export const useUserStore = defineStore({
 
         middleName: (state) => state.user.middle_name,
 
+        fullName: (state) => {
+            let user = state.user;
+            if (user.middle_name === null) {
+                return user.first_name + ', ' + user.last_name;
+            }
+
+            return (
+                user.first_name + ', ' + user.middle_name + ' ' + user.last_name
+            );
+        },
+
         isAdmin(state) {
             if (!this.isLoggedIn) {
                 return false;

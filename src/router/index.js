@@ -50,7 +50,6 @@ const routes = [
         path: '/order/:id',
         name: 'order-detail',
         component: () => import('@/views/order/Show.vue'),
-        // props: true,
     },
     {
         path: '/admin/home',
@@ -68,7 +67,7 @@ const routes = [
         path: '/admin/order/:id',
         name: 'admin-order-detail',
         component: () => import('@/views/admin/order/Show.vue'),
-        // props: true,
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/promotion',

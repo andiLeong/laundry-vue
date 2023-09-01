@@ -5,11 +5,16 @@ import ChevronRight from '@/svg/ChevronRight.vue';
 import MainLayout from '@/components/MainLayout.vue';
 import Home from '@/svg/Home.vue';
 import AppDashboardNavigation from '@/components/AppDashboardNavigation.vue';
+import useFetchOrder from '@/composable/useFetchOrder.js';
+import OrderDetailSkeleton from '@/components/skeleton/OrderDetailSkeleton.vue';
+import moment from 'moment';
+import { useUserStore } from '@/store/user.js';
 
 const route = useRoute();
 const router = useRouter();
+const user = useUserStore();
 
-console.log(route.params.id);
+const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
 </script>
 
 <template>
@@ -37,160 +42,194 @@ console.log(route.params.id);
 
             <section class="md:grid grid-cols-5 gap-12">
                 <AppDashboardNavigation :need-border="false" />
-                <section class="col-span-4">
-                    <header class="col-span-4 py-5 px-6 hidden">
-                        <h2 class="text-gray-900 text-lg font-medium">
-                            INVOICE
-                        </h2>
-                        <p class="text-gray-500 text-sm font-normal">
-                            Order #{{ route.params.id }}
-                        </p>
-                    </header>
-                    <div
-                        class="px-10 py-12 border border-t-8 border-t-sky-500 space-y-16 shadow-md rounded-md relative overflow-hidden"
-                    >
-                        <div class="flex justify-between items-start">
-                            <div class="space-y-2">
-                                <div>
-                                    <p
-                                        class="text-xl font-medium text-slate-800"
-                                    >
-                                        Juan Dela Cruz
-                                    </p>
-                                </div>
-                                <p class="text-slate-500 font-normal text-sm">
-                                    09262611369
-                                </p>
-                                <p class="text-slate-500 font-normal text-sm">
-                                    Spex, Stain Paul Str, Makati City
-                                </p>
-                            </div>
-                            <div>
-                                <p class="font-medium text-xl text-slate-800">
-                                    #{{ route.params.id }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="p-5 border border-l-4 border-l-sky-300 border-slate-200 flex items-center justify-between"
-                        >
-                            <div class="w-2/3">
-                                <p
-                                    class="text-sm font-medium"
-                                    style="color: #0f2851"
-                                >
-                                    Laundry Soap Bar
-                                </p>
-                            </div>
-
-                            <div class="w-1/3 flex items-center">
-                                <div class="flex-1 flex items-center">
-                                    <p class="text-slate-400">#</p>
-                                    <p class="text-slate-700 font-medium">2</p>
-                                </div>
-                                <div class="flex items-center">
-                                    <p class="text-slate-400">₱</p>
-                                    <p class="text-slate-700 font-medium">
-                                        420
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex w-full">
-                            <div class="flex justify-between w-2/5 flex-1">
-                                <div>
-                                    <p class="font-medium text-slate-700">
-                                        Shipping Method
-                                    </p>
-                                    <p class="text-slate-400 mt-1">
-                                        Take up to 3 working days.
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <p class="font-medium text-slate-700">
-                                        Payment Method
-                                    </p>
-                                    <p class="text-slate-400 mt-1">Cash</p>
-                                </div>
-                            </div>
-
-                            <div class="w-3/5">
-                                <div class="flex justify-end">
-                                    <div
-                                        class="space-x-20 flex items-center border-b border-b-slate-200 pb-3"
-                                    >
+                <section v-if="loading" class="col-span-4">
+                    <OrderDetailSkeleton />
+                </section>
+                <template v-else>
+                    <template v-if="error">
+                        <p>{{ error.response.data.message }}</p>
+                    </template>
+                    <template v-else>
+                        <section class="col-span-4">
+                            <div
+                                class="px-10 py-12 border border-t-8 border-t-sky-500 space-y-16 shadow-md rounded-md relative overflow-hidden"
+                            >
+                                <div class="flex justify-between items-start">
+                                    <div class="space-y-2">
                                         <div>
-                                            <p class="text-slate-400">
-                                                Subtotal
-                                            </p>
-                                            <p class="text-slate-400">
-                                                Shipping Cost (+)
+                                            <p
+                                                class="text-xl font-medium text-slate-800"
+                                            >
+                                                {{ user.fullName }}
                                             </p>
                                         </div>
-                                        <div class="flex flex-col items-end">
-                                            <div class="flex items-center">
-                                                <span
-                                                    class="text-slate-300 mr-0.5"
-                                                    >₱</span
-                                                >
-                                                <p
-                                                    class="font-medium text-slate-600"
-                                                >
-                                                    420.00
-                                                </p>
-                                            </div>
-                                            <div class="flex items-center">
-                                                <span
-                                                    class="text-slate-300 mr-0.5"
-                                                    >₱</span
-                                                >
-                                                <p
-                                                    class="font-medium text-slate-600"
-                                                >
-                                                    30.00
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex justify-end mt-8 space-x-20">
-                                    <p class="text-slate-400">Subtotal</p>
-
-                                    <div class="flex items-center">
-                                        <span class="text-slate-300 mr-0.5"
-                                            >₱</span
+                                        <p
+                                            class="text-slate-500 font-normal text-sm"
                                         >
-                                        <p class="font-medium text-slate-600">
-                                            450.00
+                                            {{ user.phone }}
+                                        </p>
+                                        <p
+                                            class="text-slate-500 font-normal text-sm"
+                                        >
+                                            Spex, Stain Paul Str, Makati City
+                                        </p>
+                                        <p
+                                            class="text-slate-500 font-normal text-sm"
+                                        >
+                                            {{
+                                                moment(order.created_at).format(
+                                                    'YYYY-MM-DD HH:mm',
+                                                )
+                                            }}
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p
+                                            class="font-medium text-xl text-slate-800"
+                                        >
+                                            #{{ route.params.id }}
                                         </p>
                                     </div>
                                 </div>
+
+                                <div class="space-y-2">
+                                    <div
+                                        v-for="(
+                                            product, index
+                                        ) in order.product_order"
+                                        :key="index"
+                                        class="p-5 border border-slate-200 flex items-center justify-between"
+                                    >
+                                        <div class="w-2/3">
+                                            <p
+                                                class="text-sm font-medium"
+                                                style="color: #0f2851"
+                                            >
+                                                {{ product.name }}
+                                            </p>
+                                        </div>
+
+                                        <div class="w-1/3 flex items-center">
+                                            <div
+                                                class="flex-1 flex items-center"
+                                            >
+                                                <p class="text-slate-400">#</p>
+                                                <p
+                                                    class="text-slate-700 font-medium"
+                                                >
+                                                    {{ product.quantity }}
+                                                </p>
+                                            </div>
+                                            <div class="flex items-center">
+                                                <p class="text-slate-400">₱</p>
+                                                <p
+                                                    class="text-slate-700 font-medium"
+                                                >
+                                                    {{ product.price }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                        <div>
+                                            <p
+                                                class="font-medium text-slate-700"
+                                            >
+                                                Payment
+                                            </p>
+                                            <p class="text-slate-400 mt-1">
+                                                {{ order.payment }}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="w-3/5">
+                                        <div class="flex justify-end">
+                                            <div
+                                                class="space-x-20 flex items-center border-b border-b-slate-200 pb-3"
+                                            >
+                                                <div>
+                                                    <p class="text-slate-400">
+                                                        Subtotal
+                                                    </p>
+                                                    <p class="text-slate-400">
+                                                        Products
+                                                    </p>
+                                                </div>
+                                                <div
+                                                    class="flex flex-col items-end"
+                                                >
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <span
+                                                            class="text-slate-400 mr-0.5"
+                                                            >₱</span
+                                                        >
+                                                        <p
+                                                            class="font-medium text-slate-600"
+                                                        >
+                                                            {{ order.amount }}
+                                                        </p>
+                                                    </div>
+                                                    <div
+                                                        class="flex items-center"
+                                                    >
+                                                        <span
+                                                            class="text-slate-400 mr-0.5"
+                                                            >₱</span
+                                                        >
+                                                        <p
+                                                            class="font-medium text-slate-600"
+                                                        >
+                                                            {{
+                                                                order.product_amount
+                                                            }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex justify-end mt-8 space-x-20"
+                                        >
+                                            <p class="text-slate-400">Total</p>
+
+                                            <div class="flex items-center">
+                                                <span
+                                                    class="text-slate-400 mr-0.5"
+                                                    >₱</span
+                                                >
+                                                <p
+                                                    class="font-medium text-slate-600"
+                                                >
+                                                    {{ order.total_amount }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex justify-end items-center">
+                                    <button
+                                        class="text-sky-500 bg-white py-3 px-8 rounded text-center border border-sky-500 mr-3"
+                                    >
+                                        Send
+                                    </button>
+                                    <button
+                                        class="text-white bg-sky-500 py-3 px-8 rounded text-center"
+                                    >
+                                        Download
+                                    </button>
+                                </div>
+
+                                <div
+                                    id="svg"
+                                    class="absolute bottom-0 left-0 hidden md:block rotate-45 -ml-10"
+                                    style="height: 160px; width: 160px"
+                                ></div>
                             </div>
-                        </div>
-
-                        <div class="flex justify-end items-center">
-                            <button
-                                class="text-sky-500 bg-white py-3 px-8 rounded text-center border border-sky-500 mr-3"
-                            >
-                                Send
-                            </button>
-                            <button
-                                class="text-white bg-sky-500 py-3 px-8 rounded text-center"
-                            >
-                                Download
-                            </button>
-                        </div>
-
-                        <div
-                            id="svg"
-                            class="absolute bottom-0 left-0 hidden md:block rotate-45 -ml-10"
-                            style="height: 160px; width: 160px"
-                        ></div>
-                    </div>
-                </section>
+                        </section>
+                    </template>
+                </template>
             </section>
         </main>
         <AppFooter />

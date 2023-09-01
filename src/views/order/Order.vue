@@ -1,5 +1,4 @@
 <script setup>
-import AppNavigation from '@/components/AppNavigation.vue';
 import ChevronRight from '@/svg/ChevronRight.vue';
 import AppLink from '@/components/AppLink.vue';
 import Home from '@/svg/Home.vue';
@@ -70,7 +69,6 @@ fetch(page.value);
 
 <template>
     <MainLayout>
-        <AppNavigation />
         <main class="px-8 mx-auto max-w-screen-2xl w-full">
             <div class="my-6 flex items-center space-x-2 px-8">
                 <div>
@@ -183,7 +181,7 @@ fetch(page.value);
                                                 <td class="table-data">
                                                     <AppLink
                                                         :to="{
-                                                            name: 'admin-order-detail',
+                                                            name: 'order-detail',
                                                             params: {
                                                                 id: order.id,
                                                             },
