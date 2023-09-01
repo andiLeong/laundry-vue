@@ -130,6 +130,23 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="flex w-full">
+                                    <div
+                                        class="flex justify-between w-2/5 flex-1"
+                                    >
+                                        <div>
+                                            <p
+                                                class="font-medium text-slate-700"
+                                            >
+                                                Service
+                                            </p>
+                                            <p class="text-slate-400 mt-1">
+                                                {{ order.service_name }}
+                                            </p>
+                                        </div>
+
                                         <div>
                                             <p
                                                 class="font-medium text-slate-700"
