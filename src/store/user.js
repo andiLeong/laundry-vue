@@ -75,9 +75,10 @@ export const useUserStore = defineStore({
                 .post('/api/logout')
                 .then(() => this.logoutFromLocal())
                 .catch(() => this.logoutFromLocal())
-                .finally(() => {
-                    location.replace('/');
-                });
+                .finally(
+                    () => this.router.push({ name: 'home' }),
+                    // location.replace('/');
+                );
         },
 
         async login(credentials) {

@@ -5,6 +5,8 @@ import Document from '@/svg/Document.vue';
 import ProfileUser from '@/svg/ProfileUser.vue';
 import { shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
+import Power from '@/svg/Power.vue';
+import { useUserStore } from '@/store/user.js';
 
 const props = defineProps({
     needBorder: {
@@ -12,6 +14,7 @@ const props = defineProps({
         default: true,
     },
 });
+const userStore = useUserStore();
 const route = useRoute();
 const links = shallowRef([
     {
@@ -33,6 +36,10 @@ const links = shallowRef([
         active: false,
     },
 ]);
+
+function logout() {
+    userStore.logout();
+}
 
 function setActiveLink() {
     let routeName = route.name;
@@ -107,6 +114,17 @@ setActiveLink();
                     ></component>
                     {{ link.name }}
                 </AppLink>
+            </li>
+
+            <li>
+                <a
+                    @click.prevent="logout"
+                    href="#"
+                    class="border-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-medium group flex items-center border-l-4 px-3 py-2 text-sm"
+                >
+                    <Power class="h-6 w-6 shrink-0 mr-3 text-slate-400" />
+                    Logout
+                </a>
             </li>
         </ul>
     </nav>

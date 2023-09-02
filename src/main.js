@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, markRaw } from 'vue';
 import './index.css';
 import App from './App.vue';
 import { createPinia } from 'pinia';
@@ -11,6 +11,10 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_APP_URL;
 
 const pinia = createPinia();
+pinia.use(({ store }) => {
+    store.router = markRaw(router);
+});
+
 const app = createApp(App).use(pinia);
 
 const userStore = useUserStore();
