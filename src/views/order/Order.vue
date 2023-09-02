@@ -8,7 +8,7 @@ import AppTable from '@/components/AppTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import moment from 'moment';
-import { default as AppDashboardNavigation } from '@/components/dashboard/navigation.vue';
+import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
 import CheckCircle from '@/svg/CheckCircle.vue';
 import X from '@/svg/X.vue';
 import Spinner from '@/svg/Spinner.vue';
