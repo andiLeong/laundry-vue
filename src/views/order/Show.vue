@@ -1,14 +1,13 @@
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import AppFooter from '@/components/AppFooter.vue';
-import ChevronRight from '@/svg/ChevronRight.vue';
 import MainLayout from '@/components/MainLayout.vue';
-import Home from '@/svg/Home.vue';
-import AppDashboardNavigation from '@/components/AppDashboardNavigation.vue';
+import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
 import useFetchOrder from '@/composable/useFetchOrder.js';
 import OrderDetailSkeleton from '@/components/skeleton/OrderDetailSkeleton.vue';
 import moment from 'moment';
 import { useUserStore } from '@/store/user.js';
+import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -20,25 +19,7 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
 <template>
     <MainLayout>
         <main class="px-8 mx-auto max-w-screen-2xl w-full mb-16">
-            <div class="my-6 flex items-center space-x-2 px-8">
-                <div>
-                    <Home class="h-5 w-5" style="color: #6b7280" />
-                </div>
-                <div>
-                    <p class="font-normal text-xs">Home</p>
-                </div>
-                <div>
-                    <ChevronRight class="h-5 w-5" style="color: #6b7280" />
-                </div>
-                <div>
-                    <p
-                        class="font-bold text-xs capitalize"
-                        style="color: #8b5cf6"
-                    >
-                        {{ route.name }}
-                    </p>
-                </div>
-            </div>
+            <Breadcrumbs />
 
             <section class="md:grid grid-cols-5 gap-12">
                 <AppDashboardNavigation :need-border="false" />

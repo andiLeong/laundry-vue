@@ -20,7 +20,7 @@
             class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between"
         >
             <div>
-                <p class="text-sm text-gray-700">
+                <p class="text-sm text-gray-500">
                     Showing
                     <span class="font-medium">{{ pagination.from }}</span>
                     to
@@ -190,7 +190,7 @@ export default {
         pages() {
             return _.range(
                 (this.section - 1) * this.perSection + 1,
-                this.lastPage + 1
+                this.lastPage + 1,
             );
         },
     },

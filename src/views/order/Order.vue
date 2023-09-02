@@ -1,7 +1,5 @@
 <script setup>
-import ChevronRight from '@/svg/ChevronRight.vue';
 import AppLink from '@/components/AppLink.vue';
-import Home from '@/svg/Home.vue';
 import AppFooter from '@/components/AppFooter.vue';
 import MainLayout from '@/components/MainLayout.vue';
 import Paginator from '@/components/Paginator.vue';
@@ -10,9 +8,11 @@ import AppTable from '@/components/AppTable.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import moment from 'moment';
-import AppDashboardNavigation from '@/components/AppDashboardNavigation.vue';
+import { default as AppDashboardNavigation } from '@/components/dashboard/navigation.vue';
 import CheckCircle from '@/svg/CheckCircle.vue';
 import X from '@/svg/X.vue';
+import Spinner from '@/svg/Spinner.vue';
+import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -32,6 +32,7 @@ const pagination = ref({});
 const page = ref(route.query.page || 1);
 const error = ref(null);
 const loading = ref(false);
+const displayPagination = ref(true);
 
 watch(
     () => route.query.page,
@@ -44,6 +45,12 @@ function fetch(page) {
         .get(`${endpoint.value}?page=${page}`)
         .then((response) => {
             orders.value = response.data.data;
+            if (
+                response.data.next_page_url === null &&
+                response.data.prev_page_url === null
+            ) {
+                displayPagination.value = false;
+            }
             pagination.value = response.data;
             delete pagination.value.data;
         })
@@ -70,27 +77,12 @@ fetch(page.value);
 <template>
     <MainLayout>
         <main class="px-8 mx-auto max-w-screen-2xl w-full">
-            <div class="my-6 flex items-center space-x-2 px-8">
-                <div>
-                    <Home class="h-5 w-5" style="color: #6b7280" />
-                </div>
-                <div>
-                    <p class="font-normal text-xs">Home</p>
-                </div>
-                <div>
-                    <ChevronRight class="h-5 w-5" style="color: #6b7280" />
-                </div>
-                <div>
-                    <p
-                        class="font-bold text-xs capitalize"
-                        style="color: #8b5cf6"
-                    >
-                        {{ route.name }}
-                    </p>
-                </div>
-            </div>
+            <Breadcrumbs />
 
-            <section class="md:grid grid-cols-5 gap-6 min-h-screen">
+            <section
+                :class="displayPagination ? 'min-h-screen' : ''"
+                class="md:grid grid-cols-5 gap-6"
+            >
                 <AppDashboardNavigation />
                 <div class="col-span-4 p-3">
                     <h3 class="text-gray-900 text-lg font-medium">Order</h3>
@@ -98,7 +90,11 @@ fetch(page.value);
                         Service you have ordered
                     </p>
 
-                    <template v-if="loading">loading...</template>
+                    <template v-if="loading">
+                        <Spinner
+                            class="text-sky-500 h-6 w-6 animate-spin mt-4"
+                        />
+                    </template>
                     <template v-else>
                         <p v-if="error" class="validation-error mt-10">
                             {{ error }}
@@ -198,7 +194,10 @@ fetch(page.value);
 
                                 <div class="my-4">
                                     <Paginator
-                                        v-if="pagination.current_page"
+                                        v-if="
+                                            pagination.current_page &&
+                                            displayPagination
+                                        "
                                         :pagination="pagination"
                                         :perSection="3"
                                         @switched-page="switchPage"
