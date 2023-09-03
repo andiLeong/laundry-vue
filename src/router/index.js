@@ -52,6 +52,12 @@ const routes = [
         component: () => import('@/views/order/Show.vue'),
     },
     {
+        path: '/profile',
+        name: 'profile',
+        component: () => import('@/views/Profile.vue'),
+        meta: { auth: true },
+    },
+    {
         path: '/admin/home',
         name: 'admin-home',
         component: () => import('@/views/admin/Home.vue'),

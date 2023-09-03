@@ -22,9 +22,24 @@ const validationSchema = ref(
             .max(11)
             .matches(/^[0-9]+$/, 'Its not a number'),
         password: string().required().min(8).max(90),
-        first_name: string().required().max(50),
-        middle_name: string().nullable(true).max(50),
-        last_name: string().required().max(50),
+        first_name: string()
+            .required()
+            .max(50)
+            .test('test-name', 'Number is not accepted', (value) =>
+                /^([^0-9]*)$/.test(value),
+            ),
+        middle_name: string()
+            .nullable(true)
+            .max(50)
+            .test('test-name', 'Number is not accepted', (value) =>
+                /^([^0-9]*)$/.test(value),
+            ),
+        last_name: string()
+            .required()
+            .max(50)
+            .test('test-name', 'Number is not accepted', (value) =>
+                /^([^0-9]*)$/.test(value),
+            ),
     }),
 );
 

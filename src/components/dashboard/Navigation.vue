@@ -18,8 +18,8 @@ const userStore = useUserStore();
 const route = useRoute();
 const links = shallowRef([
     {
-        name: 'Home',
-        route: 'home',
+        name: 'Profile',
+        route: 'profile',
         svg: ProfileUser,
         active: false,
     },
