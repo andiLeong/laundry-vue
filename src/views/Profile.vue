@@ -5,10 +5,12 @@ import MainLayout from '@/components/MainLayout.vue';
 import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
 import { useField, useForm } from 'vee-validate';
 import { object, string } from 'yup';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useUserStore } from '@/store/user.js';
+import Errors from '@/model/Errors.js';
 
 const user = useUserStore();
+const updated = ref(false);
 const isLoading = ref(false);
 const validationSchema = ref(
     object({
@@ -53,6 +55,15 @@ first_name.value = user.firstName;
 middle_name.value = user.middleName;
 last_name.value = user.lastName;
 
+watch(updated, (newValue) => {
+    if (newValue === true) {
+        setTimeout(() => {
+            updated.value = false;
+            console.log('hide it');
+        }, 1000);
+    }
+});
+
 const submit = ref(
     handleSubmit((values) => {
         update(values);
@@ -61,7 +72,25 @@ const submit = ref(
 
 function update(attributes) {
     isLoading.value = true;
-    console.log(attributes);
+
+    axios
+        .patch('api/user/profile', attributes)
+        .then(() => {
+            let tem = user.user;
+            tem.first_name = first_name.value;
+            tem.last_name = last_name.value;
+            tem.middle_name = middle_name.value;
+            user.user = tem;
+            updated.value = true;
+        })
+        .catch((error) => {
+            let err = new Errors(error).handle();
+            let firstKey = Object.keys(err)[0];
+            errors.value[firstKey] = err[firstKey][0];
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
 }
 </script>
 
@@ -87,8 +116,9 @@ function update(attributes) {
                                 <p
                                     class="mt-1 text-sm leading-6 text-slate-500"
                                 >
-                                    This information will be displayed publicly
-                                    so be careful what you share.
+                                    Update your personal information here, for
+                                    updating your phone number please contact
+                                    administrator
                                 </p>
 
                                 <form
@@ -180,6 +210,13 @@ function update(attributes) {
                                         >
                                             Update
                                         </button>
+
+                                        <p
+                                            v-if="updated"
+                                            class="mt-2 text-green-500 font-medium text-sm"
+                                        >
+                                            Success Updated
+                                        </p>
                                     </div>
                                 </form>
                             </div>

@@ -2,12 +2,12 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import UserCircle from '@/svg/UserCircle.vue';
 import BaseInput from '@/components/forms/BaseInput.vue';
-import {ref} from 'vue';
+import { ref } from 'vue';
 import PrimaryButton from '@/components/forms/PrimaryButton.vue';
-import {useUserStore} from '@/store/user.js';
+import { useUserStore } from '@/store/user.js';
 import Errors from '@/model/Errors.js';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
-import {useNotificationStore} from '@/store/Notification.js';
+import { useNotificationStore } from '@/store/Notification.js';
 
 const userStore = useUserStore();
 const notificationStore = useNotificationStore();
@@ -20,7 +20,7 @@ const errors = ref({});
 function submit() {
     loading.value = true;
     axios
-        .patch(`api/admin/user/profile`, {
+        .patch(`api/user/profile`, {
             last_name: last_name.value,
             first_name: first_name.value,
             middle_name: middle_name.value,
@@ -150,7 +150,7 @@ function submit() {
                                 <div
                                     class="bg-gray-100 px-4 py-3 text-right sm:px-6"
                                 >
-                                    <PrimaryButton :loading="loading"/>
+                                    <PrimaryButton :loading="loading" />
                                 </div>
                             </div>
                         </form>
