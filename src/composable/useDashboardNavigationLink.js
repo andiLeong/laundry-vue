@@ -2,6 +2,7 @@ import { shallowRef } from 'vue';
 import ProfileUser from '@/svg/ProfileUser.vue';
 import Document from '@/svg/Document.vue';
 import Cog6Tooth from '@/svg/Cog6Tooth.vue';
+import { useRoute } from 'vue-router';
 
 export default function useDashboardNavigationLink() {
     const links = shallowRef([
@@ -26,7 +27,7 @@ export default function useDashboardNavigationLink() {
     ]);
 
     function setActiveLink() {
-        let routeName = route.name;
+        let routeName = useRoute().name;
         links.value = links.value.map((link) => {
             if (routeName === link.route) {
                 link.active = true;
@@ -38,6 +39,7 @@ export default function useDashboardNavigationLink() {
             return link;
         });
     }
+
     setActiveLink();
 
     return {

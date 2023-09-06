@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import Power from '@/svg/Power.vue';
 import { useUserStore } from '@/store/user.js';
 import useDashboardNavigationLink from '@/composable/useDashboardNavigationLink.js';
+import MobileNavigation from '@/components/dashboard/MobileNavigation.vue';
 
 const props = defineProps({
     needBorder: {
@@ -23,7 +24,7 @@ function logout() {
 <template>
     <nav
         :class="needBorder ? 'border-r-2' : ''"
-        class="col-span-1 p-4 border-gray-100"
+        class="md:col-span-1 lg:col-span-1 p-4 border-gray-100 hidden md:block"
     >
         <ul class="space-y-2">
             <!--            <li-->
@@ -90,6 +91,8 @@ function logout() {
             </li>
         </ul>
     </nav>
+
+    <MobileNavigation />
 </template>
 
 <style scoped></style>

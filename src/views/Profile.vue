@@ -8,7 +8,6 @@ import { object, string } from 'yup';
 import { ref, watch } from 'vue';
 import { useUserStore } from '@/store/user.js';
 import Errors from '@/model/Errors.js';
-import MobileNavigation from '@/components/dashboard/MobileNavigation.vue';
 
 const user = useUserStore();
 const updated = ref(false);
@@ -98,12 +97,11 @@ function update(attributes) {
     <MainLayout>
         <main class="px-8 mx-auto max-w-screen-2xl w-full mb-16">
             <Breadcrumbs />
-            <MobileNavigation />
 
             <section class="md:grid grid-cols-5 gap-12">
                 <AppDashboardNavigation />
 
-                <div class="col-span-4">
+                <div class="md:col-span-2 lg:col-span-4 p-3">
                     <main class="px-4 sm:px-6 lg:flex-auto lg:px-0">
                         <div
                             class="md:grid grid-cols-3 lg:mx-0 lg:max-w-none gap-3"
