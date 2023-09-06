@@ -23,15 +23,15 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
 
             <section class="md:grid grid-cols-5 gap-12">
                 <AppDashboardNavigation :need-border="false" />
-                <section v-if="loading" class="col-span-4">
-                    <OrderDetailSkeleton />
-                </section>
-                <template v-else>
-                    <template v-if="error">
-                        <p>{{ error.response.data.message }}</p>
-                    </template>
+                <div class="md:col-span-2 lg:col-span-4 p-3">
+                    <section v-if="loading">
+                        <OrderDetailSkeleton />
+                    </section>
                     <template v-else>
-                        <section class="col-span-4">
+                        <template v-if="error">
+                            <p>{{ error.response.data.message }}</p>
+                        </template>
+                        <template v-else>
                             <div
                                 class="px-10 py-12 border border-t-8 border-t-sky-500 space-y-16 shadow-md rounded-md relative overflow-hidden"
                             >
@@ -225,9 +225,9 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     style="height: 160px; width: 160px"
                                 ></div>
                             </div>
-                        </section>
+                        </template>
                     </template>
-                </template>
+                </div>
             </section>
         </main>
         <AppFooter />

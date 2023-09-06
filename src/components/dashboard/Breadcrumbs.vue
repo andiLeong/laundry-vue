@@ -12,7 +12,7 @@ function toTitle(str) {
 }
 </script>
 <template>
-    <div class="my-6 flex items-center space-x-2 px-8">
+    <div class="my-6 items-center space-x-2 px-8 hidden md:flex">
         <div>
             <Home class="h-5 w-5 text-slate-600" />
         </div>

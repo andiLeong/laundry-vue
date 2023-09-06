@@ -81,10 +81,10 @@ fetch(page.value);
 
             <section
                 :class="displayPagination ? 'min-h-screen' : ''"
-                class="md:grid grid-cols-5 gap-6"
+                class="md:grid md:grid-cols-3 lg:grid-cols-5 gap-6"
             >
                 <AppDashboardNavigation />
-                <div class="col-span-4 p-3">
+                <div class="md:col-span-2 lg:col-span-4 p-3">
                     <h3 class="text-gray-900 text-lg font-medium">Order</h3>
                     <p class="font-normal text-gray-400 text-sm">
                         Service you have ordered
