@@ -98,7 +98,7 @@ function update(attributes) {
         <main class="px-8 mx-auto max-w-screen-2xl w-full mb-16">
             <Breadcrumbs />
 
-            <section class="md:grid grid-cols-5 gap-12">
+            <section class="md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <AppDashboardNavigation />
 
                 <div class="md:col-span-2 lg:col-span-4 p-3">
