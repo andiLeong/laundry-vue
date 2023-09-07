@@ -100,14 +100,14 @@ export const useUserStore = defineStore({
                     this.logoutFromLocal();
                 })
                 .finally(() => {
-                    // this.setUser({
-                    //     id: 1,
-                    //     type: 'admin',
-                    //     phone: '09272714285',
-                    //     first_name: 'anthony',
-                    //     middle_name: 'na',
-                    //     last_name: 'lee',
-                    // });
+                    this.setUser({
+                        id: 1,
+                        type: 'admin',
+                        phone: '09272714285',
+                        first_name: 'anthony',
+                        middle_name: 'na',
+                        last_name: 'lee',
+                    });
                     app.use(router).mount('#app');
                 });
         },

@@ -21,11 +21,11 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
         <main class="px-8 mx-auto max-w-screen-2xl w-full mb-16">
             <Breadcrumbs />
 
-            <section class="md:grid grid-cols-5 gap-12">
+            <section class="md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <AppDashboardNavigation :need-border="false" />
                 <div class="md:col-span-2 lg:col-span-4 p-3">
                     <section v-if="loading">
-                        <OrderDetailSkeleton />
+                        <OrderDetailSkeleton class="hidden md:block" />
                     </section>
                     <template v-else>
                         <template v-if="error">
@@ -33,10 +33,12 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                         </template>
                         <template v-else>
                             <div
-                                class="px-10 py-12 border border-t-8 border-t-sky-500 space-y-16 shadow-md rounded-md relative overflow-hidden"
+                                class="px-4 md:px-10 py-12 border border-t-8 border-t-sky-500 space-y-16 shadow-md rounded-md relative overflow-hidden"
                             >
-                                <div class="flex justify-between items-start">
-                                    <div class="space-y-2">
+                                <div
+                                    class="flex md:flex-row flex-col-reverse justify-between items-start"
+                                >
+                                    <div class="space-y-0.5 md:space-y-2">
                                         <div>
                                             <p
                                                 class="text-xl font-medium text-slate-800"
@@ -73,15 +75,15 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     </div>
                                 </div>
 
-                                <div class="space-y-2">
+                                <div class="md:space-y-2">
                                     <div
                                         v-for="(
                                             product, index
                                         ) in order.product_order"
                                         :key="index"
-                                        class="p-5 border border-slate-200 flex items-center justify-between"
+                                        class="p-1 lg:p-5 lg:border border-slate-200 flex items-center justify-between"
                                     >
-                                        <div class="w-2/3">
+                                        <div class="md:w-2/3">
                                             <p
                                                 class="text-sm font-medium"
                                                 style="color: #0f2851"
@@ -90,9 +92,9 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                             </p>
                                         </div>
 
-                                        <div class="w-1/3 flex items-center">
+                                        <div class="md:w-1/3 flex items-center">
                                             <div
-                                                class="flex-1 flex items-center"
+                                                class="flex-1 md:flex items-center hidden"
                                             >
                                                 <p class="text-slate-400">#</p>
                                                 <p
@@ -102,9 +104,18 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                                 </p>
                                             </div>
                                             <div class="flex items-center">
-                                                <p class="text-slate-400">₱</p>
                                                 <p
-                                                    class="text-slate-700 font-medium"
+                                                    class="text-xs mr-2 block md:hidden text-slate-400"
+                                                >
+                                                    {{ product.quantity }}@
+                                                </p>
+                                                <p
+                                                    class="text-slate-500 text-xl md:text-base"
+                                                >
+                                                    ₱
+                                                </p>
+                                                <p
+                                                    class="text-slate-700 font-semibold md:font-medium text-xl md:text-base"
                                                 >
                                                     {{ product.price }}
                                                 </p>
@@ -113,7 +124,8 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     </div>
                                 </div>
 
-                                <div class="flex w-full">
+                                <!-- desktop order section-->
+                                <div class="hidden lg:flex w-full">
                                     <div
                                         class="flex justify-between w-2/5 flex-1"
                                     >
@@ -206,14 +218,102 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="flex justify-end items-center">
+
+                                <!-- mobile order section-->
+                                <div class="block lg:hidden w-full">
+                                    <div
+                                        class="flex items-center justify-between"
+                                    >
+                                        <p class="font-medium text-slate-700">
+                                            Service
+                                        </p>
+                                        <p class="text-slate-400 mt-1">
+                                            {{ order.service_name }}
+                                        </p>
+                                    </div>
+
+                                    <div
+                                        class="flex items-center justify-between"
+                                    >
+                                        <p class="font-medium text-slate-700">
+                                            Payment
+                                        </p>
+                                        <p class="text-slate-400 mt-1">
+                                            {{ order.payment }}
+                                        </p>
+                                    </div>
+
+                                    <div class="mt-7">
+                                        <div
+                                            class="flex items-center justify-between border-b border-b-slate-200 pb-3"
+                                        >
+                                            <div>
+                                                <p class="text-slate-400">
+                                                    Subtotal
+                                                </p>
+                                                <p class="text-slate-400">
+                                                    Products
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="flex flex-col items-end"
+                                            >
+                                                <div class="flex items-center">
+                                                    <span
+                                                        class="text-slate-400 mr-0.5"
+                                                        >₱</span
+                                                    >
+                                                    <p
+                                                        class="font-medium text-slate-600"
+                                                    >
+                                                        {{ order.amount }}
+                                                    </p>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <span
+                                                        class="text-slate-400 mr-0.5"
+                                                        >₱</span
+                                                    >
+                                                    <p
+                                                        class="font-medium text-slate-600"
+                                                    >
+                                                        {{
+                                                            order.product_amount
+                                                        }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex items-center justify-between mt-8"
+                                        >
+                                            <p class="text-slate-400">Total</p>
+
+                                            <div class="flex items-center">
+                                                <span
+                                                    class="text-slate-400 mr-0.5"
+                                                    >₱</span
+                                                >
+                                                <p
+                                                    class="font-medium text-slate-600"
+                                                >
+                                                    {{ order.total_amount }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="flex justify-between md:justify-end items-center"
+                                >
                                     <button
-                                        class="text-sky-500 bg-white py-3 px-8 rounded text-center border border-sky-500 mr-3"
+                                        class="text-sky-500 bg-white py-2 md:py-3 px-6 md:px-8 rounded text-center border border-sky-500 mr-3"
                                     >
                                         Send
                                     </button>
                                     <button
-                                        class="text-white bg-sky-500 py-3 px-8 rounded text-center"
+                                        class="text-white bg-sky-500 py-2 md:py-3 px-6 md:px-8 rounded text-center"
                                     >
                                         Download
                                     </button>
@@ -221,7 +321,7 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
 
                                 <div
                                     id="svg"
-                                    class="absolute bottom-0 left-0 hidden md:block rotate-45 -ml-10"
+                                    class="absolute bottom-0 left-0 hidden lg:block rotate-45 -ml-10"
                                     style="height: 160px; width: 160px"
                                 ></div>
                             </div>
