@@ -168,14 +168,14 @@
                                     class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0"
                                 >
                                     <ul
-                                        v-if="order.product_order.length > 0"
+                                        v-if="order.products.length > 0"
                                         role="list"
                                         class="divide-y divide-gray-100 rounded-md border border-gray-200"
                                     >
                                         <li
                                             v-for="(
                                                 product, index
-                                            ) in order.product_order"
+                                            ) in order.products"
                                             :key="index"
                                             class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6"
                                         >
@@ -195,8 +195,7 @@
                                                         class="flex-shrink-0 text-gray-400"
                                                         >{{ product.price }} *
                                                         {{
-                                                            product.pivot
-                                                                .quantity
+                                                            product.quantity
                                                         }}</span
                                                     >
                                                 </div>

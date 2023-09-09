@@ -39,13 +39,11 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     class="flex md:flex-row flex-col-reverse justify-between items-start"
                                 >
                                     <div class="space-y-0.5 md:space-y-2">
-                                        <div>
-                                            <p
-                                                class="text-xl font-medium text-slate-800"
-                                            >
-                                                {{ user.fullName }}
-                                            </p>
-                                        </div>
+                                        <p
+                                            class="text-base md:text-xl font-medium text-slate-800"
+                                        >
+                                            {{ user.fullName }}
+                                        </p>
                                         <p
                                             class="text-slate-500 font-normal text-sm"
                                         >
@@ -68,7 +66,7 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     </div>
                                     <div>
                                         <p
-                                            class="font-medium text-xl text-slate-800"
+                                            class="font-medium text-xl text-slate-500 md:text-slate-800"
                                         >
                                             #{{ route.params.id }}
                                         </p>
@@ -79,7 +77,7 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     <div
                                         v-for="(
                                             product, index
-                                        ) in order.product_order"
+                                        ) in order.products"
                                         :key="index"
                                         class="p-1 lg:p-5 lg:border border-slate-200 flex items-center justify-between"
                                     >
@@ -115,9 +113,9 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                                     ₱
                                                 </p>
                                                 <p
-                                                    class="text-slate-700 font-semibold md:font-medium text-xl md:text-base"
+                                                    class="text-slate-700 font-semibold md:font-medium text-base"
                                                 >
-                                                    {{ product.price }}
+                                                    {{ product.total_price }}
                                                 </p>
                                             </div>
                                         </div>
@@ -146,7 +144,9 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                             >
                                                 Payment
                                             </p>
-                                            <p class="text-slate-400 mt-1">
+                                            <p
+                                                class="text-slate-400 mt-1 capitalize"
+                                            >
                                                 {{ order.payment }}
                                             </p>
                                         </div>
@@ -224,10 +224,10 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     <div
                                         class="flex items-center justify-between"
                                     >
-                                        <p class="font-medium text-slate-700">
+                                        <p class="font-medium text-slate-400">
                                             Service
                                         </p>
-                                        <p class="text-slate-400 mt-1">
+                                        <p class="text-slate-600 mt-1">
                                             {{ order.service_name }}
                                         </p>
                                     </div>
@@ -235,10 +235,12 @@ const { loading, order, error } = useFetchOrder(`api/order/${route.params.id}`);
                                     <div
                                         class="flex items-center justify-between"
                                     >
-                                        <p class="font-medium text-slate-700">
+                                        <p class="font-medium text-slate-400">
                                             Payment
                                         </p>
-                                        <p class="text-slate-400 mt-1">
+                                        <p
+                                            class="text-slate-600 mt-1 capitalize"
+                                        >
                                             {{ order.payment }}
                                         </p>
                                     </div>
