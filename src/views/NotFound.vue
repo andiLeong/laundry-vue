@@ -3,14 +3,14 @@ import AppLink from '@/components/AppLink.vue';
 </script>
 <template>
     <main class="md:hidden flex justify-center items-center min-h-screen">
-        <img src="public/not-found.png" alt="404" />
+        <img src="/not-found.png" alt="404" />
     </main>
 
     <main
         class="hidden md:flex justify-center items-center min-h-screen background"
     >
         <div class="flex flex-col items-center">
-            <img src="public/not-found.png" alt="404" />
+            <img src="/not-found.png" alt="404" />
             <AppLink :to="{ name: 'home' }" class="text-primary font-semibold"
                 >Home
             </AppLink>
