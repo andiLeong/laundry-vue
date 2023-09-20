@@ -1,26 +1,41 @@
+<script setup>
+import AppLink from '@/components/AppLink.vue';
+</script>
 <template>
-    <div class="py-16">
-        <div class="text-center">
-            <p
-                class="text-sm font-semibold text-sky-600 uppercase tracking-wide"
-            >
-                404 error
-            </p>
-            <h1
-                class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl"
-            >
-                Page not found.
-            </h1>
-            <p class="mt-2 text-base text-gray-500">
-                Sorry, we couldn’t find the page you’re looking for.
-            </p>
-            <div class="mt-6">
-                <router-link
-                    class="text-base font-medium text-sky-600 hover:text-sky-500"
-                    :to="{ name: 'home' }"
-                    >Go back home
-                </router-link>
-            </div>
+    <main class="md:hidden flex justify-center items-center min-h-screen">
+        <img src="public/404-not-found.png" alt="404" />
+    </main>
+
+    <main
+        class="hidden md:flex justify-center items-center min-h-screen background"
+    >
+        <div class="flex flex-col items-center">
+            <img src="public/404-not-found.png" alt="404" />
+            <AppLink :to="{ name: 'home' }" class="text-primary font-semibold"
+                >Home
+            </AppLink>
         </div>
-    </div>
+    </main>
 </template>
+
+<style>
+.background {
+    position: relative;
+}
+
+.background::before {
+    content: '';
+    background-image: url('/src/assets/about-bg.jpg');
+    background-size: cover;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.5;
+}
+
+.background > * {
+    position: relative;
+}
+</style>
