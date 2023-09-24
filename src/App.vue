@@ -34,6 +34,7 @@ const adminRoutes = [
     'admin-order-detail',
     'admin-product',
     'admin-service',
+    'admin-attendance',
 ];
 
 const route = useRoute();

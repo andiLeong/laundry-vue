@@ -77,9 +77,8 @@ import CurrencyDollar from '@/svg/CurrencyDollar.vue';
 import PencilSquare from '@/svg/PencilSquare.vue';
 import AppLink from '@/components/AppLink.vue';
 import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue';
-import {useUserStore} from "@/store/user.js";
-import {shallowRef} from "vue";
-
+import { useUserStore } from '@/store/user.js';
+import { shallowRef } from 'vue';
 
 const user = useUserStore();
 const links = shallowRef([
@@ -111,6 +110,11 @@ const secondLinks = shallowRef([
         route: 'admin-promotion',
         svg: Gift,
     },
+    {
+        name: 'Attendance',
+        route: 'admin-attendance',
+        svg: LightBulb,
+    },
 ]);
 
 if (user.isAdmin) {
@@ -118,18 +122,18 @@ if (user.isAdmin) {
         name: 'User',
         route: 'admin-user',
         svg: People,
-    })
+    });
     links.value.push({
         name: 'Stats',
         route: 'admin-stat',
         svg: CircusStack,
-    })
+    });
 
     secondLinks.value.push({
         name: 'Expense',
         route: 'admin-expense',
         svg: CurrencyDollar,
-    })
+    });
 }
 </script>
 

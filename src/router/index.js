@@ -94,6 +94,11 @@ const routes = [
         meta: { adminOnly: true },
     },
     {
+        path: '/attendance',
+        name: 'admin-attendance',
+        component: () => import('@/views/Attendance.vue'),
+    },
+    {
         path: '/admin/stat',
         name: 'admin-stat',
         component: () => import('@/views/admin/Stat.vue'),
