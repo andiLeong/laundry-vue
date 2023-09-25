@@ -1,5 +1,14 @@
 <template>
     <AdminLayout>
+        <template v-slot:right-button>
+            <button
+                type="button"
+                @click.prevent="reportToWork"
+                class="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+            >
+                Report To Work
+            </button>
+        </template>
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-10">
                 <AppTableLayout>
@@ -122,6 +131,12 @@ const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
 const showPanel = ref(false);
+
+function reportToWork() {
+    router.push({
+        name: 'admin-report-to-work',
+    });
+}
 
 function fetch(page, query = '') {
     let url = `${endpoint.value}?page=${page}&${query}`;

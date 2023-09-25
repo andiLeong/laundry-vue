@@ -96,7 +96,14 @@ const routes = [
     {
         path: '/attendance',
         name: 'admin-attendance',
-        component: () => import('@/views/Attendance.vue'),
+        component: () => import('@/views/admin/Attendance.vue'),
+        meta: { staffOnly: true },
+    },
+    {
+        path: '/report-to-work',
+        name: 'admin-report-to-work',
+        component: () => import('@/views/admin/ReportToWork.vue'),
+        meta: { staffOnly: true },
     },
     {
         path: '/admin/stat',
