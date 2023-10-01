@@ -15,21 +15,23 @@
                     <template v-slot:title>
                         <h2 class="text-gray-600">Attendance</h2>
 
-                        <!--                        <div class="my-2">-->
-                        <!--                            <button-->
-                        <!--                                class="go-back-btn"-->
-                        <!--                                @click.prevent="showPanel = !showPanel"-->
-                        <!--                            >-->
-                        <!--                                {{ showPanel ? 'hide panel' : 'open panel' }}-->
-                        <!--                            </button>-->
-                        <!--                        </div>-->
-
-                        <!--                        <template v-if="showPanel">-->
-                        <!--                            <OrderSearchPanel-->
-                        <!--                                @search-query="getherQuery"-->
-                        <!--                                @reset-query="resetQuery"-->
-                        <!--                            />-->
-                        <!--                        </template>-->
+                        <form @submit.prevent="search" action="">
+                            <div class="my-6 flex items-center justify-between">
+                                <div class="">
+                                    <VueDatePicker
+                                        v-model="month"
+                                        format="yyyy/MM"
+                                        month-picker
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                >
+                                    Search
+                                </button>
+                            </div>
+                        </form>
                     </template>
 
                     <AppTable>
@@ -109,6 +111,8 @@ import AppTableLayout from '@/components/AppTableLayout.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import moment from 'moment';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 const route = useRoute();
 const router = useRouter();
@@ -130,7 +134,10 @@ const pagination = ref({});
 const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
-const showPanel = ref(false);
+const month = ref({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
+});
 
 function reportToWork() {
     router.push({
@@ -190,6 +197,15 @@ watch(
     () => route.query.page,
     (page) => fetch(page, toQueryString(queryString.value)),
 );
+
+function search() {
+    if (month.value === null) {
+        return;
+    }
+    getherQuery({
+        month: `${month.value.year}-${month.value.month + 1}`,
+    });
+}
 
 fetch(page.value, toQueryString(queryString.value));
 </script>

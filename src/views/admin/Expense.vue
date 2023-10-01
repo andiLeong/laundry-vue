@@ -5,18 +5,24 @@
                 <AppTableLayout>
                     <template v-slot:title>
                         <h2 class="text-gray-600">Expense</h2>
-                        <div class="my-6 grid grid-cols-12">
-                            <div class="col-span-3">
-                                <BaseInput
-                                    labelClass="form-label"
-                                    placeHolder="2023-07"
-                                    class="mt-1 form-input"
-                                    label="Year Month"
-                                    type="text"
-                                    v-model="yearMonth"
-                                />
+
+                        <form @submit.prevent="search" action="">
+                            <div class="my-6 flex items-center justify-between">
+                                <div class="">
+                                    <VueDatePicker
+                                        v-model="yearMonth"
+                                        format="yyyy-MM"
+                                        month-picker
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                >
+                                    Search
+                                </button>
                             </div>
-                        </div>
+                        </form>
                     </template>
 
                     <AppTable>
@@ -86,8 +92,8 @@ import Sorting from '@/components/Sorting.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import moment from 'moment';
-import BaseInput from '@/components/forms/BaseInput.vue';
-import useDebouncedRef from '@/composable/useDebounceRef.js';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 
 const route = useRoute();
 const router = useRouter();
@@ -99,14 +105,11 @@ const expenses = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
 const queryString = ref({});
-const yearMonth = useDebouncedRef('', 400);
-const sortQuery = ref('order_by[]=id&direction[]=desc');
-
-watch(yearMonth, async (newValue, oldValue) => {
-    getherQuery({
-        'year-month': newValue,
-    });
+const yearMonth = ref({
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
 });
+const sortQuery = ref('order_by[]=id&direction[]=desc');
 
 function fetch(page, query = '') {
     return axios
@@ -146,6 +149,15 @@ function switchPage(page) {
 
 function setDefaultSortColumn(column) {
     defaultSortColumn.value = column;
+}
+
+function search() {
+    if (yearMonth.value === null) {
+        return;
+    }
+    getherQuery({
+        'year-month': `${yearMonth.value.year}-${yearMonth.value.month + 1}`,
+    });
 }
 
 watch(
