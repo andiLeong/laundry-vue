@@ -9,6 +9,7 @@ import Errors from '@/model/Errors.js';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
 import { useNotificationStore } from '@/store/Notification.js';
 import AppLink from '@/components/AppLink.vue';
+import { useRoute } from 'vue-router';
 
 const userStore = useUserStore();
 const notificationStore = useNotificationStore();
@@ -16,13 +17,14 @@ const password = ref(null);
 const confirmation = ref(null);
 const loading = ref(false);
 const errors = ref({});
+const routeName = useRoute().name;
 
 function submit() {
     loading.value = true;
     axios
         .patch(`api/user/password`, {
             password: password.value,
-            confirmation: confirmation.value,
+            password_confirmation: confirmation.value,
         })
         .then(() => {
             notificationStore.title = 'Saved!';
@@ -50,26 +52,42 @@ function submit() {
                         class="px-2 py-6 sm:px-6 lg:col-span-3 lg:px-0 lg:py-0"
                     >
                         <nav class="space-y-1">
-                            <!-- Current: "bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
                             <AppLink
                                 :to="{ name: 'admin-profile' }"
-                                class="bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
-                                aria-current="page"
+                                :class="
+                                    routeName === 'admin-profile'
+                                        ? 'bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700'
+                                        : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900'
+                                "
+                                class="group flex items-center rounded-md px-3 py-2 text-sm font-medium"
                             >
-                                <!-- Current: "text-sky-500 group-hover:text-sky-500", Default: "text-gray-400 group-hover:text-gray-500" -->
                                 <UserCircle
-                                    class="text-sky-500 group-hover:text-sky-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
+                                    :class="
+                                        routeName === 'admin-profile'
+                                            ? 'text-sky-500 group-hover:text-sky-500'
+                                            : 'text-gray-400 group-hover:text-gray-500'
+                                    "
+                                    class="-ml-1 mr-3 h-6 w-6 flex-shrink-0"
                                 />
                                 <span class="truncate">Profile</span>
                             </AppLink>
 
                             <AppLink
                                 :to="{ name: 'admin-password' }"
-                                href="#"
-                                class="text-gray-900 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
+                                :class="
+                                    routeName === 'admin-password'
+                                        ? 'bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700'
+                                        : 'text-gray-900 hover:bg-gray-50 hover:text-gray-900'
+                                "
+                                class="group flex items-center rounded-md px-3 py-2 text-sm font-medium"
                             >
                                 <svg
-                                    class="text-gray-400 group-hover:text-gray-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
+                                    :class="
+                                        routeName === 'admin-password'
+                                            ? 'text-sky-500 group-hover:text-sky-500'
+                                            : 'text-gray-400 group-hover:text-gray-500'
+                                    "
+                                    class="-ml-1 mr-3 h-6 w-6 flex-shrink-0"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke-width="1.5"
