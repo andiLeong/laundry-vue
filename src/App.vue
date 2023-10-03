@@ -29,6 +29,7 @@ const adminRoutes = [
     'admin-stat',
     'admin-order-create',
     'admin-profile',
+    'admin-password',
     'admin-promotion',
     'admin-expense',
     'admin-order-detail',

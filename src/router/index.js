@@ -124,6 +124,12 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/password',
+        name: 'admin-password',
+        component: () => import('@/views/admin/Password.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/product',
         name: 'admin-product',
         component: () => import('@/views/admin/Product.vue'),
