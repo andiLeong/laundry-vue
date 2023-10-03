@@ -8,6 +8,7 @@ import { useUserStore } from '@/store/user.js';
 import Errors from '@/model/Errors.js';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
 import { useNotificationStore } from '@/store/Notification.js';
+import AppLink from '@/components/AppLink.vue';
 
 const userStore = useUserStore();
 const notificationStore = useNotificationStore();
@@ -56,8 +57,9 @@ function submit() {
                     >
                         <nav class="space-y-1">
                             <!-- Current: "bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700", Default: "text-gray-900 hover:bg-gray-50 hover:text-gray-900" -->
-                            <a
-                                href="#"
+
+                            <AppLink
+                                :to="{ name: 'admin-profile' }"
                                 class="bg-gray-50 text-sky-700 hover:bg-white hover:text-sky-700 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
                                 aria-current="page"
                             >
@@ -66,8 +68,10 @@ function submit() {
                                     class="text-sky-500 group-hover:text-sky-500 -ml-1 mr-3 h-6 w-6 flex-shrink-0"
                                 />
                                 <span class="truncate">Profile</span>
-                            </a>
-                            <a
+                            </AppLink>
+
+                            <AppLink
+                                :to="{ name: 'admin-password' }"
                                 href="#"
                                 class="text-gray-900 hover:bg-gray-50 hover:text-gray-900 group flex items-center rounded-md px-3 py-2 text-sm font-medium"
                             >
@@ -86,7 +90,7 @@ function submit() {
                                     />
                                 </svg>
                                 <span class="truncate">Password</span>
-                            </a>
+                            </AppLink>
                         </nav>
                     </aside>
 
