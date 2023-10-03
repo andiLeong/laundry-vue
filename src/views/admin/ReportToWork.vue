@@ -48,9 +48,9 @@ function fire(position, type = 'in') {
                 name: 'admin-attendance',
             }),
         )
-        .catch((error) => {
-            let err = new Errors(error);
-            errors.value = err.handle();
+        .catch((e) => {
+            let err = new Errors(e);
+            error.value = err.handle();
         })
         .finally(() => {
             punching.value = false;
@@ -63,7 +63,7 @@ function fire(position, type = 'in') {
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-40 flex justify-center">
                 <div class="flex flex-col space-y-10">
-                    <p v-if="error" class="validation-error">error occurred</p>
+                    <p v-if="error" class="validation-error">{{ error }}</p>
                     <button
                         @click.prevent="punchIn"
                         :disabled="punching"
@@ -72,7 +72,7 @@ function fire(position, type = 'in') {
                                 ? 'bg-slate-400 text-white cursor-not-allowed'
                                 : 'bg-sky-500 text-white'
                         "
-                        class="py-3 px-2 rounded text-sm tracking-tight"
+                        class="py-3 px-2 rounded text-sm tracking-tight w-64"
                     >
                         Punch In
                     </button>
@@ -84,7 +84,7 @@ function fire(position, type = 'in') {
                                 ? 'bg-slate-400 text-white cursor-not-allowed'
                                 : 'bg-sky-500 text-white'
                         "
-                        class="bg-slate-500 text-slate-200 py-3 px-2 rounded text-sm tracking-tight"
+                        class="bg-slate-500 text-slate-200 py-3 px-2 rounded text-sm tracking-tight w-64"
                     >
                         Punch Out
                     </button>
