@@ -30,7 +30,7 @@ function submit() {
             notificationStore.title = 'Saved!';
             notificationStore.message = 'Password Updated! we are logging out';
             notificationStore.show = true;
-            // userStore.logout()
+            setTimeout(() => userStore.logout(), 300);
         })
         .catch((error) => {
             let err = new Errors(error);
