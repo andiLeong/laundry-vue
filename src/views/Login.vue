@@ -18,7 +18,6 @@
                                     >Phone
                                 </label>
                                 <input
-                                    id="phone"
                                     v-model="phone"
                                     :class="
                                         errors.phone
@@ -40,18 +39,37 @@
                                     for="password"
                                     >Password
                                 </label>
-                                <input
-                                    id="password"
-                                    v-model="password"
-                                    :class="
-                                        errors.password
-                                            ? 'input-error-border'
-                                            : 'input-border'
-                                    "
-                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400"
-                                    placeholder="Password"
-                                    type="password"
-                                />
+                                <div class="relative w-full">
+                                    <div
+                                        class="absolute bottom-0 right-0 mr-3 mb-2 text-slate-400"
+                                    >
+                                        <button
+                                            @click.prevent="showPasswordInput"
+                                        >
+                                            <LockOpen
+                                                v-if="showPassword"
+                                                class="w-5 h-5"
+                                            />
+                                            <LockClosed
+                                                v-else
+                                                class="w-5 h-5"
+                                            />
+                                        </button>
+                                    </div>
+                                    <input
+                                        v-model="password"
+                                        :class="
+                                            errors.password
+                                                ? 'input-error-border'
+                                                : 'input-border'
+                                        "
+                                        class="rounded-lg py-3 px-4 placeholder:text-slate-400 w-full"
+                                        placeholder="Password"
+                                        :type="
+                                            showPassword ? 'text' : 'password'
+                                        "
+                                    />
+                                </div>
                                 <p
                                     v-if="errors.password"
                                     class="validation-error"
@@ -62,7 +80,6 @@
 
                             <div class="flex items-center">
                                 <input
-                                    id="remember-me"
                                     class="h-4 w-4 rounded border-gray-300"
                                     name="remember-me"
                                     type="checkbox"
@@ -132,7 +149,6 @@
                                 >Phone
                             </label>
                             <input
-                                id="phone"
                                 v-model="phone"
                                 :class="
                                     errors.phone
@@ -154,18 +170,31 @@
                                 for="password"
                                 >Password
                             </label>
-                            <input
-                                id="password"
-                                v-model="password"
-                                :class="
-                                    errors.password
-                                        ? 'input-error-border'
-                                        : 'input-border'
-                                "
-                                class="rounded-lg py-3 px-4 placeholder:text-slate-400"
-                                placeholder="Password"
-                                type="password"
-                            />
+
+                            <div class="relative w-full">
+                                <div
+                                    class="absolute bottom-0 right-0 mr-3 mb-2 text-slate-400"
+                                >
+                                    <button @click.prevent="showPasswordInput">
+                                        <LockOpen
+                                            v-if="showPassword"
+                                            class="w-5 h-5"
+                                        />
+                                        <LockClosed v-else class="w-5 h-5" />
+                                    </button>
+                                </div>
+                                <input
+                                    v-model="password"
+                                    :class="
+                                        errors.password
+                                            ? 'input-error-border'
+                                            : 'input-border'
+                                    "
+                                    class="rounded-lg py-3 px-4 placeholder:text-slate-400 w-full"
+                                    placeholder="Password"
+                                    :type="showPassword ? 'text' : 'password'"
+                                />
+                            </div>
                             <p v-if="errors.password" class="validation-error">
                                 {{ errors.password }}
                             </p>
@@ -173,7 +202,6 @@
 
                         <div class="flex items-center">
                             <input
-                                id="remember-me"
                                 class="h-4 w-4 rounded border-gray-300"
                                 name="remember-me"
                                 type="checkbox"
@@ -223,7 +251,10 @@ import { useUserStore } from '@/store/user';
 import { useRouter } from 'vue-router';
 import AppLink from '@/components/AppLink.vue';
 import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
+import LockClosed from '@/svg/LockClosed.vue';
+import LockOpen from '@/svg/LockOpen.vue';
 
+const showPassword = ref(false);
 const userStore = useUserStore();
 const router = useRouter();
 const validationSchema = ref(
@@ -266,6 +297,10 @@ async function login(credentials) {
             errors.value.password = err.response.data.message;
             console.log(err.response.data.message);
         });
+}
+
+function showPasswordInput() {
+    showPassword.value = !showPassword.value;
 }
 </script>
 <style>
