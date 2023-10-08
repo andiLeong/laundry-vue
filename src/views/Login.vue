@@ -3,8 +3,10 @@
         class="min-h-screen flex justify-center items-center"
         style="background: #f8f9fe"
     >
-        <section class="max-w-5xl mx-auto flex rounded-lg shadow-2xl">
-            <div class="bg-white px-6 py-9" style="width: 498px">
+        <section
+            class="w-full md:max-w-5xl mx-auto md:flex rounded-lg shadow-2xl hidden"
+        >
+            <div class="bg-white md:px-6 lg:px-8 py-9 flex-1">
                 <h1 class="text-3xl" style="color: #212b36">Sign In</h1>
                 <div class="my-5">
                     <form @submit.prevent="submit">
@@ -100,8 +102,7 @@
                 </div>
             </div>
             <div
-                class="hidden gradient-bg md:flex flex-col justify-center items-center"
-                style="width: 541px"
+                class="hidden gradient-bg md:flex flex-col justify-center items-center flex-1 md:px-5 lg:px-10"
             >
                 <h1 class="text-4xl font-semibold text-white text-center">
                     Welcome to SBIN!
@@ -115,6 +116,100 @@
                 >
                     Sign Up
                 </AppLink>
+            </div>
+        </section>
+
+        <!-- mobile view-->
+        <section class="md:hidden w-full px-9 py-7 bg-white shadow-lg">
+            <h1 class="text-3xl" style="color: #212b36">Sign In</h1>
+            <div class="my-5">
+                <form @submit.prevent="submit">
+                    <div class="space-y-5">
+                        <div class="flex flex-col">
+                            <label
+                                class="mb-2.5 text-base font-medium label-color"
+                                for="phone"
+                                >Phone
+                            </label>
+                            <input
+                                id="phone"
+                                v-model="phone"
+                                :class="
+                                    errors.phone
+                                        ? 'input-error-border'
+                                        : 'input-border'
+                                "
+                                class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                placeholder="Phone"
+                                type="text"
+                            />
+                            <p v-if="errors.phone" class="validation-error">
+                                {{ errors.phone }}
+                            </p>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label
+                                class="mb-2.5 text-base font-medium label-color"
+                                for="password"
+                                >Password
+                            </label>
+                            <input
+                                id="password"
+                                v-model="password"
+                                :class="
+                                    errors.password
+                                        ? 'input-error-border'
+                                        : 'input-border'
+                                "
+                                class="rounded-lg py-3 px-4 placeholder:text-slate-400"
+                                placeholder="Password"
+                                type="password"
+                            />
+                            <p v-if="errors.password" class="validation-error">
+                                {{ errors.password }}
+                            </p>
+                        </div>
+
+                        <div class="flex items-center">
+                            <input
+                                id="remember-me"
+                                class="h-4 w-4 rounded border-gray-300"
+                                name="remember-me"
+                                type="checkbox"
+                            />
+                            <label
+                                class="ml-3 block text-sm leading-6 label-color"
+                                for="remember-me"
+                                >Remember me</label
+                            >
+                        </div>
+
+                        <div class="flex justify-between">
+                            <div class="flex items-center">
+                                <AppLink
+                                    :to="{ name: 'verify' }"
+                                    class="text-gray-400 text-sm font-normal underline"
+                                    >Need Verify?
+                                </AppLink>
+                            </div>
+                            <div>
+                                <AppLink
+                                    :to="{ name: 'signup' }"
+                                    class="text-violet-500 text-sm font-normal underline"
+                                    >Forgot Password?
+                                </AppLink>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10">
+                        <PrimarySubmitButton
+                            :is-loading="isLoading"
+                            name="Login"
+                        />
+                    </div>
+                </form>
             </div>
         </section>
     </main>
