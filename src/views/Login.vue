@@ -41,9 +41,10 @@
                                 </label>
                                 <div class="relative w-full">
                                     <div
-                                        class="absolute bottom-0 right-0 mr-3 mb-2 text-slate-400"
+                                        class="absolute bottom-0 right-0 mr-3 mb-3 text-slate-400"
                                     >
-                                        <button
+                                        <a
+                                            class="cursor-pointer"
                                             @click.prevent="showPasswordInput"
                                         >
                                             <LockOpen
@@ -54,7 +55,7 @@
                                                 v-else
                                                 class="w-5 h-5"
                                             />
-                                        </button>
+                                        </a>
                                     </div>
                                     <input
                                         v-model="password"
