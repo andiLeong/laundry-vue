@@ -37,6 +37,7 @@ const adminRoutes = [
     'admin-service',
     'admin-attendance',
     'admin-report-to-work',
+    'admin-order-gcash-create',
 ];
 
 const route = useRoute();
