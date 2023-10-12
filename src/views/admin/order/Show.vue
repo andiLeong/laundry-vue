@@ -6,12 +6,26 @@
                     v-if="order"
                     class="overflow-hidden bg-white shadow sm:rounded-lg"
                 >
-                    <div class="px-4 py-6 sm:px-6">
+                    <div
+                        class="px-4 py-6 sm:px-6 flex justify-between items-center bg-gray-100"
+                    >
                         <h3
                             class="text-base font-semibold leading-7 text-gray-900"
                         >
                             Order Detail
                         </h3>
+                        <AppLink
+                            v-if="
+                                order.payment === 'gcash' &&
+                                order.gcash === null
+                            "
+                            class="text-sky-600 text-sm font-medium"
+                            :to="{
+                                name: 'admin-order-gcash-create',
+                                params: { id: route.params.id },
+                            }"
+                            >Create Gcash
+                        </AppLink>
                     </div>
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -103,6 +117,21 @@
                                     {{ order?.user?.phone }}
                                 </dd>
                             </div>
+
+                            <div
+                                v-if="order.gcash"
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-900">
+                                    Gcash Reference #
+                                </dt>
+                                <dd
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                >
+                                    {{ order.gcash.reference_number }}
+                                </dd>
+                            </div>
+
                             <div
                                 class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                             >
@@ -219,6 +248,7 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import useFetchOrder from '@/composable/useFetchOrder.js';
 import { useRoute } from 'vue-router';
+import AppLink from '@/components/AppLink.vue';
 
 const route = useRoute();
 const { loading, order, error } = useFetchOrder(

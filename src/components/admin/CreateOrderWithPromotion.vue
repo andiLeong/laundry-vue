@@ -1,6 +1,6 @@
 <template>
     <form class="space-y-3 my-6" @submit.prevent="submit">
-        <SearchUserPhone v-model="user_id"/>
+        <SearchUserPhone v-model="user_id" />
 
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
             <div class="sm:col-span-2">
@@ -34,12 +34,20 @@
             </div>
 
             <div class="sm:col-span-2">
+                <label class="form-label">Payment</label>
+                <select class="field form-select mt-1" v-model="payment">
+                    <option value="1">Cash</option>
+                    <option value="2">Gcash</option>
+                </select>
+            </div>
+
+            <div class="sm:col-span-2">
                 <div id="products-selection"></div>
             </div>
         </div>
 
         <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            <AdminCreateOrderProductCards @productUpdated="updateProduct"/>
+            <AdminCreateOrderProductCards @productUpdated="updateProduct" />
         </div>
 
         <UserQualifyPromotions
@@ -53,10 +61,7 @@
 
         <div class="pt-1">
             <div class="mb-2">
-                <ErrorManager
-                    v-if="errors"
-                    :errors="errors"
-                />
+                <ErrorManager v-if="errors" :errors="errors" />
             </div>
         </div>
 
@@ -82,11 +87,11 @@ import ErrorManager from '@/components/validation/ErrorManager.vue';
 import Errors from '@/model/Errors.js';
 import SubmitButton from '@/components/forms/SubmitButton.vue';
 import SearchUserPhone from '@/components/admin/SearchUserPhone.vue';
-import {computed, ref} from 'vue';
-import {useRouter} from 'vue-router';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import UserQualifyPromotions from '@/components/admin/UserQualifyPromotions.vue';
-import AdminCreateOrderProductCards from "@/components/admin/AdminCreateOrderProductCards.vue";
-import AdminOrderPricingFooter from "@/components/admin/AdminOrderPricingFooter.vue";
+import AdminCreateOrderProductCards from '@/components/admin/AdminCreateOrderProductCards.vue';
+import AdminOrderPricingFooter from '@/components/admin/AdminOrderPricingFooter.vue';
 
 const props = defineProps({
     services: {
@@ -97,13 +102,14 @@ const props = defineProps({
 
 const router = useRouter();
 const service_id = ref(null);
+const payment = ref(1);
 const user_id = ref(null);
 const amount = ref(null);
 const errors = ref({});
 const isLoading = ref(false);
 const promotion_ids = ref([]);
 const product_ids = ref([]);
-const discountedPrice = ref(0)
+const discountedPrice = ref(0);
 
 const totalProductPrice = computed(() => {
     if (product_ids.value.length === 0) {
@@ -113,20 +119,24 @@ const totalProductPrice = computed(() => {
     let sum = 0;
     product_ids.value.forEach((product) => {
         sum += product.price;
-    })
+    });
     return sum;
 });
 
 const totalPrice = computed(() => {
-    return (parseInt(amount.value) + parseInt(totalProductPrice.value) - parseInt(discountedPrice.value)) || 0;
+    return (
+        parseInt(amount.value) +
+            parseInt(totalProductPrice.value) -
+            parseInt(discountedPrice.value) || 0
+    );
 });
 
 function updateProduct(product) {
-    product_ids.value = product
+    product_ids.value = product;
 }
 
 function updateDiscount(price) {
-    discountedPrice.value = price
+    discountedPrice.value = price;
 }
 
 function updatePromotionIds(ids) {
@@ -152,20 +162,21 @@ function submit() {
         service_id: service_id.value,
         amount: amount.value,
         user_id: user_id.value,
+        payment: payment.value,
         promotion_ids:
             promotion_ids.value.length === 0 ? null : promotion_ids.value,
-    }
+    };
 
     if (product_ids.value.length > 0) {
         let filtered = product_ids.value.map((product) => {
-            return {'id': product.id, 'quantity': product.quantity}
-        })
-        payload.product_ids = filtered
+            return { id: product.id, quantity: product.quantity };
+        });
+        payload.product_ids = filtered;
     }
 
     axios
         .post('api/admin/order', payload)
-        .then(() => router.push({name: 'admin-order'}))
+        .then(() => router.push({ name: 'admin-order' }))
         .catch((error) => {
             let err = new Errors(error);
             errors.value = err.handle();

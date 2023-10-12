@@ -1,9 +1,7 @@
 <template>
-
     <form @submit.prevent="submit">
         <div class="space-y-3 my-6">
-
-            <SearchUserPhone v-model="user_id"/>
+            <SearchUserPhone v-model="user_id" />
 
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                 <div class="sm:col-span-2">
@@ -13,16 +11,12 @@
                         :value="service_id"
                         @change="serviceChanged"
                     >
-                        <option disabled value>
-                            please select
-                        </option>
+                        <option disabled value>please select</option>
                         <option
                             v-for="service in services"
                             :value="service.id"
                             :key="service.id"
-                            :selected="
-                                                service.id === service_id
-                                            "
+                            :selected="service.id === service_id"
                         >
                             {{ service.name }}
                         </option>
@@ -41,20 +35,25 @@
                 </div>
 
                 <div class="sm:col-span-2">
+                    <label class="form-label">Payment</label>
+                    <select class="field form-select mt-1" v-model="payment">
+                        <option value="1">Cash</option>
+                        <option value="2">Gcash</option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2">
                     <div id="products-selection"></div>
                 </div>
             </div>
 
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-                <AdminCreateOrderProductCards @productUpdated="updateProduct"/>
+                <AdminCreateOrderProductCards @productUpdated="updateProduct" />
             </div>
 
             <div class="pt-1">
                 <div class="mb-2">
-                    <ErrorManager
-                        v-if="errors"
-                        :errors="errors"
-                    />
+                    <ErrorManager v-if="errors" :errors="errors" />
                 </div>
             </div>
         </div>
@@ -77,13 +76,13 @@
 <script setup>
 import BaseInput from '@/components/forms/BaseInput.vue';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
-import Errors from "@/model/Errors.js";
-import SubmitButton from "@/components/forms/SubmitButton.vue";
-import SearchUserPhone from "@/components/admin/SearchUserPhone.vue";
-import {computed, ref} from "vue";
-import {useRouter} from "vue-router";
-import AdminOrderPricingFooter from "@/components/admin/AdminOrderPricingFooter.vue";
-import AdminCreateOrderProductCards from "@/components/admin/AdminCreateOrderProductCards.vue";
+import Errors from '@/model/Errors.js';
+import SubmitButton from '@/components/forms/SubmitButton.vue';
+import SearchUserPhone from '@/components/admin/SearchUserPhone.vue';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import AdminOrderPricingFooter from '@/components/admin/AdminOrderPricingFooter.vue';
+import AdminCreateOrderProductCards from '@/components/admin/AdminCreateOrderProductCards.vue';
 
 const props = defineProps({
     services: {
@@ -94,12 +93,12 @@ const props = defineProps({
 
 const router = useRouter();
 const service_id = ref(null);
+const payment = ref(1);
 const user_id = ref(null);
 const amount = ref(null);
 const product_ids = ref([]);
 const errors = ref({});
 const isLoading = ref(false);
-
 
 const totalProductPrice = computed(() => {
     if (product_ids.value.length === 0) {
@@ -109,24 +108,24 @@ const totalProductPrice = computed(() => {
     let sum = 0;
     product_ids.value.forEach((product) => {
         sum += product.price;
-    })
+    });
     return sum;
 });
 
 const totalPrice = computed(() => {
-    return parseInt(amount.value) + parseInt(totalProductPrice.value)
+    return parseInt(amount.value) + parseInt(totalProductPrice.value);
 });
 
 function serviceChanged(e) {
     let serviceId = e.target.value;
     service_id.value = serviceId;
-    amount.value = props.services.filter((service) =>
-        service.id === parseInt(serviceId)
+    amount.value = props.services.filter(
+        (service) => service.id === parseInt(serviceId),
     )[0].price;
 }
 
 function updateProduct(product) {
-    product_ids.value = product
+    product_ids.value = product;
 }
 
 function submit() {
@@ -136,29 +135,26 @@ function submit() {
         service_id: service_id.value,
         amount: amount.value,
         user_id: user_id.value,
-    }
+        payment: payment.value,
+    };
 
     if (product_ids.value.length > 0) {
         let filtered = product_ids.value.map((product) => {
-            return {'id': product.id, 'quantity': product.quantity}
-        })
-        payload.product_ids = filtered
+            return { id: product.id, quantity: product.quantity };
+        });
+        payload.product_ids = filtered;
     }
 
     axios
         .post('api/admin/order', payload)
-        .then(() => router.push({name: 'admin-order'}))
+        .then(() => router.push({ name: 'admin-order' }))
         .catch((error) => {
             let err = new Errors(error);
             errors.value = err.handle();
-            console.log(errors.value)
+            console.log(errors.value);
             isLoading.value = false;
         });
 }
-
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

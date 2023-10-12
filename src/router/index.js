@@ -70,6 +70,12 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/order-gcash/create/:id',
+        name: 'admin-order-gcash-create',
+        component: () => import('@/views/admin/order/gcash/Create.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/order/:id',
         name: 'admin-order-detail',
         component: () => import('@/views/admin/order/Show.vue'),

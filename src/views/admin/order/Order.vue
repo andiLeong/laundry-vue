@@ -93,6 +93,10 @@
                                 </td>
 
                                 <td class="table-data">
+                                    {{ order.payment }}
+                                </td>
+
+                                <td class="table-data">
                                     {{
                                         moment(order.created_at).format(
                                             'YYYY-MM-DD HH:mm',
@@ -101,8 +105,13 @@
                                 </td>
 
                                 <td class="table-data">
-                                    <AppLink class="underline text-blue-500"
-                                             :to="{ name: 'admin-order-detail', params: { id: order.id }}">
+                                    <AppLink
+                                        class="underline text-blue-500"
+                                        :to="{
+                                            name: 'admin-order-detail',
+                                            params: { id: order.id },
+                                        }"
+                                    >
                                         view
                                     </AppLink>
                                 </td>
@@ -130,11 +139,11 @@ import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import {ref, watch} from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import OrderSearchPanel from '@/components/admin/OrderFilterPanel.vue';
 import moment from 'moment';
-import AppLink from "@/components/AppLink.vue";
+import AppLink from '@/components/AppLink.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -150,6 +159,7 @@ const columns = ref([
     'amount',
     'product amount',
     'promotion count',
+    'payment',
     'created at',
 ]);
 const per_page = ref(10);
@@ -213,7 +223,7 @@ function setDefaultSortColumn(column) {
 }
 
 function goToCreateOrder() {
-    router.push({name: 'admin-order-create'});
+    router.push({ name: 'admin-order-create' });
 }
 
 watch(
