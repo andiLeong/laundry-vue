@@ -10,15 +10,16 @@
                     class="text-white text-3xl font-bold mb-6 md:mb-2"
                     style="letter-spacing: -0.25px"
                 >
-                    Avail our Promos!!
+                    Promotions
                 </h1>
                 <p
                     class="text-white text-base font-normal"
                     style="letter-spacing: -0.25px; max-width: 500px"
                 >
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Maiores impedit perferendis suscipit eaque, iste dolor
-                    cupiditate blanditiis.
+                    We make your laundry experience not just hassle-free but
+                    also joyful. Our multiple promotions are designed with you
+                    in mind, and we believe that quality laundry service
+                    shouldn't break the bank. Join us today.
                 </p>
             </div>
         </section>

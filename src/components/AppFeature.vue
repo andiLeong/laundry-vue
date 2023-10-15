@@ -8,16 +8,16 @@
             <div class="px-6 lg:px-0 lg:pr-4 lg:pt-4">
                 <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-lg">
                     <h2 class="text-base font-semibold leading-7 text-primary">
-                        All Data is store
+                        Stay Connected
                     </h2>
                     <p
                         class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
                     >
-                        A better workflow
+                        A modern laundry
                     </p>
                     <p class="mt-6 text-lg leading-8 text-slate-600">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Maiores impedit perferendis suscipit eaque,
+                        We've left behind the old ways of doing laundry and
+                        embraced a modern approach that puts you in control.
                     </p>
                     <dl
                         class="mt-10 max-w-xl space-y-8 text-base leading-7 text-slate-600 lg:max-w-none"
@@ -36,13 +36,13 @@
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                Push to deploy.
+                                Free Wi-Fi
                             </dt>
                             <dd class="inline">
-                                Lorem ipsum, dolor sit amet consectetur
-                                adipisicing elit. Maiores impedit perferendis
-                                suscipit eaque, iste dolor cupiditate blanditiis
-                                ratione.
+                                Stay connected while you wait. Our laundry shop
+                                offers free Wi-Fi, so you can catch up on work,
+                                surf the web, or simply relax with your favorite
+                                entertainment as your laundry gets done.
                             </dd>
                         </div>
                         <div class="relative pl-9">
@@ -59,11 +59,14 @@
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                SSL certificates.
+                                Order with Ease
                             </dt>
                             <dd class="inline">
-                                Anim aute id magna aliqua ad ad non deserunt
-                                sunt. Qui irure qui lorem cupidatat commodo.
+                                Our intuitive website make scheduling laundry a
+                                breeze. Choose the services you need, select
+                                pickup and delivery times, and even track the
+                                progress of your order, all from the comfort of
+                                your own device.
                             </dd>
                         </div>
                         <div class="relative pl-9">
@@ -83,12 +86,13 @@
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                                Database backups.
+                                On Your Schedule
                             </dt>
                             <dd class="inline">
-                                Ac tincidunt sapien vehicula erat auctor
-                                pellentesque rhoncus. Et magna sit morbi
-                                lobortis.
+                                No more rushing to drop off your laundry.
+                                Customize your order to fit your schedule. We
+                                offer flexible pickup and delivery options, so
+                                your laundry is ready when you need it.
                             </dd>
                         </div>
                     </dl>

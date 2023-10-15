@@ -14,15 +14,17 @@ const { services, loading, error } = useFetchServices();
         <AppNavigation />
 
         <main class="mx-auto max-w-screen-2xl my-9 space-y-10 w-full">
-            <div class="text-center">
-                <p
-                    class="mt-2 text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
+            <div class="mt-2 text-center max-w-2xl mx-auto">
+                <h2
+                    class="text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
                 >
-                    Pricing Per Load
-                </p>
-                <p class="mt-2 text-center text-sm leading-8 text-gray-600">
-                    Choose an affordable plan that’s packed with the best
-                    features for engaging your audience
+                    Unbeatable Prices
+                </h2>
+                <p class="mt-4 text-center text-sm text-gray-600">
+                    Quality laundry service doesn't have to come with a high
+                    price tag. We offer the same exceptional services you expect
+                    from others, but with one significant difference: our prices
+                    are more competitive
                 </p>
             </div>
 
@@ -109,37 +111,37 @@ const { services, loading, error } = useFetchServices();
                 </template>
             </div>
 
-            <div class="max-w-xl mx-auto px-2">
-                <div class="space-y-2.5 text-center">
-                    <p
-                        class="text-base text-center"
-                        style="color: #5130d3; line-height: normal"
-                    >
-                        Branches
-                    </p>
-                    <h1 class="text-2xl md:text-4xl font-black text-black">
-                        Search Branches
-                    </h1>
-                    <p class="font-normal text-sm md:text-base text-gray-500">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Maiores impedit perferendis suscipit eaque, iste
-                        dolor cupiditate blanditiis.
-                    </p>
-                </div>
-                <div class="mt-4 grid grid-cols-3 px-8 md:px-1">
-                    <input
-                        class="col-span-2 p-2 md:p-3 rounded-md mr-2 border border-neutral-200"
-                        placeholder="Enter Location"
-                        type="text"
-                    />
-                    <button
-                        class="text-white rounded"
-                        style="background: #6366f1"
-                    >
-                        SEARCH
-                    </button>
-                </div>
-            </div>
+            <!--            <div class="max-w-xl mx-auto px-2">-->
+            <!--                <div class="space-y-2.5 text-center">-->
+            <!--                    <p-->
+            <!--                        class="text-base text-center"-->
+            <!--                        style="color: #5130d3; line-height: normal"-->
+            <!--                    >-->
+            <!--                        Branches-->
+            <!--                    </p>-->
+            <!--                    <h1 class="text-2xl md:text-4xl font-black text-black">-->
+            <!--                        Search Branches-->
+            <!--                    </h1>-->
+            <!--                    <p class="font-normal text-sm md:text-base text-gray-500">-->
+            <!--                        Lorem ipsum, dolor sit amet consectetur adipisicing-->
+            <!--                        elit. Maiores impedit perferendis suscipit eaque, iste-->
+            <!--                        dolor cupiditate blanditiis.-->
+            <!--                    </p>-->
+            <!--                </div>-->
+            <!--                <div class="mt-4 grid grid-cols-3 px-8 md:px-1">-->
+            <!--                    <input-->
+            <!--                        class="col-span-2 p-2 md:p-3 rounded-md mr-2 border border-neutral-200"-->
+            <!--                        placeholder="Enter Location"-->
+            <!--                        type="text"-->
+            <!--                    />-->
+            <!--                    <button-->
+            <!--                        class="text-white rounded"-->
+            <!--                        style="background: #6366f1"-->
+            <!--                    >-->
+            <!--                        SEARCH-->
+            <!--                    </button>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
             <div class="px-8 md:px-20">
                 <iframe
