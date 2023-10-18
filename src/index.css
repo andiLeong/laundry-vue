@@ -121,4 +121,9 @@
     .need-line-bg > * {
         position: relative;
     }
+
+    .price-page-bg {
+        background-image: url('/src/assets/pricepage-bg.png');
+        background-size: cover;
+    }
 }
