@@ -59,7 +59,7 @@ const secondary = ref([
         price: 40,
     },
     {
-        item: 'Dedicate wash',
+        item: 'Delicate wash',
         price: 90,
     },
 ]);
@@ -117,7 +117,7 @@ const secondary = ref([
                         <p class="text-xl text-slate-500 uppercase">
                             {{ pri.item }}
                         </p>
-                        <p class="text-xl text-slate-500">P{{ pri.price }}</p>
+                        <p class="text-xl text-slate-500">₱{{ pri.price }}</p>
                     </li>
                 </ul>
             </div>

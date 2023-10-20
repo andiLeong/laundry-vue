@@ -69,7 +69,7 @@ const { services, loading, error } = useFetchServices();
                                 <p class="mt-4 flex items-baseline gap-x-1">
                                     <span
                                         class="text-3xl font-bold tracking-tight text-gray-900"
-                                        >P{{ service.price }}</span
+                                        >₱{{ service.price }}</span
                                     >
                                     <span
                                         class="text-sm font-semibold leading-6 text-gray-600"
