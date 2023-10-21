@@ -7,7 +7,7 @@ const primary = ref([
         price: 60,
     },
     {
-        item: 'dryer up to 8kg',
+        item: 'dry up to 8kg',
         price: 60,
     },
 
@@ -28,7 +28,7 @@ const primary = ref([
         price: 80,
     },
     {
-        item: 'dryer up to 10kg',
+        item: 'dry up to 10kg',
         price: 80,
     },
 ]);
