@@ -1,11 +1,11 @@
 <template>
-    <nav class="w-full hidden md:block" style="background: #eef1fa">
+    <nav class="w-full hidden md:block bg-white">
         <section
-            class="mx-auto max-w-screen-2xl flex justify-between items-center px-10 py-2"
+            class="mx-auto max-w-screen-2xl flex justify-between items-center px-10 py-3"
         >
             <div>
                 <AppLink :to="{ name: 'home' }">
-                    <img :src="logo" alt="logo" />
+                    <img src="/purple-logo.png" alt="logo" class="w-14 h-14" />
                 </AppLink>
             </div>
 
@@ -14,10 +14,9 @@
                     <li v-for="(link, index) in links" :key="index">
                         <AppLink
                             :to="{ name: link.route }"
-                            active-class="text-violet-500"
-                            class="font-medium"
-                            inactive-class="sbin-text-gray-700"
-                            style="font-size: 14px; line-height: 12px"
+                            active-class="text-violet-500 font-semibold"
+                            class="font-medium text-sm"
+                            inactive-class="text-slate-700"
                             v-bind="$attrs"
                         >
                             {{ link.name }}
@@ -29,11 +28,11 @@
             <div>
                 <AppLink
                     :to="{ name: 'login' }"
-                    class="flex items-center font-bold text-sm text-white rounded px-3 py-2"
+                    class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
                     style="background: #5130d3"
                 >
                     Sign In
-                    <RightArrow class="ml-1 w-5 h-5 text-white" />
+                    <RightArrow class="w-5 h-5 text-white" />
                 </AppLink>
             </div>
         </section>
@@ -45,7 +44,7 @@
         >
             <div>
                 <AppLink :to="{ name: 'home' }">
-                    <img :src="logo" alt="logo" class="h-12 w-12" />
+                    <img src="/purple-logo.png" alt="logo" class="h-12 w-12" />
                 </AppLink>
             </div>
 
@@ -111,7 +110,6 @@
 import RightArrow from '@/svg/RightArrow.vue';
 import AppLink from '@/components/AppLink.vue';
 import { ref, shallowRef } from 'vue';
-import logo from '@/assets/logo60x61.png';
 import Bars3BottomRight from '@/svg/Bars3BottomRight.vue';
 import X from '@/svg/X.vue';
 
