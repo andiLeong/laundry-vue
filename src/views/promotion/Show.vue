@@ -7,9 +7,6 @@
         </template>
 
         <template v-else>
-            <p v-if="errors" class="validation-error">
-                {{ errors }}
-            </p>
             <template v-if="promotion && errors === null">
                 <main class="px-8 md:max-w-5xl mx-auto my-9 space-y-9">
                     <div class="flex flex-col items-center space-y-2.5">
@@ -219,7 +216,7 @@ function fetch() {
         .then(({ data }) => {
             promotion.value = data;
         })
-        .catch((e) => (errors.value = e))
+        .catch(() => router.push({ name: 'NotFound' }))
         .finally(() => {
             loading.value = false;
         });
