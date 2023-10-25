@@ -38,16 +38,10 @@
         </section>
     </nav>
 
-    <nav class="block md:hidden" style="background: #eef1fa">
+    <nav class="block md:hidden bg-white">
         <section
             class="mx-auto max-w-screen-2xl flex justify-between items-center px-4 py-4"
         >
-            <div>
-                <AppLink :to="{ name: 'home' }">
-                    <img src="/purple-logo.png" alt="logo" class="h-12 w-12" />
-                </AppLink>
-            </div>
-
             <div>
                 <button
                     class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
@@ -56,6 +50,16 @@
                     <X v-if="open" class="w-6 h-6" />
                     <Bars3BottomRight v-else class="w-6 h-6" />
                 </button>
+            </div>
+
+            <div>
+                <AppLink
+                    :to="{ name: 'login' }"
+                    class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
+                    style="background: #5130d3"
+                >
+                    Sign In
+                </AppLink>
             </div>
         </section>
     </nav>
@@ -76,32 +80,32 @@
                     {{ link.name }}
                 </AppLink>
             </div>
-            <div class="border-t border-gray-200 pb-3 pt-4">
-                <div class="flex items-center px-4">
-                    <div class="flex-shrink-0">
-                        <img
-                            alt=""
-                            class="h-9 w-9 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        />
-                    </div>
-                    <div class="ml-3">
-                        <div class="text-sm font-medium sbin-text-gray-900">
-                            Tom Cook
-                        </div>
-                        <div class="text-xs font-medium sbin-text-gray-700">
-                            09272714233
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-3 space-y-1">
-                    <a
-                        class="block px-4 py-2 text-sm font-normal sbin-text-gray-900"
-                        href="#"
-                        >Sign out</a
-                    >
-                </div>
-            </div>
+            <!--            <div class="border-t border-gray-200 pb-3 pt-4">-->
+            <!--                <div class="flex items-center px-4">-->
+            <!--                    <div class="flex-shrink-0">-->
+            <!--                        <img-->
+            <!--                            alt=""-->
+            <!--                            class="h-9 w-9 rounded-full"-->
+            <!--                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"-->
+            <!--                        />-->
+            <!--                    </div>-->
+            <!--                    <div class="ml-3">-->
+            <!--                        <div class="text-sm font-medium sbin-text-gray-900">-->
+            <!--                            Tom Cook-->
+            <!--                        </div>-->
+            <!--                        <div class="text-xs font-medium sbin-text-gray-700">-->
+            <!--                            09272714233-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--                <div class="mt-3 space-y-1">-->
+            <!--                    <a-->
+            <!--                        class="block px-4 py-2 text-sm font-normal sbin-text-gray-900"-->
+            <!--                        href="#"-->
+            <!--                        >Sign out</a-->
+            <!--                    >-->
+            <!--                </div>-->
+            <!--            </div>-->
         </div>
     </section>
 </template>
