@@ -131,6 +131,10 @@
                         </LoadMore>
                     </template>
 
+                    <template v-else-if="promotions.length === 0 && fetched">
+                        <img src="/no-promos-atm.png" alt="no promotion" />
+                    </template>
+
                     <template v-else>
                         <PromotionsSkeleton v-for="index in 4" :key="index" />
                     </template>
@@ -163,6 +167,7 @@ const lastPage = ref(null);
 const page = ref(1);
 const noPromotion = ref(false);
 const fetching = ref(false);
+const fetched = ref(false);
 
 function goToDetail(promoSlug) {
     router.push({ name: 'promotion-detail', params: { slug: promoSlug } });
@@ -184,7 +189,8 @@ function fetch() {
                 noPromotion.value = true;
             }
         })
-        .catch((e) => (error.value = e));
+        .catch((e) => (error.value = e))
+        .finally(() => (fetched.value = true));
 }
 
 function loadMoreData() {
