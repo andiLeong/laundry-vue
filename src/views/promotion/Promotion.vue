@@ -36,6 +36,10 @@
                     </p>
                 </template>
                 <template v-else>
+                    <template v-if="fetched === false">
+                        <PromotionsSkeleton v-for="index in 4" :key="index" />
+                    </template>
+
                     <template v-if="promotions.length > 0">
                         <div
                             v-for="promotion in promotions"
@@ -132,11 +136,9 @@
                     </template>
 
                     <template v-else-if="promotions.length === 0 && fetched">
-                        <img src="/no-promos-atm.png" alt="no promotion" />
-                    </template>
-
-                    <template v-else>
-                        <PromotionsSkeleton v-for="index in 4" :key="index" />
+                        <div class="col-span-2 flex justify-center">
+                            <img src="/no-promos-atm.png" alt="no promotion" />
+                        </div>
                     </template>
                 </template>
             </section>
