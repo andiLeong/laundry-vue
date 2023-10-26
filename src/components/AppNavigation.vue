@@ -109,7 +109,7 @@ const loggedIn = ref(userStore.isLoggedIn);
                 <template v-else>
                     <AppLink
                         :to="{ name: 'login' }"
-                        class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
+                        class="flex items-center font-semibold text-sm text-white rounded px-5 py-2"
                         style="background: #5130d3"
                     >
                         Sign In
@@ -202,7 +202,7 @@ const loggedIn = ref(userStore.isLoggedIn);
                         <div>
                             <AppLink
                                 :to="{ name: 'login' }"
-                                class="flex items-center font-bold text-sm text-white rounded px-3 py-2 mt-2"
+                                class="flex items-center font-semibold text-sm text-white rounded px-3 py-2 mt-2"
                                 style="background: #5130d3"
                             >
                                 Sign In

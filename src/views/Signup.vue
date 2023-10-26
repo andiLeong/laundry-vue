@@ -84,15 +84,23 @@ async function signup(user) {
 <template>
     <SignupLayout>
         <template v-slot:header>
-            <div class="flex justify-center">
-                <img alt="logo" class="w-24 h-24" src="/logo-bnw.png" />
+            <div class="flex justify-center items-center">
+                <div>
+                    <img
+                        alt="logo"
+                        class="w-24 h-24"
+                        src="/white-logo-no-bg.png"
+                    />
+                </div>
+                <div>
+                    <h1
+                        class="text-white font-medium text-center"
+                        style="font-size: 32px; line-height: 44px"
+                    >
+                        SBIN laundry
+                    </h1>
+                </div>
             </div>
-            <h1
-                class="text-white font-medium text-center"
-                style="font-size: 32px; line-height: 44px"
-            >
-                Sign Up To Wash Now
-            </h1>
         </template>
 
         <form @submit.prevent="submit">

@@ -4,6 +4,7 @@ import AppFooter from '@/components/AppFooter.vue';
 import AppLink from '@/components/AppLink.vue';
 import AppFeature from '@/components/AppFeature.vue';
 import AppStats from '@/components/AppStats.vue';
+import RightArrow from '@/svg/RightArrow.vue';
 </script>
 
 <template>
@@ -39,31 +40,21 @@ import AppStats from '@/components/AppStats.vue';
                             :to="{ name: 'signup' }"
                             class="inline-flex items-center justify-center rounded-md px-4 py-2 text-white font-medium text-sm mt-4"
                             style="
-                                background: #b170c3;
+                                background: #5130d3;
                                 box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
                             "
                         >
                             Get Started
-                            <svg
-                                fill="none"
-                                height="20"
-                                viewBox="0 0 21 20"
-                                width="21"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    clip-rule="evenodd"
-                                    d="M5.77502 10C5.77502 9.58579 6.11081 9.25 6.52502 9.25H13.1629L11.0052 7.29063C10.7066 7.00353 10.6973 6.52875 10.9844 6.23017C11.2715 5.93159 11.7463 5.92228 12.0449 6.20938L15.5449 9.45938C15.6919 9.60078 15.775 9.79599 15.775 10C15.775 10.204 15.6919 10.3992 15.5449 10.5406L12.0449 13.7906C11.7463 14.0777 11.2715 14.0684 10.9844 13.7698C10.6973 13.4713 10.7066 12.9965 11.0052 12.7094L13.1629 10.75H6.52502C6.11081 10.75 5.77502 10.4142 5.77502 10Z"
-                                    fill="white"
-                                    fill-rule="evenodd"
-                                />
-                            </svg>
+                            <RightArrow class="w-5 h-5 text-white" />
                         </AppLink>
                     </div>
                 </div>
 
                 <div class="">
-                    <img alt="lady" src="/src/assets/lady-laundry.png" />
+                    <img
+                        alt="laundry-lady"
+                        src="/src/assets/lady-laundry.png"
+                    />
                 </div>
             </div>
         </section>
