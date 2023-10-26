@@ -54,39 +54,12 @@ const loggedIn = ref(userStore.isLoggedIn);
             </div>
 
             <div>
-                <AppLink
-                    :to="{ name: 'login' }"
-                    class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
-                    style="background: #5130d3"
-                >
-                    Sign In
-                    <RightArrow class="w-5 h-5 text-white" />
-                </AppLink>
-            </div>
-        </section>
-    </nav>
-
-    <nav class="block md:hidden bg-white">
-        <section
-            class="mx-auto max-w-screen-2xl flex justify-between items-center px-4 py-4"
-        >
-            <div>
-                <button
-                    class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-                    @click.prevent="open = !open"
-                >
-                    <X v-if="open" class="w-6 h-6" />
-                    <Bars3BottomRight v-else class="w-6 h-6" />
-                </button>
-            </div>
-
-            <div>
                 <template v-if="loggedIn">
                     <AppDropDown direction="left">
                         <template #trigger>
                             <div class="flex items-center">
                                 <div>
-                                    {{ userStore.fullName }}
+                                    {{ userStore.firstName }}
                                 </div>
                                 <div>
                                     <img
@@ -134,14 +107,37 @@ const loggedIn = ref(userStore.isLoggedIn);
                     </AppDropDown>
                 </template>
                 <template v-else>
-                    <AppLink :to="{ name: 'home' }">
-                        <img
-                            src="/purple-logo.png"
-                            alt="logo"
-                            class="h-10 w-10"
-                        />
+                    <AppLink
+                        :to="{ name: 'login' }"
+                        class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
+                        style="background: #5130d3"
+                    >
+                        Sign In
+                        <RightArrow class="w-5 h-5 text-white" />
                     </AppLink>
                 </template>
+            </div>
+        </section>
+    </nav>
+
+    <nav class="block md:hidden bg-white">
+        <section
+            class="mx-auto max-w-screen-2xl flex justify-between items-center px-4 py-4"
+        >
+            <div>
+                <button
+                    class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                    @click.prevent="open = !open"
+                >
+                    <X v-if="open" class="w-6 h-6" />
+                    <Bars3BottomRight v-else class="w-6 h-6" />
+                </button>
+            </div>
+
+            <div>
+                <AppLink :to="{ name: 'home' }">
+                    <img src="/purple-logo.png" alt="logo" class="h-10 w-10" />
+                </AppLink>
             </div>
         </section>
     </nav>
@@ -183,7 +179,7 @@ const loggedIn = ref(userStore.isLoggedIn);
                                     <div
                                         class="text-sm font-medium sbin-text-gray-900"
                                     >
-                                        {{ userStore.fullName }}
+                                        {{ userStore.firstName }}
                                     </div>
                                     <div
                                         class="text-xs font-medium sbin-text-gray-700"
