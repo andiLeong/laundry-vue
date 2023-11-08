@@ -20,7 +20,7 @@ const primary = ref([
         price: 210,
     },
     {
-        item: 'Full service up to 7kg',
+        item: 'Full service up to 4kg',
         price: 160,
     },
     {
