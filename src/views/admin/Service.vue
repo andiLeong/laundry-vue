@@ -1,5 +1,4 @@
 <template>
-
     <AdminLayout>
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-10">
@@ -26,12 +25,8 @@
                                     index % 2 === 0 ? 'bg-white' : 'bg-gray-100'
                                 "
                                 v-for="(service, index) in services"
-                                :key="service.id"
+                                :key="index"
                             >
-                                <td class="table-data">
-                                    {{ service.id }}
-                                </td>
-
                                 <td class="table-data">
                                     {{ service.name }}
                                 </td>
@@ -46,38 +41,29 @@
             </section>
         </main>
     </AdminLayout>
-
 </template>
 
 <script setup>
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
-import {ref} from 'vue';
-import {useRoute, useRouter} from 'vue-router';
+import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
 
 const endpoint = ref('/api/service');
-const columns = ref([
-    'id',
-    'name',
-    'price',
-]);
+const columns = ref(['name', 'price']);
 const services = ref([]);
 
 function fetch() {
-    return axios
-        .get(`${endpoint.value}`)
-        .then((response) => {
-            services.value = response.data;
-        });
+    return axios.get(`${endpoint.value}`).then((response) => {
+        services.value = response.data;
+    });
 }
 
 fetch();
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
