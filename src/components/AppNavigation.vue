@@ -28,6 +28,10 @@ const open = ref(false);
 const userStore = useUserStore();
 
 const loggedIn = ref(userStore.isLoggedIn);
+
+function logout() {
+    userStore.logout();
+}
 </script>
 <template>
     <nav class="w-full hidden md:block bg-white">
@@ -100,7 +104,7 @@ const loggedIn = ref(userStore.isLoggedIn);
                                 class="h-5 w-5 text-slate-400 mr-2"
                             />
                             <a
-                                @click.prevent="userStore.logout()"
+                                @click.prevent="logout()"
                                 href="#"
                                 class="block text-sm text-slate-500"
                             >

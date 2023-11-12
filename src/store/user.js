@@ -18,12 +18,16 @@ export const useUserStore = defineStore({
 
         fullName: (state) => {
             let user = state.user;
-            if (user.middle_name === null) {
-                return user.first_name + ', ' + user.last_name;
+            if (user?.middle_name === null) {
+                return user?.first_name + ', ' + user?.last_name;
             }
 
             return (
-                user.first_name + ', ' + user.middle_name + ' ' + user.last_name
+                user?.first_name +
+                ', ' +
+                user?.middle_name +
+                ' ' +
+                user?.last_name
             );
         },
 
@@ -83,10 +87,13 @@ export const useUserStore = defineStore({
                 .post('/api/logout')
                 .then(() => this.logoutFromLocal())
                 .catch(() => this.logoutFromLocal())
-                .finally(
-                    () => this.router.push({ name: 'home' }),
-                    // location.replace('/');
-                );
+                .finally(() => {
+                    if (this.router.currentRoute.value.name === 'home') {
+                        location.replace('/');
+                    } else {
+                        this.router.push({ name: 'home' });
+                    }
+                });
         },
 
         async login(credentials) {
