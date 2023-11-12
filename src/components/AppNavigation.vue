@@ -6,6 +6,9 @@ import { useUserStore } from '@/store/user.js';
 import Bars3BottomRight from '@/svg/Bars3BottomRight.vue';
 import X from '@/svg/X.vue';
 import AppDropDown from '@/components/AppDropDown.vue';
+import UserCircle from '@/svg/UserCircle.vue';
+import ArrowLeftOnRectangle from '@/svg/ArrowLeftOnRectangle.vue';
+import Home from '@/svg/Home.vue';
 
 const links = shallowRef([
     {
@@ -53,16 +56,72 @@ const loggedIn = ref(userStore.isLoggedIn);
                 </ul>
             </div>
 
-            <div>
-                <AppLink
-                    :to="{ name: 'login' }"
-                    class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
-                    style="background: #5130d3"
-                >
-                    Sign In
-                    <RightArrow class="w-5 h-5 text-white" />
-                </AppLink>
-            </div>
+            <template v-if="loggedIn">
+                <AppDropDown width-class="w-32">
+                    <template #trigger>
+                        <div class="flex items-center">
+                            <div class="text-slate-500 mr-2">
+                                {{ userStore.firstName }}
+                            </div>
+                            <div>
+                                <img
+                                    alt="logo-avatar"
+                                    class="h-9 w-9 rounded-full"
+                                    src="/purple-logo.png"
+                                />
+                            </div>
+                        </div>
+                    </template>
+
+                    <div class="p-2 space-y-2">
+                        <!-- Active: "bg-gray-100", Not Active: "" -->
+                        <div class="flex items-center p-1">
+                            <UserCircle class="h-5 w-5 text-slate-400 mr-2" />
+                            <router-link
+                                :to="{ name: 'admin-profile' }"
+                                class="block text-sm text-slate-500"
+                                >Profile
+                            </router-link>
+                        </div>
+
+                        <template v-if="userStore.canAccessDashboard">
+                            <div class="flex items-center p-1">
+                                <Home class="h-5 w-5 text-slate-400 mr-2" />
+                                <router-link
+                                    :to="{ name: 'admin-home' }"
+                                    class="block text-sm text-slate-500"
+                                    >Dashboard
+                                </router-link>
+                            </div>
+                        </template>
+
+                        <div class="flex items-center p-1">
+                            <ArrowLeftOnRectangle
+                                class="h-5 w-5 text-slate-400 mr-2"
+                            />
+                            <a
+                                @click.prevent="userStore.logout()"
+                                href="#"
+                                class="block text-sm text-slate-500"
+                            >
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </AppDropDown>
+            </template>
+            <template v-else>
+                <div>
+                    <AppLink
+                        :to="{ name: 'login' }"
+                        class="flex items-center font-bold text-sm text-white rounded px-5 py-2"
+                        style="background: #5130d3"
+                    >
+                        Sign In
+                        <RightArrow class="w-5 h-5 text-white" />
+                    </AppLink>
+                </div>
+            </template>
         </section>
     </nav>
 
@@ -82,11 +141,11 @@ const loggedIn = ref(userStore.isLoggedIn);
 
             <div>
                 <template v-if="loggedIn">
-                    <AppDropDown direction="left">
+                    <AppDropDown width-class="w-32">
                         <template #trigger>
                             <div class="flex items-center">
-                                <div>
-                                    {{ userStore.fullName }}
+                                <div class="text-slate-500 mr-2">
+                                    {{ userStore.firstName }}
                                 </div>
                                 <div>
                                     <img
@@ -97,40 +156,43 @@ const loggedIn = ref(userStore.isLoggedIn);
                                 </div>
                             </div>
                         </template>
-
-                        <transition
-                            enter-active-class="transition ease-out duration-100"
-                            enter-from-class="transform opacity-0 scale-95"
-                            enter-to-class="transform opacity-100 scale-100"
-                            leave-active-class="transition ease-in duration-75"
-                            leave-from-class="transform opacity-100 scale-100"
-                            leave-to-class="transform opacity-0 scale-95"
-                        >
-                            <div
-                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                                role="menu"
-                                aria-orientation="vertical"
-                                aria-labelledby="user-menu-button"
-                                tabindex="-1"
-                            >
-                                <!-- Active: "bg-gray-100", Not Active: "" -->
+                        <div class="p-2 space-y-2">
+                            <!-- Active: "bg-gray-100", Not Active: "" -->
+                            <div class="flex items-center p-1">
+                                <UserCircle
+                                    class="h-5 w-5 text-slate-400 mr-2"
+                                />
                                 <router-link
                                     :to="{ name: 'admin-profile' }"
-                                    class="block px-4 py-2 text-sm text-gray-700"
-                                    >Your Profile</router-link
-                                >
+                                    class="block text-sm text-slate-500"
+                                    >Profile
+                                </router-link>
+                            </div>
+
+                            <template v-if="userStore.canAccessDashboard">
+                                <div class="flex items-center p-1">
+                                    <Home class="h-5 w-5 text-slate-400 mr-2" />
+                                    <router-link
+                                        :to="{ name: 'admin-home' }"
+                                        class="block text-sm text-slate-500"
+                                        >Dashboard
+                                    </router-link>
+                                </div>
+                            </template>
+
+                            <div class="flex items-center p-1">
+                                <ArrowLeftOnRectangle
+                                    class="h-5 w-5 text-slate-400 mr-2"
+                                />
                                 <a
                                     @click.prevent="userStore.logout()"
                                     href="#"
-                                    class="block px-4 py-2 text-sm text-gray-700"
-                                    role="menuitem"
-                                    tabindex="-1"
-                                    id="user-menu-item-2"
+                                    class="block text-sm text-slate-500"
                                 >
                                     Logout
                                 </a>
                             </div>
-                        </transition>
+                        </div>
                     </AppDropDown>
                 </template>
                 <template v-else>
@@ -169,40 +231,7 @@ const loggedIn = ref(userStore.isLoggedIn);
                     >
                         {{ link.name }}
                     </AppLink>
-                    <template v-if="loggedIn">
-                        <div class="border-t border-gray-200 pb-3 pt-4">
-                            <div class="flex items-center px-4">
-                                <div class="flex-shrink-0">
-                                    <img
-                                        alt="logo-avatar"
-                                        class="h-9 w-9 rounded-full"
-                                        src="/purple-logo.png"
-                                    />
-                                </div>
-                                <div class="ml-3">
-                                    <div
-                                        class="text-sm font-medium sbin-text-gray-900"
-                                    >
-                                        {{ userStore.fullName }}
-                                    </div>
-                                    <div
-                                        class="text-xs font-medium sbin-text-gray-700"
-                                    >
-                                        {{ userStore.phone }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-3 space-y-1">
-                                <a
-                                    @click.prevent="userStore.logout()"
-                                    class="block px-4 py-2 text-sm font-normal sbin-text-gray-900"
-                                    href="#"
-                                    >Sign out</a
-                                >
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else>
+                    <template v-if="!loggedIn">
                         <div>
                             <AppLink
                                 :to="{ name: 'login' }"
