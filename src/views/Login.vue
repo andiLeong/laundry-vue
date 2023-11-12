@@ -116,6 +116,16 @@
                                 name="Login"
                             />
                         </div>
+
+                        <div
+                            v-if="isLoading"
+                            class="flex items-center justify-center mt-5"
+                        >
+                            <LoadingIndicator
+                                class="text-sky-500 h-7 w-7 mr-3 animate-spin"
+                            />
+                            <p class="text-sm text-slate-500">Signing In...</p>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -238,6 +248,16 @@
                             name="Login"
                         />
                     </div>
+
+                    <div
+                        v-if="isLoading"
+                        class="flex items-center justify-center mt-5"
+                    >
+                        <LoadingIndicator
+                            class="text-sky-500 h-7 w-7 mr-3 animate-spin"
+                        />
+                        <p class="text-sm text-slate-500">Signing In...</p>
+                    </div>
                 </form>
             </div>
         </section>
@@ -254,6 +274,7 @@ import AppLink from '@/components/AppLink.vue';
 import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
 import LockClosed from '@/svg/LockClosed.vue';
 import LockOpen from '@/svg/LockOpen.vue';
+import LoadingIndicator from '@/svg/LoadingIndicator.vue';
 
 const showPassword = ref(false);
 const userStore = useUserStore();
