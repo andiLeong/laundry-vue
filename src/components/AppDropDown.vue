@@ -13,8 +13,8 @@
         >
             <div
                 v-if="show"
-                class="z-30 origin-top-right absolute mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                :class="direction"
+                class="z-30 origin-top-right absolute mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                :class="[direction, widthClass]"
             >
                 <slot />
             </div>
@@ -23,11 +23,16 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+
 const props = defineProps({
     direction: {
         required: false,
         default: 'right',
+    },
+    widthClass: {
+        required: false,
+        default: 'w-56',
     },
 });
 const show = ref(false);

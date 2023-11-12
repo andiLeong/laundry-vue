@@ -8,13 +8,13 @@ export const useUserStore = defineStore({
     getters: {
         isLoggedIn: (state) => state.user !== null,
 
-        phone: (state) => state.user.phone,
+        phone: (state) => state.user?.phone,
 
-        firstName: (state) => state.user.first_name,
+        firstName: (state) => state.user?.first_name,
 
-        lastName: (state) => state.user.last_name,
+        lastName: (state) => state.user?.last_name,
 
-        middleName: (state) => state.user.middle_name,
+        middleName: (state) => state.user?.middle_name,
 
         fullName: (state) => {
             let user = state.user;
@@ -49,6 +49,14 @@ export const useUserStore = defineStore({
             }
 
             return state.user.type === 'customer';
+        },
+
+        canAccessDashboard(state) {
+            if (!this.isLoggedIn) {
+                return false;
+            }
+
+            return ['employee', 'admin'].includes(state.user.type);
         },
 
         redirectTo(state) {
