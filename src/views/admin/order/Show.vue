@@ -125,22 +125,54 @@
                                     Paid
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center"
                                 >
-                                    {{ order.paid ? 'yes' : 'no' }}
+                                    <p>
+                                        {{ order.paid ? 'yes' : 'no' }}
+                                    </p>
+                                    <div class="ml-2">
+                                        <button
+                                            @click.prevent="updateOrder('paid')"
+                                            class="p-2"
+                                        >
+                                            <template v-if="order.paid">
+                                                Unpaid
+                                            </template>
+                                            <template v-else> Paid </template>
+                                        </button>
+                                    </div>
                                 </dd>
                             </div>
 
                             <div
-                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center"
                             >
                                 <dt class="text-sm font-medium text-gray-900">
                                     Invoice Issued
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex"
                                 >
-                                    {{ order.issued_invoice ? 'yes' : 'no' }}
+                                    <p>
+                                        {{
+                                            order.issued_invoice ? 'yes' : 'no'
+                                        }}
+                                    </p>
+                                    <div class="ml-2">
+                                        <button
+                                            @click.prevent="
+                                                updateOrder('issued_invoice')
+                                            "
+                                            class="p-2"
+                                        >
+                                            <template
+                                                v-if="order.issued_invoice"
+                                            >
+                                                Unissued
+                                            </template>
+                                            <template v-else> Issued </template>
+                                        </button>
+                                    </div>
                                 </dd>
                             </div>
 
@@ -275,6 +307,7 @@ import AdminLayout from '@/components/admin/AdminLayout.vue';
 import useFetchOrder from '@/composable/useFetchOrder.js';
 import { useRoute } from 'vue-router';
 import AppLink from '@/components/AppLink.vue';
+import Errors from '@/model/Errors.js';
 
 const route = useRoute();
 const { loading, order, error } = useFetchOrder(
@@ -283,6 +316,21 @@ const { loading, order, error } = useFetchOrder(
 
 function discount(dis) {
     return dis * 100;
+}
+
+function updateOrder(column) {
+    axios
+        .patch(`api/admin/order/${route.params.id}/${column}`)
+        .then(() =>
+            router.push({
+                name: 'admin-order-detail',
+                params: { id: route.params.id },
+            }),
+        )
+        .catch((e) => {
+            let err = new Errors(e);
+            error.value = err.handle();
+        });
 }
 </script>
 <style scoped></style>
