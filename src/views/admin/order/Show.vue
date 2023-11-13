@@ -122,6 +122,23 @@
                                 class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                             >
                                 <dt class="text-sm font-medium text-gray-900">
+                                    Created
+                                </dt>
+                                <dd
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                >
+                                    {{
+                                        moment(order.created_at).format(
+                                            'YYYY-MM-DD HH:mm',
+                                        )
+                                    }}
+                                </dd>
+                            </div>
+
+                            <div
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-900">
                                     Paid
                                 </dt>
                                 <dd
@@ -308,6 +325,7 @@ import useFetchOrder from '@/composable/useFetchOrder.js';
 import { useRoute } from 'vue-router';
 import AppLink from '@/components/AppLink.vue';
 import Errors from '@/model/Errors.js';
+import moment from 'moment/moment.js';
 
 const route = useRoute();
 const { loading, order, error } = useFetchOrder(
