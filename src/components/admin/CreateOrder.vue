@@ -64,7 +64,6 @@
                 <div class="sm:col-span-2">
                     <label class="form-label">Company</label>
                     <select class="field form-select mt-1" v-model="company_id">
-                        <option value>NO</option>
                         <option value="1">EO</option>
                     </select>
                 </div>
