@@ -43,6 +43,33 @@
                 </div>
 
                 <div class="sm:col-span-2">
+                    <label class="form-label">Issued Invoice</label>
+                    <select
+                        class="field form-select mt-1"
+                        v-model="issued_invoice"
+                    >
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label class="form-label">Paid</label>
+                    <select class="field form-select mt-1" v-model="paid">
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label class="form-label">Company</label>
+                    <select class="field form-select mt-1" v-model="company_id">
+                        <option value>NO</option>
+                        <option value="1">EO</option>
+                    </select>
+                </div>
+
+                <div class="sm:col-span-2">
                     <div id="products-selection"></div>
                 </div>
             </div>
@@ -95,6 +122,9 @@ const router = useRouter();
 const service_id = ref(null);
 const payment = ref(1);
 const user_id = ref(null);
+const issued_invoice = ref(0);
+const paid = ref(1);
+const company_id = ref(null);
 const amount = ref(null);
 const product_ids = ref([]);
 const errors = ref({});
@@ -136,6 +166,9 @@ function submit() {
         amount: amount.value,
         user_id: user_id.value,
         payment: payment.value,
+        paid: paid.value,
+        issued_invoice: issued_invoice.value,
+        company_id: company_id.value,
     };
 
     if (product_ids.value.length > 0) {
