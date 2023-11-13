@@ -136,7 +136,7 @@
                             </div>
 
                             <div
-                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center"
                             >
                                 <dt class="text-sm font-medium text-gray-900">
                                     Paid
@@ -155,7 +155,7 @@
                                             <template v-if="order.paid">
                                                 Unpaid
                                             </template>
-                                            <template v-else> Paid </template>
+                                            <template v-else> Paid</template>
                                         </button>
                                     </div>
                                 </dd>
@@ -187,7 +187,37 @@
                                             >
                                                 Unissued
                                             </template>
-                                            <template v-else> Issued </template>
+                                            <template v-else> Issued</template>
+                                        </button>
+                                    </div>
+                                </dd>
+                            </div>
+
+                            <div
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center"
+                            >
+                                <dt class="text-sm font-medium text-gray-900">
+                                    Payment
+                                </dt>
+                                <dd
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center"
+                                >
+                                    <p>
+                                        {{ order.payment }}
+                                    </p>
+                                    <div class="ml-2">
+                                        <button
+                                            @click.prevent="
+                                                updateOrder('payment')
+                                            "
+                                            class="rounded border border-gray-200 px-3 py-1 text-gray-600"
+                                        >
+                                            <template
+                                                v-if="order.payment === 'cash'"
+                                            >
+                                                Gcash
+                                            </template>
+                                            <template v-else> Cash</template>
                                         </button>
                                     </div>
                                 </dd>
@@ -342,7 +372,7 @@ function updateOrder(column) {
         .then(() => location.reload())
         .catch((e) => {
             let err = new Errors(e);
-            error.value = err.handle();
+            alert(err.getMessage());
         });
 }
 </script>
