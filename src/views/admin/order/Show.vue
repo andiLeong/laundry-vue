@@ -133,7 +133,7 @@
                                     <div class="ml-2">
                                         <button
                                             @click.prevent="updateOrder('paid')"
-                                            class="p-2"
+                                            class="rounded border border-gray-200 px-3 py-1 text-gray-600"
                                         >
                                             <template v-if="order.paid">
                                                 Unpaid
@@ -151,7 +151,7 @@
                                     Invoice Issued
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center"
                                 >
                                     <p>
                                         {{
@@ -163,7 +163,7 @@
                                             @click.prevent="
                                                 updateOrder('issued_invoice')
                                             "
-                                            class="p-2"
+                                            class="rounded border border-gray-200 px-3 py-1 text-gray-600"
                                         >
                                             <template
                                                 v-if="order.issued_invoice"
@@ -321,12 +321,7 @@ function discount(dis) {
 function updateOrder(column) {
     axios
         .patch(`api/admin/order/${route.params.id}/${column}`)
-        .then(() =>
-            router.push({
-                name: 'admin-order-detail',
-                params: { id: route.params.id },
-            }),
-        )
+        .then(() => location.reload())
         .catch((e) => {
             let err = new Errors(e);
             error.value = err.handle();
