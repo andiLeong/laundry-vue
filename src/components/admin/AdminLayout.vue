@@ -11,7 +11,9 @@
                 <slot name="left-button"></slot>
                 <slot name="right-button"></slot>
             </AdminHeader>
-            <slot />
+            <section class="px-8 md:px-0">
+                <slot />
+            </section>
         </main>
         <Notification />
     </div>
