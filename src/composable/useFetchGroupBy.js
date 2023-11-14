@@ -27,8 +27,8 @@ export default function useFetchGroupBy(query) {
                     return order?.order_count;
                 });
 
-                avgAmount.value = data.data.amount_avg;
-                avgCount.value = data.data.order_avg;
+                avgAmount.value = data.amount_avg;
+                avgCount.value = data.order_avg;
 
                 margins.value = data.map((order) => {
                     return order?.margin;
