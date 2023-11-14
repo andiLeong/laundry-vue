@@ -6,10 +6,10 @@
                     <h2 class="text-lg font-medium leading-6 text-gray-900">
                         Overview
                     </h2>
-                    <StatCollection/>
-                    <GroupByDays/>
-                    <GroupByMonths/>
-                    <MarginGroupByMonths/>
+                    <StatCollection />
+                    <GroupByDays />
+                    <GroupByMonths />
+                    <MarginGroupByMonths />
                 </div>
             </div>
         </main>
@@ -19,10 +19,9 @@
 <script setup>
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import StatCollection from '@/components/admin/stats/StatCollection.vue';
-import GroupByDays from '@/components/admin/stats/GroupByDays.vue'
-import GroupByMonths from "@/components/admin/stats/GroupByMonths.vue";
-import MarginGroupByMonths from "@/components/admin/stats/MarginGroupByMonths.vue";
-
+import MarginGroupByMonths from '@/components/admin/stats/MarginGroupByMonths.vue';
+import GroupByDays from '@/components/admin/stats/GroupByDays.vue';
+import GroupByMonths from '@/components/admin/stats/GroupByMonths.vue';
 </script>
 
 <style scoped></style>

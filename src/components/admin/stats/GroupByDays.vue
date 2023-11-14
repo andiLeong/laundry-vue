@@ -11,18 +11,15 @@
         </div>
         <template v-if="loading">
             <ChartLoadingSkeleton />
-            <!--            <div class="mt-8 border border-gray-300 shadow-lg rounded-lg bg-gray-300 animate-pulse"-->
-            <!--                 style="height: 384px; width: 768px">-->
-            <!--            </div>-->
         </template>
         <div class="mb-10">
             <template v-if="orderCount.length > 0">
-                <BarChart :data="orderCountChart" />
+                <BarChart :data="orderCountChart" title="Order By Days" />
             </template>
         </div>
         <div>
             <!--            <template v-if="orderTotalAmount.length > 0">-->
-            <!--                <BarChart :data="orderAmountTotalChart"/>-->
+            <!--                <BarChart :data="orderAmountTotalChart" />-->
             <!--            </template>-->
         </div>
         <template v-if="errors">
@@ -44,7 +41,15 @@ import ChartLoadingSkeleton from '@/components/skeleton/ChartLoadingSkeleton.vue
 const days = ref(7);
 const daysSelect = ref([7, 10, 20, 30, 60, 90]);
 let groupBy = new useFetchGroupBy(`group_by_days=${days.value}`);
-const { avgAmount, avgCount, orderCount, loading, labels, errors } = groupBy;
+const {
+    orderTotalAmount,
+    avgAmount,
+    avgCount,
+    orderCount,
+    loading,
+    labels,
+    errors,
+} = groupBy;
 
 watch(days, async (newValue, oldValue) => {
     groupBy.fetch(`group_by_days=${newValue}`);
@@ -55,7 +60,7 @@ const orderCountChart = computed(() => {
         labels: labels.value,
         datasets: [
             {
-                label: `Order Count By Days avg daily order ${avgCount.value} avg daily amount ${avgAmount.value}`,
+                label: `Avg Daily Order ${avgCount.value} Avg Daily Amount ${avgAmount.value}`,
                 data: orderCount.value,
                 backgroundColor: '#a5b4fc',
             },
@@ -68,15 +73,15 @@ const orderCountChart = computed(() => {
 //         labels: labels.value,
 //         datasets: [
 //             {
-//                 label: "Order Total Amount",
-//                 fillColor: "green",
+//                 label: 'Order Total Amount',
+//                 fillColor: 'green',
 //                 data: orderTotalAmount.value,
 //                 borderColor: '#36A2EB',
 //                 backgroundColor: '#FFB1C1',
-//             }
-//         ]
-//     }
-// })
+//             },
+//         ],
+//     };
+// });
 </script>
 
 <style scoped></style>

@@ -13,7 +13,7 @@
             <ChartLoadingSkeleton />
         </template>
         <template v-if="orderCount.length > 0">
-            <BarChart :data="orderCountChart" />
+            <BarChart :data="orderCountChart" title="Order By Months" />
         </template>
         <template v-if="errors">
             <div class="mt-2">
@@ -45,7 +45,7 @@ const orderCountChart = computed(() => {
         labels: labels.value,
         datasets: [
             {
-                label: `Order Count By Month avg daily order ${avgCount.value} avg daily amount ${avgAmount.value}`,
+                label: `Avg Monthly Order ${avgCount.value} Avg Monthly Amount ${avgAmount.value}`,
                 data: orderCount.value,
                 backgroundColor: '#7dd3fc',
             },

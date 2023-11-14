@@ -11,30 +11,29 @@ export default function useFetchGroupBy(query) {
     const errors = ref(null);
     const loading = ref(false);
 
-    const fetch = (query) => {
+    const fetch = query => {
         loading.value = true;
         orderCount.value = [];
         axios
             .get(`/api/admin/order-stats?${query}`)
             .then(({ data }) => {
-                labels.value = data.data.map((order) => {
-                    return order.dt;
-                });
-                orderTotalAmount.value = data.data.map((order) => {
-                    return order?.order_total_amount;
-                });
-                orderCount.value = data.data.map((order) => {
-                    return order?.order_count;
-                });
+                if (data.data) {
+                    labels.value = data.data.map(order => order.dt);
+                    orderTotalAmount.value = data.data.map(
+                        order => order.order_total_amount,
+                    );
+                    orderCount.value = data.data.map(
+                        order => order.order_count,
+                    );
 
-                avgAmount.value = data.amount_avg;
-                avgCount.value = data.order_avg;
-
-                margins.value = data.map((order) => {
-                    return order?.margin;
-                });
+                    avgAmount.value = data.amount_avg;
+                    avgCount.value = data.order_avg;
+                } else {
+                    margins.value = data.map(order => order.margin);
+                    labels.value = data.map(order => order.dt);
+                }
             })
-            .catch((error) => {
+            .catch(error => {
                 let err = new Errors(error);
                 errors.value = err.handle();
             })
