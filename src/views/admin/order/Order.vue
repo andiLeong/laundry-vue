@@ -65,12 +65,16 @@
                                 </td>
 
                                 <td class="table-data">
-                                    {{ order.user?.phone }}
+                                    {{ order.description }}
                                 </td>
 
-                                <td class="table-data">
-                                    {{ order.user?.first_name }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.user?.phone }}-->
+                                <!--                                </td>-->
+
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.user?.first_name }}-->
+                                <!--                                </td>-->
 
                                 <td class="table-data">
                                     {{ order.service.name }}
@@ -152,8 +156,9 @@ const endpoint = ref('/api/admin/order');
 const defaultSortColumn = ref('id');
 const columns = ref([
     'id',
-    'phone',
-    'first name',
+    'description',
+    // 'phone',
+    // 'first name',
     'service name',
     'total amount',
     'amount',
@@ -173,7 +178,7 @@ const showPanel = ref(false);
 function fetch(page, query = '') {
     return axios
         .get(`${endpoint.value}?page=${page}&${query}`)
-        .then((response) => {
+        .then(response => {
             orders.value = response.data.data;
             pagination.value = response.data;
             delete pagination.value.data;
@@ -228,7 +233,7 @@ function goToCreateOrder() {
 
 watch(
     () => route.query.page,
-    (page) => fetch(page, toQueryString(queryString.value)),
+    page => fetch(page, toQueryString(queryString.value)),
 );
 
 fetch(page.value, toQueryString(queryString.value));

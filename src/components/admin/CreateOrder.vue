@@ -69,6 +69,17 @@
                 </div>
 
                 <div class="sm:col-span-2">
+                    <BaseInput
+                        labelClass="form-label"
+                        placeHolder="Write the order description"
+                        class="mt-1 form-input"
+                        label="Order Description"
+                        type="text"
+                        v-model="description"
+                    />
+                </div>
+
+                <div class="sm:col-span-2">
                     <div id="products-selection"></div>
                 </div>
             </div>
@@ -125,6 +136,7 @@ const issued_invoice = ref(0);
 const paid = ref(1);
 const company_id = ref(null);
 const amount = ref(null);
+const description = ref(null);
 const product_ids = ref([]);
 const errors = ref({});
 const isLoading = ref(false);
@@ -135,7 +147,7 @@ const totalProductPrice = computed(() => {
     }
 
     let sum = 0;
-    product_ids.value.forEach((product) => {
+    product_ids.value.forEach(product => {
         sum += product.price;
     });
     return sum;
@@ -149,7 +161,7 @@ function serviceChanged(e) {
     let serviceId = e.target.value;
     service_id.value = serviceId;
     amount.value = props.services.filter(
-        (service) => service.id === parseInt(serviceId),
+        service => service.id === parseInt(serviceId),
     )[0].price;
 }
 
@@ -168,10 +180,11 @@ function submit() {
         paid: paid.value,
         issued_invoice: issued_invoice.value,
         company_id: company_id.value,
+        description: description.value,
     };
 
     if (product_ids.value.length > 0) {
-        let filtered = product_ids.value.map((product) => {
+        let filtered = product_ids.value.map(product => {
             return { id: product.id, quantity: product.quantity };
         });
         payload.product_ids = filtered;
@@ -180,7 +193,7 @@ function submit() {
     axios
         .post('api/admin/order', payload)
         .then(() => router.push({ name: 'admin-order' }))
-        .catch((error) => {
+        .catch(error => {
             let err = new Errors(error);
             errors.value = err.handle();
             console.log(errors.value);
