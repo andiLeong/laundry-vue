@@ -2,16 +2,19 @@
     <div>
         <div class="sm:hidden">
             <label for="tabs" class="sr-only">Select a tab</label>
-            <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
             <select
                 id="tabs"
                 name="tabs"
                 class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                @change.prevent="whenSelect"
             >
-                <option>My Account</option>
-                <option>Company</option>
-                <option selected>Team Members</option>
-                <option>Billing</option>
+                <option
+                    v-for="(tab, index) in tabs"
+                    :key="index"
+                    class="rounded-md px-4 py-2 text-sm font-medium"
+                >
+                    {{ tab.props.title }}
+                </option>
             </select>
         </div>
 
@@ -91,7 +94,7 @@ function getTabTitle() {
     if (tabsStore.selected.length > 0) {
         return tabsStore.selected[0].title;
     }
-    let defaultActive = slots.default().filter((tab) => tab.props.active);
+    let defaultActive = slots.default().filter(tab => tab.props.active);
     if (defaultActive.length > 0) {
         return defaultActive[0].props.title;
     }
@@ -103,5 +106,9 @@ function selectTab(title) {
         id: props.id,
         title,
     });
+}
+
+function whenSelect(e) {
+    selectTab(e.target.value);
 }
 </script>
