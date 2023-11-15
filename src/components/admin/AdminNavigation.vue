@@ -15,9 +15,9 @@
         >
             <div class="flex flex-shrink-0 items-center px-4">
                 <img
-                    class="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=cyan&shade=300"
-                    alt="Easywire logo"
+                    class="h-12 w-12"
+                    src="/white-logo-no-bg.png"
+                    alt="SBIN LAUNDRY logo"
                 />
             </div>
             <nav

@@ -11,7 +11,7 @@
                 <slot name="left-button"></slot>
                 <slot name="right-button"></slot>
             </AdminHeader>
-            <section class="px-8 md:px-0">
+            <section class="px-8 md:px-6">
                 <slot />
             </section>
         </main>
