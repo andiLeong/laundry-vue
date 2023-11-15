@@ -142,7 +142,7 @@
                                     Paid
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center ml-2 sm:ml-0"
                                 >
                                     <p>
                                         {{ order.paid ? 'yes' : 'no' }}
@@ -168,7 +168,7 @@
                                     Invoice Issued
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center ml-2 sm:ml-0"
                                 >
                                     <p>
                                         {{
@@ -200,7 +200,7 @@
                                     Payment
                                 </dt>
                                 <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center ml-2 sm:ml-0"
                                 >
                                     <p>
                                         {{ order.payment }}
@@ -370,7 +370,7 @@ function updateOrder(column) {
     axios
         .patch(`api/admin/order/${route.params.id}/${column}`)
         .then(() => location.reload())
-        .catch((e) => {
+        .catch(e => {
             let err = new Errors(e);
             alert(err.getMessage());
         });
