@@ -81,6 +81,19 @@
                                 </td>
 
                                 <td class="table-data">
+                                    <template v-if="order.paid">
+                                        <CheckCircle
+                                            class="h-5 w-5 text-cyan-500"
+                                        />
+                                    </template>
+                                    <template v-else>
+                                        <XCircle
+                                            class="h-5 w-5 text-rose-400"
+                                        />
+                                    </template>
+                                </td>
+
+                                <td class="table-data">
                                     {{ order.total_amount }}
                                 </td>
 
@@ -92,13 +105,13 @@
                                     {{ order.product_amount }}
                                 </td>
 
-                                <td class="table-data">
-                                    {{ order.promotions_count }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.promotions_count }}-->
+                                <!--                                </td>-->
 
-                                <td class="table-data">
-                                    {{ order.payment }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.payment }}-->
+                                <!--                                </td>-->
 
                                 <td class="table-data">
                                     {{
@@ -148,6 +161,8 @@ import { useRoute, useRouter } from 'vue-router';
 import OrderSearchPanel from '@/components/admin/OrderFilterPanel.vue';
 import moment from 'moment';
 import AppLink from '@/components/AppLink.vue';
+import CheckCircle from '@/svg/CheckCircle.vue';
+import XCircle from '@/svg/XCircle.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -159,12 +174,13 @@ const columns = ref([
     'description',
     // 'phone',
     // 'first name',
-    'service name',
+    'service',
+    'paid',
     'total amount',
     'amount',
     'product amount',
-    'promotion count',
-    'payment',
+    // 'promotion count',
+    // 'payment',
     'created at',
 ]);
 const per_page = ref(10);
