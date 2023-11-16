@@ -34,7 +34,15 @@ import ChartLoadingSkeleton from '@/components/skeleton/ChartLoadingSkeleton.vue
 const months = ref(3);
 const monthsSelect = ref([3, 6, 9, 12, 18, 24]);
 let groupBy = new useFetchGroupBy(`group_by_months=${months.value}`);
-const { avgAmount, avgCount, orderCount, loading, labels, errors } = groupBy;
+const {
+    orderTotalAmount,
+    avgAmount,
+    avgCount,
+    orderCount,
+    loading,
+    labels,
+    errors,
+} = groupBy;
 
 watch(months, async (newValue, oldValue) => {
     groupBy.fetch(`group_by_months=${newValue}`);
@@ -45,7 +53,12 @@ const orderCountChart = computed(() => {
         labels: labels.value,
         datasets: [
             {
-                label: `Avg Monthly Order ${avgCount.value} Avg Monthly Amount ${avgAmount.value}`,
+                label: `Avg Monthly Amount ${avgAmount.value}`,
+                data: orderTotalAmount.value,
+                backgroundColor: '#e0f2fe',
+            },
+            {
+                label: `Avg Monthly Order ${avgCount.value}`,
                 data: orderCount.value,
                 backgroundColor: '#7dd3fc',
             },

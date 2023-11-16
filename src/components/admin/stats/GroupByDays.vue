@@ -17,11 +17,6 @@
                 <BarChart :data="orderCountChart" title="Order By Days" />
             </template>
         </div>
-        <div>
-            <!--            <template v-if="orderTotalAmount.length > 0">-->
-            <!--                <BarChart :data="orderAmountTotalChart" />-->
-            <!--            </template>-->
-        </div>
         <template v-if="errors">
             <div class="mt-2">
                 <ErrorManager v-if="errors" :errors="errors" />
@@ -60,28 +55,18 @@ const orderCountChart = computed(() => {
         labels: labels.value,
         datasets: [
             {
-                label: `Avg Daily Order ${avgCount.value} Avg Daily Amount ${avgAmount.value}`,
+                label: `Avg Daily Amount ${avgAmount.value}`,
+                data: orderTotalAmount.value,
+                backgroundColor: '#e0e7ff',
+            },
+            {
+                label: `Avg Daily Order ${avgCount.value}`,
                 data: orderCount.value,
                 backgroundColor: '#a5b4fc',
             },
         ],
     };
 });
-
-// const orderAmountTotalChart = computed(() => {
-//     return {
-//         labels: labels.value,
-//         datasets: [
-//             {
-//                 label: 'Order Total Amount',
-//                 fillColor: 'green',
-//                 data: orderTotalAmount.value,
-//                 borderColor: '#36A2EB',
-//                 backgroundColor: '#FFB1C1',
-//             },
-//         ],
-//     };
-// });
 </script>
 
 <style scoped></style>

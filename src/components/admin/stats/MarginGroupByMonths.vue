@@ -47,7 +47,7 @@ const marginChart = computed(() => {
             {
                 label: 'Margin By Month',
                 data: margins.value,
-                backgroundColor: '#7dd3fc',
+                backgroundColor: '#c4b5fd',
             },
         ],
     };
