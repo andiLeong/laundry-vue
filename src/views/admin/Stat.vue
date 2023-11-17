@@ -8,8 +8,11 @@
                     </h2>
                     <StatCollection />
 
-                    <div class="my-11 flex justify-center">
-                        <AppTabs id="create-order-tab">
+                    <div class="my-11">
+                        <AppTabs
+                            id="order_stats-tab"
+                            class="flex justify-center"
+                        >
                             <AppTab title="Daily Orders" :active="true">
                                 <GroupByDays />
                             </AppTab>
