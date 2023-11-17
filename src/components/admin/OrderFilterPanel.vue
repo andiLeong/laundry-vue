@@ -59,6 +59,15 @@
                 />
             </div>
 
+            <div class="sm:col-span-1">
+                <label class="form-label">Paid</label>
+                <select class="field form-select mt-1" v-model="search.paid">
+                    <option disabled value="null">please select</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
             <div
                 class="sm:col-span-1 flex justify-center items-center flex-col"
             >
@@ -67,18 +76,6 @@
                     <toggle-button
                         :state="search.make_by_user"
                         @changed="setMakeByUser"
-                    ></toggle-button>
-                </div>
-            </div>
-
-            <div
-                class="sm:col-span-1 flex justify-center items-center flex-col"
-            >
-                <p class="form-label">Paid</p>
-                <div class="mt-2">
-                    <toggle-button
-                        :state="search.paid"
-                        @changed="setPaid"
                     ></toggle-button>
                 </div>
             </div>
@@ -152,9 +149,6 @@ export default {
 
         setMakeByUser(value) {
             this.search.make_by_user = value;
-        },
-        setPaid(value) {
-            this.search.paid = value;
         },
         submit() {
             if (this.search.make_by_user !== null) {
