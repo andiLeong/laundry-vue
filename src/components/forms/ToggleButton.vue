@@ -26,7 +26,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+
 const emit = defineEmits(['setToTrue', 'setToFalse', 'changed']);
 
 const props = defineProps({
@@ -41,6 +42,13 @@ const props = defineProps({
 });
 
 const toggle = ref(getIniToggleValue());
+
+watch(
+    () => props.state,
+    newState => {
+        toggle.value = newState;
+    },
+);
 
 function change() {
     if (toggle.value) {

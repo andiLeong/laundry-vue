@@ -32,9 +32,30 @@
                     labelClass="form-label"
                     placeHolder="Search customer id"
                     class="mt-1 form-input"
+                    label="Description"
+                    type="text"
+                    v-model="search.description"
+                />
+            </div>
+
+            <div class="sm:col-span-2">
+                <BaseInput
+                    labelClass="form-label"
+                    placeHolder="Search customer id"
+                    class="mt-1 form-input"
                     label="User Id"
                     type="text"
                     v-model="search.user_id"
+                />
+            </div>
+
+            <div class="sm:col-span-2">
+                <BaseSelect
+                    labelClass="form-label"
+                    class="mt-1 form-select"
+                    :options="days"
+                    v-model="search.day"
+                    label="Select Days"
                 />
             </div>
 
@@ -44,8 +65,20 @@
                 <p class="form-label">Make By User</p>
                 <div class="mt-2">
                     <toggle-button
-                        :value="search.make_by_user"
+                        :state="search.make_by_user"
                         @changed="setMakeByUser"
+                    ></toggle-button>
+                </div>
+            </div>
+
+            <div
+                class="sm:col-span-1 flex justify-center items-center flex-col"
+            >
+                <p class="form-label">Paid</p>
+                <div class="mt-2">
+                    <toggle-button
+                        :state="search.paid"
+                        @changed="setPaid"
                     ></toggle-button>
                 </div>
             </div>
@@ -89,11 +122,14 @@ export default {
             search: {
                 per_page: 10,
                 make_by_user: null,
+                paid: null,
                 phone: null,
                 first_name: null,
                 user_id: null,
+                description: null,
             },
             perPage: [10, 50, 100, 200],
+            days: ['today', 'week', 7, 10, 14],
         };
     },
 
@@ -104,9 +140,11 @@ export default {
             this.search = {
                 per_page: 10,
                 make_by_user: null,
+                paid: null,
                 phone: null,
                 first_name: null,
                 user_id: null,
+                description: null,
             };
 
             this.$emit('reset-query');
@@ -114,6 +152,9 @@ export default {
 
         setMakeByUser(value) {
             this.search.make_by_user = value;
+        },
+        setPaid(value) {
+            this.search.paid = value;
         },
         submit() {
             if (this.search.make_by_user !== null) {
@@ -137,6 +178,10 @@ export default {
 
             if (Object.keys(search).length === 0) {
                 return;
+            }
+
+            if ('paid' in search) {
+                search.paid = Number(search.paid);
             }
 
             this.$emit('search-query', search);
