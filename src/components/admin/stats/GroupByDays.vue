@@ -18,7 +18,7 @@
             </template>
         </div>
         <div class="mb-10">
-            <template v-if="orderAmountChart.length > 0">
+            <template v-if="orderTotalAmount.length > 0">
                 <BarChart :data="orderAmountChart" title="Daily Order Amount" />
             </template>
         </div>

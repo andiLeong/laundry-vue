@@ -15,7 +15,7 @@
         <template v-if="orderCount.length > 0">
             <BarChart :data="orderCountChart" title="Monthly Order Count" />
         </template>
-        <template v-if="orderAmountChart.length > 0">
+        <template v-if="orderTotalAmount.length > 0">
             <BarChart :data="orderAmountChart" title="Monthly Order Amount" />
         </template>
         <template v-if="errors">

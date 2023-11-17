@@ -8,17 +8,19 @@
                     </h2>
                     <StatCollection />
 
-                    <AppTabs id="create-order-tab">
-                        <AppTab title="Daily Orders" :active="true">
-                            <GroupByDays />
-                        </AppTab>
-                        <AppTab title="Monthly Orders">
-                            <GroupByMonths />
-                        </AppTab>
-                        <AppTab title="Monthly Margin">
-                            <MarginGroupByMonths />
-                        </AppTab>
-                    </AppTabs>
+                    <div class="my-11 flex justify-center">
+                        <AppTabs id="create-order-tab">
+                            <AppTab title="Daily Orders" :active="true">
+                                <GroupByDays />
+                            </AppTab>
+                            <AppTab title="Monthly Orders">
+                                <GroupByMonths />
+                            </AppTab>
+                            <AppTab title="Monthly Margin">
+                                <MarginGroupByMonths />
+                            </AppTab>
+                        </AppTabs>
+                    </div>
                 </div>
             </div>
         </main>
