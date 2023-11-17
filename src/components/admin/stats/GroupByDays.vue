@@ -14,7 +14,12 @@
         </template>
         <div class="mb-10">
             <template v-if="orderCount.length > 0">
-                <BarChart :data="orderCountChart" title="Order By Days" />
+                <BarChart :data="orderCountChart" title="Daily Order Count" />
+            </template>
+        </div>
+        <div class="mb-10">
+            <template v-if="orderAmountChart.length > 0">
+                <BarChart :data="orderAmountChart" title="Daily Order Amount" />
             </template>
         </div>
         <template v-if="errors">
@@ -55,14 +60,22 @@ const orderCountChart = computed(() => {
         labels: labels.value,
         datasets: [
             {
-                label: `Avg Daily Amount ${avgAmount.value}`,
-                data: orderTotalAmount.value,
-                backgroundColor: '#e0e7ff',
-            },
-            {
                 label: `Avg Daily Order ${avgCount.value}`,
                 data: orderCount.value,
                 backgroundColor: '#a5b4fc',
+            },
+        ],
+    };
+});
+
+const orderAmountChart = computed(() => {
+    return {
+        labels: labels.value,
+        datasets: [
+            {
+                label: `Avg Daily Amount ${avgAmount.value}`,
+                data: orderTotalAmount.value,
+                backgroundColor: '#e0e7ff',
             },
         ],
     };
