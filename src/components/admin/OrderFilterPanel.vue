@@ -54,7 +54,7 @@
                     labelClass="form-label"
                     class="mt-1 form-select"
                     :options="days"
-                    v-model="search.day"
+                    v-model="search.filter_by_days"
                     label="Select Days"
                 />
             </div>
@@ -124,6 +124,7 @@ export default {
                 first_name: null,
                 user_id: null,
                 description: null,
+                filter_by_days: null,
             },
             perPage: [10, 50, 100, 200],
             days: ['today', 'week', 7, 10, 14],
@@ -142,6 +143,7 @@ export default {
                 first_name: null,
                 user_id: null,
                 description: null,
+                filter_by_days: null,
             };
 
             this.$emit('reset-query');
