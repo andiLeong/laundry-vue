@@ -38,6 +38,27 @@
                 />
             </div>
 
+            <div class="sm:col-span-1">
+                <label class="form-label">Paid</label>
+                <select class="field form-select mt-1" v-model="search.paid">
+                    <option disabled value="null">please select</option>
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                </select>
+            </div>
+
+            <div
+                class="sm:col-span-1 flex justify-center items-center flex-col"
+            >
+                <p class="form-label">Make By User</p>
+                <div class="mt-2">
+                    <toggle-button
+                        :state="search.include_user"
+                        @changed="setMakeByUser"
+                    ></toggle-button>
+                </div>
+            </div>
+
             <div class="sm:col-span-2">
                 <BaseInput
                     labelClass="form-label"
@@ -57,27 +78,6 @@
                     v-model="search.filter_by_days"
                     label="Select Days"
                 />
-            </div>
-
-            <div class="sm:col-span-1">
-                <label class="form-label">Paid</label>
-                <select class="field form-select mt-1" v-model="search.paid">
-                    <option disabled value="null">please select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-            <div
-                class="sm:col-span-1 flex justify-center items-center flex-col"
-            >
-                <p class="form-label">Make By User</p>
-                <div class="mt-2">
-                    <toggle-button
-                        :state="search.make_by_user"
-                        @changed="setMakeByUser"
-                    ></toggle-button>
-                </div>
             </div>
         </div>
 
@@ -118,7 +118,7 @@ export default {
         return {
             search: {
                 per_page: 10,
-                make_by_user: null,
+                include_user: null,
                 paid: null,
                 phone: null,
                 first_name: null,
@@ -137,7 +137,7 @@ export default {
         reset() {
             this.search = {
                 per_page: 10,
-                make_by_user: null,
+                include_user: null,
                 paid: null,
                 phone: null,
                 first_name: null,
@@ -150,20 +150,9 @@ export default {
         },
 
         setMakeByUser(value) {
-            this.search.make_by_user = value;
+            this.search.include_user = value;
         },
         submit() {
-            if (this.search.make_by_user !== null) {
-                if (this.search.make_by_user === true) {
-                    this.search.include_user = true;
-                    delete this.search.exclude_user;
-                } else {
-                    this.search.exclude_user = true;
-                    delete this.search.include_user;
-                }
-                delete this.search.make_by_user;
-            }
-
             let search = Object.fromEntries(
                 Object.entries(this.search).filter(([_, v]) => v != null),
             );

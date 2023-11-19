@@ -207,12 +207,6 @@ function orderQuery(query) {
 }
 
 function getherQuery(query) {
-    if (query.hasOwnProperty('include_user')) {
-        delete queryString.value.exclude_user;
-    }
-    if (query.hasOwnProperty('exclude_user')) {
-        delete queryString.value.include_user;
-    }
     Object.assign(queryString.value, query);
     fetch(page.value, toQueryString(queryString.value));
 }
