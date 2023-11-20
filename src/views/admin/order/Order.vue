@@ -141,11 +141,8 @@
                     </AppTable>
                 </AppTableLayout>
 
-                <div
-                    v-if="orders.sum_total_amount"
-                    class="my-5 text-gray-500 text-sm"
-                >
-                    Total: {{ orders.sum_total_amount }}
+                <div v-if="sum_total_amount" class="my-5 text-gray-500 text-sm">
+                    Total: {{ sum_total_amount }}
                 </div>
 
                 <div class="my-4">
