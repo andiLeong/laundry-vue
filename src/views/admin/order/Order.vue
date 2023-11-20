@@ -141,9 +141,13 @@
                     </AppTable>
                 </AppTableLayout>
 
-                <div v-if="orders.length > 0">
-                    {{ orders.sum_total_amount }}
+                <div
+                    v-if="orders.sum_total_amount"
+                    class="my-5 text-gray-500 text-sm"
+                >
+                    Total: {{ orders.sum_total_amount }}
                 </div>
+
                 <div class="my-4">
                     <Paginator
                         :perSection="3"
@@ -198,11 +202,13 @@ const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
 const showPanel = ref(false);
+const sum_total_amount = ref(null);
 
 function fetch(page, query = '') {
     return axios
         .get(`${endpoint.value}?page=${page}&${query}`)
         .then(response => {
+            sum_total_amount.value = response.data.sum_total_amount;
             orders.value = response.data.data;
             pagination.value = response.data;
             delete pagination.value.data;
