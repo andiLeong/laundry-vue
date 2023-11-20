@@ -141,6 +141,9 @@
                     </AppTable>
                 </AppTableLayout>
 
+                <div v-if="orders.length > 0">
+                    {{ orders.sum_total_amount }}
+                </div>
                 <div class="my-4">
                     <Paginator
                         :perSection="3"
