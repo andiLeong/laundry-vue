@@ -94,6 +94,10 @@
                                 </td>
 
                                 <td class="table-data">
+                                    {{ order.confirmed ? 'YES' : 'NO' }}
+                                </td>
+
+                                <td class="table-data">
                                     {{ order.total_amount }}
                                 </td>
 
@@ -176,6 +180,7 @@ const columns = ref([
     // 'first name',
     'service',
     'paid',
+    'confirmed',
     'total amount',
     'amount',
     'product amount',
