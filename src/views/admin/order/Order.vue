@@ -80,7 +80,7 @@
                                     {{ order.service.name }}
                                 </td>
 
-                                <td class="table-data">
+                                <td class="table-data flex items-center">
                                     <template v-if="order.paid">
                                         <CheckCircle
                                             class="h-5 w-5 text-cyan-500"
@@ -91,6 +91,7 @@
                                             class="h-5 w-5 text-rose-400"
                                         />
                                     </template>
+                                    <p class="ml-2">{{ order.payment }}</p>
                                 </td>
 
                                 <td class="table-data">

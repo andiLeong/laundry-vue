@@ -48,6 +48,15 @@
             </div>
 
             <div class="sm:col-span-1">
+                <label class="form-label">Payments</label>
+                <select class="field form-select mt-1" v-model="search.payment">
+                    <option disabled value="null">please select</option>
+                    <option value="1">Cash</option>
+                    <option value="2">Gcash</option>
+                </select>
+            </div>
+
+            <div class="sm:col-span-1">
                 <label class="form-label">Confirmed</label>
                 <select
                     class="field form-select mt-1"
@@ -71,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="sm:col-span-2">
+            <div class="sm:col-span-1">
                 <BaseInput
                     labelClass="form-label"
                     placeHolder="Search customer id"
@@ -132,6 +141,7 @@ export default {
                 per_page: 10,
                 include_user: null,
                 paid: null,
+                payment: null,
                 phone: null,
                 first_name: null,
                 user_id: null,
@@ -152,6 +162,7 @@ export default {
                 per_page: 10,
                 include_user: null,
                 paid: null,
+                payment: null,
                 phone: null,
                 first_name: null,
                 user_id: null,

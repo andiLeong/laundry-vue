@@ -38,7 +38,7 @@
                                 <dd
                                     class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
                                 >
-                                    #{{ order.id }}
+                                    #{{ order.id }} ({{ order.description }})
                                 </dd>
                             </div>
                             <div
@@ -51,18 +51,9 @@
                                     class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
                                 >
                                     {{ order.service.name }}
-                                </dd>
-                            </div>
-                            <div
-                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                                <dt class="text-sm font-medium text-gray-900">
-                                    Total Amount
-                                </dt>
-                                <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                >
-                                    P{{ order.total_amount }}
+                                    <span class="font-semibold">
+                                        @ P{{ order.amount }}
+                                    </span>
                                 </dd>
                             </div>
                             <div
@@ -81,40 +72,12 @@
                                 class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
                             >
                                 <dt class="text-sm font-medium text-gray-900">
-                                    Service Amount
+                                    Total Amount
                                 </dt>
                                 <dd
                                     class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
                                 >
-                                    P{{ order.amount }}
-                                </dd>
-                            </div>
-                            <div
-                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                                <dt class="text-sm font-medium text-gray-900">
-                                    Name
-                                </dt>
-                                <dd
-                                    v-if="order.user"
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                >
-                                    {{ order?.user?.first_name }} ,
-                                    {{ order?.user?.middle_name }},
-                                    {{ order?.user?.last_name }}
-                                </dd>
-                            </div>
-                            <div
-                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
-                            >
-                                <dt class="text-sm font-medium text-gray-900">
-                                    Phone
-                                </dt>
-                                <dd
-                                    v-if="order.user"
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
-                                >
-                                    {{ order?.user?.phone }}
+                                    P{{ order.total_amount }}
                                 </dd>
                             </div>
 
@@ -234,6 +197,36 @@
                                     class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
                                 >
                                     {{ order.gcash.reference_number }}
+                                </dd>
+                            </div>
+
+                            <div
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-900">
+                                    Name
+                                </dt>
+                                <dd
+                                    v-if="order.user"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                >
+                                    {{ order?.user?.first_name }} ,
+                                    {{ order?.user?.middle_name }},
+                                    {{ order?.user?.last_name }}
+                                </dd>
+                            </div>
+
+                            <div
+                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6"
+                            >
+                                <dt class="text-sm font-medium text-gray-900">
+                                    Phone
+                                </dt>
+                                <dd
+                                    v-if="order.user"
+                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0"
+                                >
+                                    {{ order?.user?.phone }}
                                 </dd>
                             </div>
 
