@@ -30,7 +30,7 @@
             <div class="sm:col-span-2">
                 <BaseInput
                     labelClass="form-label"
-                    placeHolder="Search customer id"
+                    placeHolder="Search order description"
                     class="mt-1 form-input"
                     label="Description"
                     type="text"
@@ -100,6 +100,15 @@
                     label="Select Days"
                 />
             </div>
+
+            <div class="sm:col-span-2 flex items-end">
+                <VueDatePicker
+                    v-model="search.date"
+                    range
+                    multi-calendars
+                    format="yyyy-MM-dd HH:mm"
+                />
+            </div>
         </div>
 
         <div class="pt-1">
@@ -126,9 +135,13 @@
 import BaseInput from '@/components/forms/BaseInput.vue';
 import BaseSelect from '@/components/forms/BaseSelect.vue';
 import ToggleButton from '@/components/forms/ToggleButton.vue';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import moment from 'moment/moment.js';
 
 export default {
     components: {
+        VueDatePicker,
         ToggleButton,
         BaseInput,
         BaseSelect,
@@ -148,6 +161,7 @@ export default {
                 description: null,
                 filter_by_days: null,
                 confirmed: null,
+                date: null,
             },
             perPage: [10, 50, 100, 200],
             days: ['today', 'week', 7, 10, 14],
@@ -169,6 +183,7 @@ export default {
                 description: null,
                 filter_by_days: null,
                 confirmed: null,
+                date: null,
             };
 
             this.$emit('reset-query');
@@ -182,7 +197,7 @@ export default {
                 Object.entries(this.search).filter(([_, v]) => v != null),
             );
 
-            if (search.per_page == 10) {
+            if (search.per_page === 10) {
                 delete search.per_page;
             }
 
@@ -194,6 +209,9 @@ export default {
                 search.paid = Number(search.paid);
             }
 
+            search.start = moment(search.date[0]).format('YYYY-MM-DD HH:mm');
+            search.end = moment(search.date[1]).format('YYYY-MM-DD HH:mm');
+            delete search.date;
             this.$emit('search-query', search);
         },
     },
