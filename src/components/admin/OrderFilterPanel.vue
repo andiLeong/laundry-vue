@@ -101,12 +101,15 @@
                 />
             </div>
 
-            <div class="sm:col-span-2 flex items-end">
+            <div class="sm:col-span-2 flex flex-col">
+                <p class="form-label mb-1">Start & End</p>
                 <VueDatePicker
                     v-model="search.date"
                     range
                     multi-calendars
                     format="yyyy-MM-dd HH:mm"
+                    :start-time="startTime"
+                    placeholder="Search By Date"
                 />
             </div>
         </div>
@@ -163,6 +166,10 @@ export default {
                 confirmed: null,
                 date: null,
             },
+            startTime: [
+                { hours: 0, minutes: 0 },
+                { hours: 23, minutes: 59 },
+            ],
             perPage: [10, 50, 100, 200],
             days: ['today', 'week', 7, 10, 14],
         };
