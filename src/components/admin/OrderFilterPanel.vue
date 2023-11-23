@@ -216,9 +216,13 @@ export default {
                 search.paid = Number(search.paid);
             }
 
-            search.start = moment(search.date[0]).format('YYYY-MM-DD HH:mm');
-            search.end = moment(search.date[1]).format('YYYY-MM-DD HH:mm');
-            delete search.date;
+            if ('date' in search) {
+                search.start = moment(search.date[0]).format(
+                    'YYYY-MM-DD HH:mm',
+                );
+                search.end = moment(search.date[1]).format('YYYY-MM-DD HH:mm');
+                delete search.date;
+            }
             this.$emit('search-query', search);
         },
     },
