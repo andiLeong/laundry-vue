@@ -5,12 +5,22 @@
         <div class="flex-1 flex justify-between sm:hidden">
             <a
                 href="#"
+                :class="{
+                    'cursor-not-allowed text-gray-300':
+                        pagination.prev_page_url === null,
+                }"
+                @click.prevent="switchPage(pagination.current_page - 1)"
                 class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
                 Previous
             </a>
             <a
                 href="#"
+                :class="{
+                    'cursor-not-allowed text-gray-300':
+                        pagination.next_page_url === null,
+                }"
+                @click.prevent="switchPage(pagination.current_page + 1)"
                 class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
             >
                 Next
@@ -197,7 +207,11 @@ export default {
 
     methods: {
         switchPage(page) {
-            if (page < 1 || page > this.pagination.total_pages) {
+            if (
+                page < 1 ||
+                page > this.pagination.last_page ||
+                page > this.pagination.total_pages
+            ) {
                 return;
             }
             this.$emit('switched-page', page);
