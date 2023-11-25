@@ -56,15 +56,7 @@
                                 </td>
 
                                 <td class="table-data">
-                                    {{ record.creator.first_name }}
-                                </td>
-
-                                <td class="table-data">
                                     {{ record.amount }}
-                                </td>
-
-                                <td class="table-data">
-                                    {{ record.order.payment }}
                                 </td>
 
                                 <td class="table-data">
@@ -73,6 +65,14 @@
                                             'YYYY-MM-DD HH:mm',
                                         )
                                     }}
+                                </td>
+
+                                <td class="table-data">
+                                    {{ record.creator.first_name }}
+                                </td>
+
+                                <td class="table-data">
+                                    {{ record.order.payment }}
                                 </td>
                             </tr>
                         </template>
@@ -108,7 +108,7 @@ const router = useRouter();
 
 const endpoint = ref('/api/admin/order-paid-record');
 const defaultSortColumn = ref('id');
-const columns = ref(['order id', 'first name', 'amount', 'payment', 'when']);
+const columns = ref(['order', 'amount', 'when', 'staff', 'payment']);
 const per_page = ref(10);
 const records = ref([]);
 const pagination = ref({});
