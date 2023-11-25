@@ -18,7 +18,7 @@
                         </div>
 
                         <template v-if="showPanel">
-                            <OrderSearchPanel
+                            <OrderPaidRecordFilterPanel
                                 @search-query="getherQuery"
                                 @reset-query="resetQuery"
                             />
@@ -56,7 +56,7 @@
                                 </td>
 
                                 <td class="table-data">
-                                    {{ record.user.first_name }}
+                                    {{ record.creator.first_name }}
                                 </td>
 
                                 <td class="table-data">
@@ -100,8 +100,8 @@ import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import OrderSearchPanel from '@/components/admin/OrderFilterPanel.vue';
 import moment from 'moment';
+import OrderPaidRecordFilterPanel from '@/components/admin/OrderPaidRecordFilterPanel.vue';
 
 const route = useRoute();
 const router = useRouter();
