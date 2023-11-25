@@ -79,6 +79,7 @@ import AppLink from '@/components/AppLink.vue';
 import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue';
 import { useUserStore } from '@/store/user.js';
 import { shallowRef } from 'vue';
+import BankNotes from '@/svg/BankNotes.vue';
 
 const user = useUserStore();
 const links = shallowRef([
@@ -91,6 +92,11 @@ const links = shallowRef([
         name: 'Order',
         route: 'admin-order',
         svg: PencilSquare,
+    },
+    {
+        name: 'Order Paid',
+        route: 'admin-order-paid-record',
+        svg: BankNotes,
     },
     {
         name: 'Product',

@@ -75,6 +75,12 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/order-paid-record',
+        name: 'admin-order-paid-record',
+        component: () => import('@/views/admin/order/OrderPaidRecord.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/order-gcash/create/:id',
         name: 'admin-order-gcash-create',
         component: () => import('@/views/admin/order/gcash/Create.vue'),
@@ -173,7 +179,7 @@ const router = createRouter({
     scrollBehavior(to, from, savedPosition) {
         return (
             savedPosition ||
-            new Promise((resolve) => {
+            new Promise(resolve => {
                 setTimeout(() => resolve({ top: 0 }), 300);
             })
         );
