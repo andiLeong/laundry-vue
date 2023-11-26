@@ -49,7 +49,7 @@
                                     @sortedColumn="setDefaultSortColumn"
                                 />
                             </th>
-                            <th scope="col" class="table-heading">Detail</th>
+                            <!--                            <th scope="col" class="table-heading">Detail</th>-->
                         </template>
 
                         <template v-slot:tb>
@@ -60,12 +60,21 @@
                                 v-for="(order, index) in orders"
                                 :key="order.id"
                             >
-                                <td class="table-data">
-                                    {{ order.id }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.id }}-->
+                                <!--                                </td>-->
 
                                 <td class="table-data">
-                                    {{ order.description }}
+                                    <AppLink
+                                        class="underline text-blue-500"
+                                        :to="{
+                                            name: 'admin-order-detail',
+                                            params: { id: order.id },
+                                        }"
+                                    >
+                                        {{ order.description }}
+                                        ({{ order.id }})
+                                    </AppLink>
                                 </td>
 
                                 <!--                                <td class="table-data">-->
@@ -77,34 +86,58 @@
                                 <!--                                </td>-->
 
                                 <td class="table-data">
-                                    {{ order.service.name }}
+                                    <p>{{ order.service.name }}</p>
+                                    <span>@{{ order.amount }}</span>
+
+                                    <div class="flex items-center">
+                                        <span>
+                                            <template v-if="order.paid">
+                                                <CheckCircle
+                                                    class="h-5 w-5 text-cyan-500"
+                                                />
+                                            </template>
+                                            <template v-else>
+                                                <XCircle
+                                                    class="h-5 w-5 text-rose-400"
+                                                />
+                                            </template>
+                                        </span>
+                                        <p class="ml-0.5 mr-5">
+                                            {{ order.payment }}
+                                        </p>
+                                    </div>
+
+                                    <p>
+                                        {{ order.confirmed ? 'got' : 'no' }}
+                                        confirm
+                                    </p>
                                 </td>
 
-                                <td class="table-data flex items-center">
-                                    <template v-if="order.paid">
-                                        <CheckCircle
-                                            class="h-5 w-5 text-cyan-500"
-                                        />
-                                    </template>
-                                    <template v-else>
-                                        <XCircle
-                                            class="h-5 w-5 text-rose-400"
-                                        />
-                                    </template>
-                                    <p class="ml-2">{{ order.payment }}</p>
-                                </td>
+                                <!--                                <td class="table-data flex items-center">-->
+                                <!--                                    <template v-if="order.paid">-->
+                                <!--                                        <CheckCircle-->
+                                <!--                                            class="h-5 w-5 text-cyan-500"-->
+                                <!--                                        />-->
+                                <!--                                    </template>-->
+                                <!--                                    <template v-else>-->
+                                <!--                                        <XCircle-->
+                                <!--                                            class="h-5 w-5 text-rose-400"-->
+                                <!--                                        />-->
+                                <!--                                    </template>-->
+                                <!--                                    <p class="ml-2">{{ order.payment }}</p>-->
+                                <!--                                </td>-->
 
-                                <td class="table-data">
-                                    {{ order.confirmed ? 'YES' : 'NO' }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.confirmed ? 'YES' : 'NO' }}-->
+                                <!--                                </td>-->
 
                                 <td class="table-data">
                                     {{ order.total_amount }}
                                 </td>
 
-                                <td class="table-data">
-                                    {{ order.amount }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ order.amount }}-->
+                                <!--                                </td>-->
 
                                 <td class="table-data">
                                     {{ order.product_amount }}
@@ -126,17 +159,17 @@
                                     }}
                                 </td>
 
-                                <td class="table-data">
-                                    <AppLink
-                                        class="underline text-blue-500"
-                                        :to="{
-                                            name: 'admin-order-detail',
-                                            params: { id: order.id },
-                                        }"
-                                    >
-                                        view
-                                    </AppLink>
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    <AppLink-->
+                                <!--                                        class="underline text-blue-500"-->
+                                <!--                                        :to="{-->
+                                <!--                                            name: 'admin-order-detail',-->
+                                <!--                                            params: { id: order.id },-->
+                                <!--                                        }"-->
+                                <!--                                    >-->
+                                <!--                                        view-->
+                                <!--                                    </AppLink>-->
+                                <!--                                </td>-->
                             </tr>
                         </template>
                     </AppTable>
@@ -179,15 +212,15 @@ const router = useRouter();
 const endpoint = ref('/api/admin/order');
 const defaultSortColumn = ref('id');
 const columns = ref([
-    'id',
+    // 'id',
     'description',
     // 'phone',
     // 'first name',
     'service',
-    'paid',
-    'confirmed',
+    // 'paid',
+    // 'confirmed',
     'total amount',
-    'amount',
+    // 'amount',
     'product amount',
     // 'promotion count',
     // 'payment',
