@@ -56,18 +56,6 @@
                 </select>
             </div>
 
-            <div class="sm:col-span-1">
-                <label class="form-label">Confirmed</label>
-                <select
-                    class="field form-select mt-1"
-                    v-model="search.confirmed"
-                >
-                    <option disabled value="null">please select</option>
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
             <div
                 class="sm:col-span-1 flex justify-center items-center flex-col"
             >
@@ -163,7 +151,6 @@ export default {
                 user_id: null,
                 description: null,
                 filter_by_days: null,
-                confirmed: null,
                 date: null,
             },
             startTime: [
@@ -189,7 +176,6 @@ export default {
                 user_id: null,
                 description: null,
                 filter_by_days: null,
-                confirmed: null,
                 date: null,
             };
 
