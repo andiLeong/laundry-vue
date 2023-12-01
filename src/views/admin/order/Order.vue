@@ -107,10 +107,10 @@
                                         </p>
                                     </div>
 
-                                    <p>
-                                        {{ order.confirmed ? 'got' : 'no' }}
-                                        confirm
-                                    </p>
+                                    <!--                                    <p>-->
+                                    <!--                                        {{ order.confirmed ? 'got' : 'no' }}-->
+                                    <!--                                        confirm-->
+                                    <!--                                    </p>-->
                                 </td>
 
                                 <!--                                <td class="table-data flex items-center">-->
