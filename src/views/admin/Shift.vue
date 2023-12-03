@@ -10,7 +10,7 @@
                             class="text-base font-semibold leading-6 text-gray-900"
                         >
                             <time datetime="2022-01"
-                                >{{ year }}, {{ month }}
+                                >{{ year }}, {{ currentMonthName }}
                             </time>
                         </h1>
                         <div class="flex items-center">
@@ -19,24 +19,15 @@
                             >
                                 <button
                                     type="button"
+                                    @click.prevent="switchMonth(month - 1)"
                                     class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
                                 >
                                     <span class="sr-only">Previous month</span>
-                                    <svg
-                                        class="h-5 w-5"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
+                                    <ChevronLeft class="h-5 w-5" />
                                 </button>
                                 <button
                                     type="button"
+                                    @click.prevent="setCurrentMonth()"
                                     class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
                                 >
                                     Today
@@ -46,21 +37,11 @@
                                 ></span>
                                 <button
                                     type="button"
+                                    @click.prevent="switchMonth(month + 1)"
                                     class="flex h-9 w-12 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
                                 >
                                     <span class="sr-only">Next month</span>
-                                    <svg
-                                        class="h-5 w-5"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true"
-                                    >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
+                                    <ChevronRight class="h-5 w-5" />
                                 </button>
                             </div>
                         </div>
@@ -151,6 +132,8 @@
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import ChevronRight from '@/svg/ChevronRight.vue';
+import ChevronLeft from '@/svg/ChevronLeft.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -158,8 +141,8 @@ const router = useRouter();
 const endpoint = ref('/api/admin/order');
 const orders = ref([]);
 const dates = ref([]);
-const year = ref(null);
-const month = ref(null);
+const year = ref(new Date().getFullYear());
+const month = ref(new Date().getMonth());
 
 const firstDummyDates = computed(() => {
     let dayNumber = dates.value[0].day_number;
@@ -170,6 +153,35 @@ const secondDummyDates = computed(() => {
     return 42 - dates.value.length - firstDummyDates.value;
 });
 
+const currentMonthName = computed(() => {
+    let instance = new Date();
+    instance.setMonth(month.value);
+    return instance.toLocaleString('default', {
+        month: 'long',
+    });
+});
+
+function switchMonth(toMonth) {
+    if (toMonth < 0) {
+        month.value = 11;
+        year.value = year.value - 1;
+    } else if (toMonth > 11) {
+        month.value = 0;
+        year.value = year.value + 1;
+    } else {
+        month.value = toMonth;
+    }
+
+    getAllDatesInMonth(year.value, month.value);
+}
+
+function setCurrentMonth() {
+    let instance = new Date();
+    month.value = instance.getMonth();
+    year.value = instance.getFullYear();
+    getAllDatesInMonth(year.value, month.value);
+}
+
 function getAllDatesInMonth(currentYear, currentMonth) {
     let startDate = new Date(currentYear, currentMonth, 1); // currentMonth is 0-indexed
     let endDate = new Date(currentYear, currentMonth + 1, 1);
@@ -177,20 +189,8 @@ function getAllDatesInMonth(currentYear, currentMonth) {
     let dt = [];
     while (startDate < endDate) {
         let instance = new Date(startDate);
-        dt.push(
-            instance.getDate() +
-                '-' +
-                instance.getDay() +
-                '-' +
-                instance.toLocaleDateString('en-US', { weekday: 'long' }),
-        );
 
-        year.value = instance.getFullYear();
-        month.value = instance.toLocaleString('default', {
-            month: 'long',
-        });
-
-        dates.value.push({
+        dt.push({
             is_today: instance.toDateString() === new Date().toDateString(),
             day_number: instance.getDay() === 0 ? 7 : instance.getDay(),
             day_name: instance.toLocaleDateString('en-US', { weekday: 'long' }),
@@ -202,7 +202,7 @@ function getAllDatesInMonth(currentYear, currentMonth) {
         startDate.setDate(startDate.getDate() + 1);
     }
 
-    console.log(dt);
+    dates.value = dt;
     return dt;
 }
 
@@ -217,6 +217,6 @@ function fetch(page, query = '') {
         });
 }
 
-getAllDatesInMonth(2023, 10);
+getAllDatesInMonth(year.value, month.value);
 // fetch(page.value, toQueryString(queryString.value));
 </script>
