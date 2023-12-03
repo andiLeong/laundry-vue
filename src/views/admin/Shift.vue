@@ -154,7 +154,7 @@
                                 type="button"
                                 v-for="index in firstDummyDates"
                                 :key="index"
-                                class="flex h-16 flex-col bg-gray-50 px-4 py-3 text-gray-500 hover:bg-gray-100 focus:z-10"
+                                class="flex h-24 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
                             >
                                 <!--
                                   Always include: "ml-auto"
@@ -168,34 +168,33 @@
                                 <span class="sr-only">0 events</span>
                             </button>
 
-                            <button
-                                type="button"
+                            <div
+                                class="flex h-24 flex-col px-3 py-2 focus:z-10"
                                 v-for="(dt, index) in dates"
                                 :key="index"
-                                class="flex h-16 flex-col px-4 py-3 focus:z-10"
                                 :class="
                                     dt.is_today
-                                        ? 'bg-indigo-600 text-white'
+                                        ? 'bg-indigo-300 text-white'
                                         : 'bg-white text-gray-900 hover:bg-gray-100'
                                 "
                             >
-                                <time :datetime="dt.full_date" class="ml-auto"
+                                <time
+                                    :datetime="dt.full_date"
+                                    class="ml-auto flex-1"
                                     >{{ dt.date }}
                                 </time>
                                 <template v-if="hasShift(dt.shifts)">
-                                    <span class="text-xs mt-2"
-                                        >{{ dt.shifts.from }}-{{
-                                            dt.shifts.to
-                                        }}</span
-                                    >
+                                    <p class="text-xs">
+                                        {{ dt.shifts.from }}-{{ dt.shifts.to }}
+                                    </p>
                                 </template>
-                            </button>
+                            </div>
 
                             <button
                                 type="button"
                                 v-for="index in secondDummyDates"
                                 :key="index"
-                                class="flex h-14 flex-col bg-gray-50 px-4 py-3 text-gray-500 hover:bg-gray-100 focus:z-10"
+                                class="flex h-24 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
                             >
                                 <span class="sr-only">0 events</span>
                             </button>
