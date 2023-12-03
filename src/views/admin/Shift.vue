@@ -87,11 +87,6 @@
                             <div
                                 class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px"
                             >
-                                <!--
-                                  Always include: "relative py-2 px-3"
-                                  Is current month, include: "bg-white"
-                                  Is not current month, include: "bg-gray-50 text-gray-500"
-                                -->
                                 <div
                                     v-for="index in firstDummyDates"
                                     :key="index"
@@ -120,6 +115,65 @@
                                     class="relative bg-gray-50 px-3 py-2 text-gray-500"
                                 ></div>
                             </div>
+                        </div>
+
+                        <!--  mobile -->
+                        <div
+                            class="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden"
+                        >
+                            <!--
+                              Always include: "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10"
+                              Is current month, include: "bg-white"
+                              Is not current month, include: "bg-gray-50"
+                              Is selected or is today, include: "font-semibold"
+                              Is selected, include: "text-white"
+                              Is not selected and is today, include: "text-indigo-600"
+                              Is not selected and is current month, and is not today, include: "text-gray-900"
+                              Is not selected, is not current month, and is not today: "text-gray-500"
+                            -->
+                            <button
+                                type="button"
+                                v-for="index in firstDummyDates"
+                                :key="index"
+                                class="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
+                            >
+                                <!--
+                                  Always include: "ml-auto"
+                                  Is selected, include: "flex h-6 w-6 items-center justify-center rounded-full"
+                                  Is selected and is today, include: "bg-indigo-600"
+                                  Is selected and is not today, include: "bg-gray-900"
+                                -->
+                                <!--                                <time datetime="2021-12-27" class="ml-auto"-->
+                                <!--                                    >27 mobile-->
+                                <!--                                </time>-->
+                                <span class="sr-only">0 events</span>
+                            </button>
+
+                            <button
+                                type="button"
+                                v-for="(dt, index) in dates"
+                                :key="index"
+                                class="flex h-14 flex-col px-3 py-2 focus:z-10"
+                                :class="
+                                    dt.is_today
+                                        ? 'bg-indigo-600 text-white'
+                                        : 'bg-white text-gray-900 hover:bg-gray-100'
+                                "
+                            >
+                                <time :datetime="dt.full_date" class="ml-auto"
+                                    >{{ dt.date }}
+                                </time>
+                                <span class="sr-only">0 events</span>
+                            </button>
+
+                            <button
+                                type="button"
+                                v-for="index in secondDummyDates"
+                                :key="index"
+                                class="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
+                            >
+                                <span class="sr-only">0 events</span>
+                            </button>
                         </div>
                     </div>
                 </div>
