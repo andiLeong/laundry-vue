@@ -39,6 +39,7 @@ const adminRoutes = [
     'admin-report-to-work',
     'admin-order-gcash-create',
     'admin-order-paid-record',
+    'admin-shift',
 ];
 
 const route = useRoute();

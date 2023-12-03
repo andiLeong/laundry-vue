@@ -107,6 +107,25 @@
                                         "
                                         >{{ dt.date }}
                                     </time>
+                                    <ol v-if="hasShift(dt.shifts)" class="mt-2">
+                                        <li>
+                                            <a href="#" class="group flex">
+                                                <p
+                                                    class="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600"
+                                                >
+                                                    work
+                                                </p>
+                                                <time
+                                                    datetime="2022-01-03T10:00"
+                                                    class="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
+                                                >
+                                                    {{ dt.shifts.from }}-{{
+                                                        dt.shifts.to
+                                                    }}
+                                                </time>
+                                            </a>
+                                        </li>
+                                    </ol>
                                 </div>
 
                                 <div
@@ -135,7 +154,7 @@
                                 type="button"
                                 v-for="index in firstDummyDates"
                                 :key="index"
-                                class="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
+                                class="flex h-16 flex-col bg-gray-50 px-4 py-3 text-gray-500 hover:bg-gray-100 focus:z-10"
                             >
                                 <!--
                                   Always include: "ml-auto"
@@ -153,7 +172,7 @@
                                 type="button"
                                 v-for="(dt, index) in dates"
                                 :key="index"
-                                class="flex h-14 flex-col px-3 py-2 focus:z-10"
+                                class="flex h-16 flex-col px-4 py-3 focus:z-10"
                                 :class="
                                     dt.is_today
                                         ? 'bg-indigo-600 text-white'
@@ -163,14 +182,20 @@
                                 <time :datetime="dt.full_date" class="ml-auto"
                                     >{{ dt.date }}
                                 </time>
-                                <span class="sr-only">0 events</span>
+                                <template v-if="hasShift(dt.shifts)">
+                                    <span class="text-xs mt-2"
+                                        >{{ dt.shifts.from }}-{{
+                                            dt.shifts.to
+                                        }}</span
+                                    >
+                                </template>
                             </button>
 
                             <button
                                 type="button"
                                 v-for="index in secondDummyDates"
                                 :key="index"
-                                class="flex h-14 flex-col bg-gray-50 px-3 py-2 text-gray-500 hover:bg-gray-100 focus:z-10"
+                                class="flex h-14 flex-col bg-gray-50 px-4 py-3 text-gray-500 hover:bg-gray-100 focus:z-10"
                             >
                                 <span class="sr-only">0 events</span>
                             </button>
@@ -188,12 +213,12 @@ import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import ChevronRight from '@/svg/ChevronRight.vue';
 import ChevronLeft from '@/svg/ChevronLeft.vue';
+import moment from 'moment';
 
 const route = useRoute();
 const router = useRouter();
-
-const endpoint = ref('/api/admin/order');
-const orders = ref([]);
+const endpoint = ref('/api/admin/shifts');
+const shifts = ref([]);
 const dates = ref([]);
 const year = ref(new Date().getFullYear());
 const month = ref(new Date().getMonth());
@@ -227,6 +252,7 @@ function switchMonth(toMonth) {
     }
 
     getAllDatesInMonth(year.value, month.value);
+    fetch(`year=${year.value}&month=${month.value + 1}`);
 }
 
 function setCurrentMonth() {
@@ -234,6 +260,11 @@ function setCurrentMonth() {
     month.value = instance.getMonth();
     year.value = instance.getFullYear();
     getAllDatesInMonth(year.value, month.value);
+    fetch(`year=${year.value}&month=${month.value + 1}`);
+}
+
+function hasShift(shift) {
+    return Object.keys(shift).length > 0;
 }
 
 function getAllDatesInMonth(currentYear, currentMonth) {
@@ -249,9 +280,11 @@ function getAllDatesInMonth(currentYear, currentMonth) {
             day_number: instance.getDay() === 0 ? 7 : instance.getDay(),
             day_name: instance.toLocaleDateString('en-US', { weekday: 'long' }),
             date: instance.getDate(),
-            full_date: `${instance.getFullYear()}-${
-                instance.getMonth() + 1
-            }-${instance.getDate()}`,
+            full_date: `${instance.getFullYear()}-${instance.toLocaleDateString(
+                'en-US',
+                { month: '2-digit' },
+            )}-${instance.toLocaleDateString('en-US', { day: '2-digit' })}`,
+            shifts: {},
         });
         startDate.setDate(startDate.getDate() + 1);
     }
@@ -260,17 +293,26 @@ function getAllDatesInMonth(currentYear, currentMonth) {
     return dt;
 }
 
-function fetch(page, query = '') {
-    return axios
-        .get(`${endpoint.value}?page=${page}&${query}`)
-        .then(response => {
-            sum_total_amount.value = response.data.sum_total_amount;
-            orders.value = response.data.data;
-            pagination.value = response.data;
-            delete pagination.value.data;
+function fetch(query = '') {
+    return axios.get(`${endpoint.value}?${query}`).then(response => {
+        shifts.value = response.data;
+        dates.value = dates.value.map(dt => {
+            let shifts = {};
+            let shift = response.data.filter(shifting => {
+                return dt.full_date == shifting.date;
+            });
+            if (shift.length > 0) {
+                shifts = {
+                    from: moment(shift[0].from).format('HH:mm'),
+                    to: moment(shift[0].to).format('HH:mm'),
+                };
+            }
+            dt.shifts = shifts;
+            return dt;
         });
+    });
 }
 
 getAllDatesInMonth(year.value, month.value);
-// fetch(page.value, toQueryString(queryString.value));
+fetch();
 </script>

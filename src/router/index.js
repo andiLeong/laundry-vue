@@ -117,10 +117,10 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
-        path: '/shift',
+        path: '/admin/shift',
         name: 'admin-shift',
         component: () => import('@/views/admin/Shift.vue'),
-        // meta: { staffOnly: true },
+        meta: { staffOnly: true },
     },
     {
         path: '/report-to-work',

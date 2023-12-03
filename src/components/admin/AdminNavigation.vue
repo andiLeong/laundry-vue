@@ -80,6 +80,7 @@ import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue'
 import { useUserStore } from '@/store/user.js';
 import { shallowRef } from 'vue';
 import BankNotes from '@/svg/BankNotes.vue';
+import Bell from '@/svg/Bell.vue';
 
 const user = useUserStore();
 const links = shallowRef([
@@ -120,6 +121,11 @@ const secondLinks = shallowRef([
         name: 'Attendance',
         route: 'admin-attendance',
         svg: LightBulb,
+    },
+    {
+        name: 'Shifts',
+        route: 'admin-shift',
+        svg: Bell,
     },
 ]);
 
