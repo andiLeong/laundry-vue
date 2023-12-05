@@ -41,6 +41,7 @@ const adminRoutes = [
     'admin-order-paid-record',
     'admin-shift',
     'admin-salary',
+    'admin-salary-detail',
 ];
 
 const route = useRoute();
