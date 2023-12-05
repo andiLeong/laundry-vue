@@ -77,7 +77,7 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 
-const endpoint = ref('/api/salary');
+const endpoint = ref('/api/admin/salary');
 const defaultSortColumn = ref('id');
 const columns = ref(['name', 'amount', 'from', 'to']);
 const salaries = ref([]);
