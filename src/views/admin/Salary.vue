@@ -33,6 +33,18 @@
                                 :key="salary.id"
                             >
                                 <td class="table-data">
+                                    <AppLink
+                                        class="underline text-blue-500"
+                                        :to="{
+                                            name: 'admin-salary-detail',
+                                            params: { id: salary.id },
+                                        }"
+                                    >
+                                        {{ salary.id }}
+                                    </AppLink>
+                                </td>
+
+                                <td class="table-data">
                                     {{ salary.staff.user.first_name }}
                                 </td>
 
@@ -73,13 +85,14 @@ import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import AppLink from '@/components/AppLink.vue';
 
 const route = useRoute();
 const router = useRouter();
 
 const endpoint = ref('/api/admin/salary');
 const defaultSortColumn = ref('id');
-const columns = ref(['name', 'amount', 'from', 'to']);
+const columns = ref(['id', 'name', 'amount', 'from', 'to']);
 const salaries = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
