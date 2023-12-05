@@ -99,6 +99,12 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/salary',
+        name: 'admin-salary',
+        component: () => import('@/views/admin/Promotion.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/order/create',
         name: 'admin-order-create',
         component: () => import('@/views/admin/order/Create.vue'),
