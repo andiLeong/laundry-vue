@@ -101,7 +101,7 @@ const routes = [
     {
         path: '/admin/salary',
         name: 'admin-salary',
-        component: () => import('@/views/admin/Promotion.vue'),
+        component: () => import('@/views/admin/Salary.vue'),
         meta: { staffOnly: true },
     },
     {
