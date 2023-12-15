@@ -62,21 +62,17 @@
                                     {{ attendance.staff.first_name }}
                                 </td>
 
-                                <td class="table-data">
-                                    {{ attendance.staff.middle_name }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ attendance.staff.middle_name }}-->
+                                <!--                                </td>-->
 
-                                <td class="table-data">
-                                    {{ attendance.staff.last_name }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ attendance.staff.last_name }}-->
+                                <!--                                </td>-->
 
-                                <td class="table-data">
-                                    {{ attendance.branch_name }}
-                                </td>
-
-                                <td class="table-data">
-                                    {{ attendance.type }}
-                                </td>
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ attendance.branch_name }}-->
+                                <!--                                </td>-->
 
                                 <td class="table-data">
                                     {{
@@ -84,6 +80,10 @@
                                             'YYYY-MM-DD HH:mm',
                                         )
                                     }}
+                                </td>
+
+                                <td class="table-data">
+                                    {{ attendance.type }}
                                 </td>
                             </tr>
                         </template>
@@ -122,11 +122,11 @@ const defaultSortColumn = ref('id');
 const columns = ref([
     'id',
     'first name',
-    'middle name',
-    'last name',
-    'branch name',
-    'type',
+    // 'middle name',
+    // 'last name',
+    // 'branch name',
     'time',
+    'type',
 ]);
 const per_page = ref(10);
 const attendances = ref([]);
@@ -147,7 +147,7 @@ function reportToWork() {
 
 function fetch(page, query = '') {
     let url = `${endpoint.value}?page=${page}&${query}`;
-    return axios.get(url).then((response) => {
+    return axios.get(url).then(response => {
         attendances.value = response.data.data;
         pagination.value = response.data;
         delete pagination.value.data;
@@ -195,7 +195,7 @@ function setDefaultSortColumn(column) {
 
 watch(
     () => route.query.page,
-    (page) => fetch(page, toQueryString(queryString.value)),
+    page => fetch(page, toQueryString(queryString.value)),
 );
 
 function search() {

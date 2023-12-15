@@ -73,7 +73,6 @@ import Gift from '@/svg/Gift.vue';
 import ToiletCell from '@/svg/ToiletCell.vue';
 import People from '@/svg/People.vue';
 import CircusStack from '@/svg/CircusStack.vue';
-import CurrencyDollar from '@/svg/CurrencyDollar.vue';
 import PencilSquare from '@/svg/PencilSquare.vue';
 import AppLink from '@/components/AppLink.vue';
 import AdminMobileNavigation from '@/components/admin/AdminMobileNavigation.vue';
@@ -146,11 +145,11 @@ if (user.isAdmin) {
         svg: CircusStack,
     });
 
-    secondLinks.value.push({
-        name: 'Expense',
-        route: 'admin-expense',
-        svg: CurrencyDollar,
-    });
+    // secondLinks.value.push({
+    //     name: 'Expense',
+    //     route: 'admin-expense',
+    //     svg: CurrencyDollar,
+    // });
 }
 </script>
 
