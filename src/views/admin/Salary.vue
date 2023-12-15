@@ -59,6 +59,10 @@
                                 <td class="table-data">
                                     {{ salary.to }}
                                 </td>
+
+                                <td class="table-data">
+                                    {{ salary.description }}
+                                </td>
                             </tr>
                         </template>
                     </AppTable>
@@ -92,7 +96,7 @@ const router = useRouter();
 
 const endpoint = ref('/api/admin/salary');
 const defaultSortColumn = ref('id');
-const columns = ref(['id', 'name', 'amount', 'from', 'to']);
+const columns = ref(['id', 'name', 'amount', 'from', 'to', 'description']);
 const salaries = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
