@@ -39,7 +39,7 @@ import useFetchGroupBy from '@/composable/useFetchGroupBy.js';
 import ChartLoadingSkeleton from '@/components/skeleton/ChartLoadingSkeleton.vue';
 
 const days = ref(7);
-const daysSelect = ref([7, 10, 20, 30, 60, 90]);
+const daysSelect = ref([3, 5, 7, 10, 14, 18, 21, 30, 40, 50, 60, 70, 80, 90]);
 let groupBy = new useFetchGroupBy(`group_by_days=${days.value}`);
 const {
     orderTotalAmount,
