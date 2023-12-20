@@ -79,13 +79,8 @@
                     </AppTable>
                 </AppTableLayout>
 
-                <div class="my-4">
-                    <Paginator
-                        :perSection="3"
-                        v-if="pagination.current_page"
-                        :pagination="pagination"
-                        @switched-page="switchPage"
-                    />
+                <div v-if="total" class="my-5 text-gray-500 text-sm">
+                    Total: {{ total }}
                 </div>
             </section>
         </main>
@@ -94,11 +89,10 @@
 
 <script setup>
 import AdminLayout from '@/components/admin/AdminLayout.vue';
-import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import moment from 'moment';
 import OrderPaidRecordFilterPanel from '@/components/admin/OrderPaidRecordFilterPanel.vue';
@@ -109,34 +103,27 @@ const router = useRouter();
 const endpoint = ref('/api/admin/order-paid-record');
 const defaultSortColumn = ref('id');
 const columns = ref(['order', 'amount', 'when', 'staff', 'payment']);
-const per_page = ref(10);
 const records = ref([]);
-const pagination = ref({});
-const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
 const showPanel = ref(false);
-const sum_total_amount = ref(null);
+const total = ref(null);
 
-function fetch(page, query = '') {
-    return axios
-        .get(`${endpoint.value}?page=${page}&${query}`)
-        .then(response => {
-            sum_total_amount.value = response.data.sum_total_amount;
-            records.value = response.data.data;
-            pagination.value = response.data;
-            delete pagination.value.data;
-        });
+function fetch(query = '') {
+    return axios.get(`${endpoint.value}?${query}`).then(response => {
+        total.value = response.data.total;
+        records.value = response.data.data;
+    });
 }
 
 function orderQuery(query) {
     sortQuery.value = query;
-    fetch(page.value, toQueryString(queryString.value));
+    fetch(toQueryString(queryString.value));
 }
 
 function getherQuery(query) {
     Object.assign(queryString.value, query);
-    fetch(page.value, toQueryString(queryString.value));
+    fetch(toQueryString(queryString.value));
 }
 
 function toQueryString(query) {
@@ -149,26 +136,12 @@ function toQueryString(query) {
 function resetQuery() {
     queryString.value = {};
     sortQuery.value = '';
-    fetch(page.value);
-}
-
-function switchPage(page) {
-    router.replace({
-        name: 'admin-order-paid-record',
-        query: {
-            page,
-        },
-    });
+    fetch();
 }
 
 function setDefaultSortColumn(column) {
     defaultSortColumn.value = column;
 }
 
-watch(
-    () => route.query.page,
-    page => fetch(page, toQueryString(queryString.value)),
-);
-
-fetch(page.value, toQueryString(queryString.value));
+fetch(toQueryString(queryString.value));
 </script>
