@@ -26,7 +26,7 @@
                             </button>
                         </div>
 
-                        <template v-show="showPanel">
+                        <template v-if="showPanel">
                             <OrderSearchPanel
                                 @search-query="getherQuery"
                                 @reset-query="resetQuery"
