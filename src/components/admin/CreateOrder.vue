@@ -62,13 +62,6 @@
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label class="form-label">Company</label>
-                    <select class="field form-select mt-1" v-model="company_id">
-                        <option value="1">EO</option>
-                    </select>
-                </div>
-
-                <div class="sm:col-span-2">
                     <BaseInput
                         labelClass="form-label"
                         placeHolder="Write the order description"
@@ -134,7 +127,6 @@ const payment = ref(1);
 const user_id = ref(null);
 const issued_invoice = ref(0);
 const paid = ref(1);
-const company_id = ref(null);
 const amount = ref(null);
 const description = ref(null);
 const product_ids = ref([]);
@@ -179,7 +171,6 @@ function submit() {
         payment: payment.value,
         paid: paid.value,
         issued_invoice: issued_invoice.value,
-        company_id: company_id.value,
         description: description.value,
     };
 
