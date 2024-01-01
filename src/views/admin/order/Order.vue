@@ -26,12 +26,11 @@
                             </button>
                         </div>
 
-                        <template v-if="showPanel">
-                            <OrderSearchPanel
-                                @search-query="getherQuery"
-                                @reset-query="resetQuery"
-                            />
-                        </template>
+                        <OrderSearchPanel
+                            v-show="showPanel"
+                            @search-query="getherQuery"
+                            @reset-query="resetQuery"
+                        />
                     </template>
 
                     <AppTable>
