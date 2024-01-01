@@ -91,8 +91,9 @@ watch(
 );
 
 function getTabTitle() {
-    if (tabsStore.selected.length > 0) {
-        return tabsStore.selected[0].title;
+    let selected = tabsStore.selected.filter(select => select.id === props.id);
+    if (selected.length > 0) {
+        return selected[0].title;
     }
     let defaultActive = slots.default().filter(tab => tab.props.active);
     if (defaultActive.length > 0) {

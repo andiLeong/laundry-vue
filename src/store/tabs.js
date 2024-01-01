@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 
 export const useTabsStore = defineStore({
     id: 'tabs',
@@ -9,7 +9,7 @@ export const useTabsStore = defineStore({
     actions: {
         select(tabs) {
             let id = tabs.id;
-            let existed = this.selected.filter((select) => select.id === id);
+            let existed = this.selected.filter(select => select.id === id);
             if (existed.length > 0) {
                 existed[0].title = tabs.title;
                 return;
@@ -19,7 +19,7 @@ export const useTabsStore = defineStore({
         },
 
         tab(id) {
-            let existed = this.selected.filter((select) => select.id === id);
+            let existed = this.selected.filter(select => select.id === id);
 
             if (existed.length > 0) {
                 return existed[0].title;
