@@ -17,7 +17,7 @@ import CountUp from '@/components/CountUp.vue';
                     <dd
                         class="order-1 text-5xl font-bold tracking-tight text-white"
                     >
-                        <CountUp :to="90" />
+                        <CountUp :to="4" />
                     </dd>
                 </div>
                 <div class="mt-10 flex flex-col sm:mt-0">
@@ -29,7 +29,7 @@ import CountUp from '@/components/CountUp.vue';
                     <dd
                         class="order-1 text-5xl font-bold tracking-tight text-white"
                     >
-                        <CountUp :to="136" />
+                        <CountUp :to="467" />
                     </dd>
                 </div>
                 <div class="mt-10 flex flex-col sm:mt-0">
@@ -41,7 +41,7 @@ import CountUp from '@/components/CountUp.vue';
                     <dd
                         class="order-1 text-5xl font-bold tracking-tight text-white"
                     >
-                        <CountUp :to="10" />
+                        <CountUp :to="1" />
                     </dd>
                 </div>
             </dl>

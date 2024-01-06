@@ -11,21 +11,24 @@ import RightArrow from '@/svg/RightArrow.vue';
     <AppNavigation />
 
     <main class="mx-auto max-w-screen-2xl">
-        <section class="need-line-bg pt-10 px-20">
-            <div class="md:grid grid-cols-2 gap-6 pb-40" style="">
+        <section class="need-line-bg pt-10 px-10 md:px-20">
+            <div
+                class="grid md:grid-cols-2 gap-14 md:gap-6 pb-0 md:pb-40"
+                style=""
+            >
                 <div
                     class="space-y-4 flex flex-col justify-end pb-6 blue-bg-blur"
                     style=""
                 >
                     <h1
-                        class="text-5xl font-black"
+                        class="text-4xl md:text-5xl font-black"
                         style="color: #000; line-height: normal"
                     >
                         Connect, Choose, Save at our laundry.
                     </h1>
                     <p
-                        class="font-normal text-base"
-                        style="color: #6b7280; line-height: normal"
+                        class="font-normal text-base leading-8"
+                        style="color: #6b7280"
                     >
                         Welcome to SBIN Laundry, where we redefine the laundry
                         experience. Stay connected with our free Wi-Fi, choose
@@ -50,7 +53,7 @@ import RightArrow from '@/svg/RightArrow.vue';
                     </div>
                 </div>
 
-                <div class="">
+                <div class="order-first md:order-last">
                     <img
                         alt="laundry-lady"
                         src="/src/assets/lady-laundry.png"
@@ -59,10 +62,12 @@ import RightArrow from '@/svg/RightArrow.vue';
             </div>
         </section>
 
-        <section class="need-line-bg about-us mt-9 px-20">
+        <section class="need-line-bg about-us mt-9 px-10 md:px-20">
             <div class="flex justify-center items-center">
-                <div class="text-center">
-                    <h2 class="text-black text-5xl font-black">About Us</h2>
+                <div class="md:text-center">
+                    <h2 class="text-black text-3xl md:text-4xl font-black">
+                        About Us
+                    </h2>
                     <div class="max-w-2xl">
                         <p
                             class="mt-2.5 font-normal text-base"
@@ -87,8 +92,13 @@ import RightArrow from '@/svg/RightArrow.vue';
                     class="blue-bg-blur grid-rows-1 flex flex-col justify-end mt-6 md:mt-0"
                 >
                     <div style="padding-bottom: 105px">
-                        <h3 class="font-black text-5xl">Competitive Price</h3>
-                        <p class="mt-4 text-base" style="color: #6b7280">
+                        <h3 class="font-black text-3xl md:text-4xl">
+                            Competitive Price
+                        </h3>
+                        <p
+                            class="mt-4 text-base leading-7"
+                            style="color: #6b7280"
+                        >
                             We believe that everyone deserves clean and fresh
                             clothes without breaking the bank. That's why we're
                             proud to offer competitive prices that don't
@@ -100,6 +110,7 @@ import RightArrow from '@/svg/RightArrow.vue';
                     </div>
                 </div>
             </div>
+
             <div class="my-6 md:flex gap-6 flex-col-reverse md:flex-row">
                 <div class="block md:hidden w-full md:w-1/2">
                     <img
@@ -111,8 +122,13 @@ import RightArrow from '@/svg/RightArrow.vue';
                     class="blue-bg-blur flex flex-col justify-end w-full md:w-1/2 mt-6 md:mt-0"
                 >
                     <div class="bp-0 md:pb-28">
-                        <h3 class="font-black text-5xl">Multiple Promotions</h3>
-                        <p class="mt-4 text-base" style="color: #6b7280">
+                        <h3 class="font-black text-3xl md:text-4xl">
+                            Multiple Promotions
+                        </h3>
+                        <p
+                            class="mt-4 text-base leading-7"
+                            style="color: #6b7280"
+                        >
                             We are committed to making your laundry experience
                             not just hassle-free but also delightful. Our
                             multiple promotions are designed with you in mind,
