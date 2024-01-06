@@ -7,7 +7,7 @@
             class="w-full md:max-w-5xl mx-auto md:flex rounded-lg shadow-2xl hidden"
         >
             <div class="bg-white md:px-6 lg:px-8 py-9 flex-1">
-                <h1 class="text-3xl" style="color: #212b36">Sign In</h1>
+                <h1 class="text-3xl" style="color: #212b36">Login</h1>
                 <div class="my-5">
                     <form @submit.prevent="submit">
                         <div class="space-y-5">
@@ -115,16 +115,6 @@
                                 :is-loading="isLoading"
                                 name="Login"
                             />
-                        </div>
-
-                        <div
-                            v-if="isLoading"
-                            class="flex items-center justify-center mt-5"
-                        >
-                            <LoadingIndicator
-                                class="text-sky-500 h-7 w-7 mr-3 animate-spin"
-                            />
-                            <p class="text-sm text-slate-500">Signing In...</p>
                         </div>
                     </form>
                 </div>
@@ -248,16 +238,6 @@
                             name="Login"
                         />
                     </div>
-
-                    <div
-                        v-if="isLoading"
-                        class="flex items-center justify-center mt-5"
-                    >
-                        <LoadingIndicator
-                            class="text-sky-500 h-7 w-7 mr-3 animate-spin"
-                        />
-                        <p class="text-sm text-slate-500">Signing In...</p>
-                    </div>
                 </form>
             </div>
         </section>
@@ -274,7 +254,6 @@ import AppLink from '@/components/AppLink.vue';
 import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
 import LockClosed from '@/svg/LockClosed.vue';
 import LockOpen from '@/svg/LockOpen.vue';
-import LoadingIndicator from '@/svg/LoadingIndicator.vue';
 
 const showPassword = ref(false);
 const userStore = useUserStore();
@@ -300,7 +279,7 @@ const { value: password } = useField('password');
 const isLoading = ref(false);
 
 const submit = ref(
-    handleSubmit((values) => {
+    handleSubmit(values => {
         login(values);
     }),
 );
@@ -314,7 +293,7 @@ async function login(credentials) {
             let to = userStore.redirectTo;
             router.push({ name: to });
         })
-        .catch((err) => {
+        .catch(err => {
             isLoading.value = false;
             errors.value.password = err.response.data.message;
             console.log(err.response.data.message);

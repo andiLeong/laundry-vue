@@ -20,7 +20,7 @@ const features = [
                         :to="{ name: 'login' }"
                         class="bg-white rounded-lg px-6 py-2 text-purple-500"
                     >
-                        Sign In
+                        LogIn
                     </AppLink>
                 </div>
             </nav>
