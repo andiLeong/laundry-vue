@@ -11,7 +11,7 @@ import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
 import LoadingIndicator from '@/svg/LoadingIndicator.vue';
 
 const showPassword = ref(false);
-const isLoading = ref(true);
+const isLoading = ref(false);
 const verifyStore = useSignVerifyStore();
 
 const router = useRouter();
@@ -107,7 +107,7 @@ async function signup(user) {
 
         <form @submit.prevent="submit">
             <div class="space-y-5">
-                <input type="text" v-model="notification" />
+                <input type="text" v-model="notification" class="hidden" />
                 <div class="flex flex-col">
                     <label
                         class="mb-2.5 text-base font-medium label-color"
