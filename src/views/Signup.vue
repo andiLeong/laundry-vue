@@ -26,19 +26,19 @@ const validationSchema = ref(
         first_name: string()
             .required()
             .max(50)
-            .test('test-name', 'Number is not accepted', (value) =>
+            .test('test-name', 'Number is not accepted', value =>
                 /^([^0-9]*)$/.test(value),
             ),
         middle_name: string()
             .nullable(true)
             .max(50)
-            .test('test-name', 'Number is not accepted', (value) =>
+            .test('test-name', 'Number is not accepted', value =>
                 /^([^0-9]*)$/.test(value),
             ),
         last_name: string()
             .required()
             .max(50)
-            .test('test-name', 'Number is not accepted', (value) =>
+            .test('test-name', 'Number is not accepted', value =>
                 /^([^0-9]*)$/.test(value),
             ),
     }),
@@ -53,16 +53,17 @@ const { value: first_name } = useField('first_name');
 const { value: middle_name } = useField('middle_name');
 const { value: last_name } = useField('last_name');
 const { value: password } = useField('password');
+const { value: notification } = useField('notification');
 
 const submit = ref(
-    handleSubmit((values) => {
+    handleSubmit(values => {
         signup(values);
     }),
 );
 
 async function signup(user) {
     isLoading.value = true;
-    Object.keys(user).forEach((key) =>
+    Object.keys(user).forEach(key =>
         user[key] === undefined ? delete user[key] : {},
     );
 
@@ -72,7 +73,7 @@ async function signup(user) {
             verifyStore.setPhone(user.phone);
             router.push({ name: 'verify' });
         })
-        .catch((err) => {
+        .catch(err => {
             errors.value.password = err.response?.data?.message;
             console.log(err.response?.data);
         })
@@ -106,6 +107,7 @@ async function signup(user) {
 
         <form @submit.prevent="submit">
             <div class="space-y-5">
+                <input type="text" v-model="notification" />
                 <div class="flex flex-col">
                     <label
                         class="mb-2.5 text-base font-medium label-color"
