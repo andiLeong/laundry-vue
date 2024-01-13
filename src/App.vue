@@ -42,6 +42,7 @@ const adminRoutes = [
     'admin-shift',
     'admin-salary',
     'admin-salary-detail',
+    'admin-order-label',
 ];
 
 const route = useRoute();
