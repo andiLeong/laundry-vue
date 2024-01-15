@@ -54,6 +54,33 @@ const { value: middle_name } = useField('middle_name');
 const { value: last_name } = useField('last_name');
 const { value: password } = useField('password');
 const { value: notification } = useField('notification');
+const { value: recaptcha_token } = useField('recaptcha_token');
+
+let recaptchaScript = document.createElement('script');
+recaptchaScript.setAttribute(
+    'src',
+    'https://www.google.com/recaptcha/api.js?render=6Ld0LU0pAAAAAG1DfvNrfrJBkbQH4_MJ_OkcwQV_',
+);
+document.head.appendChild(recaptchaScript);
+
+let recaptchaScriptIsReady = false;
+let checkInterval = setInterval(function () {
+    if (grecaptcha) {
+        recaptchaScriptIsReady = true;
+        clearInterval(checkInterval);
+        grecaptcha.ready(function () {
+            grecaptcha
+                .execute('6Ld0LU0pAAAAAG1DfvNrfrJBkbQH4_MJ_OkcwQV_', {
+                    action: 'signup',
+                })
+                .then(token => {
+                    recaptcha_token.value = token;
+                    console.log(token);
+                });
+        });
+    }
+    return recaptchaScriptIsReady;
+}, 500);
 
 const submit = ref(
     handleSubmit(values => {
@@ -108,6 +135,7 @@ async function signup(user) {
         <form @submit.prevent="submit">
             <div class="space-y-5">
                 <input type="text" v-model="notification" class="hidden" />
+                <input type="text" v-model="recaptcha_token" class="hidden" />
                 <div class="flex flex-col">
                     <label
                         class="mb-2.5 text-base font-medium label-color"
