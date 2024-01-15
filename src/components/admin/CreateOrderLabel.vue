@@ -21,21 +21,55 @@
                             </div>
 
                             <div class="sm:col-span-2">
-                                <label class="">
-                                    original label no class no for
+                                <label
+                                    style="
+                                        font-size: 0.875rem;
+                                        line-height: 1.25rem;
+                                        font-weight: 500;
+                                        color: rgb(55 65 81 / 1);
+                                    "
+                                    >no for-label class but with these css
+                                    attribute font-size , line-height ,
+                                    font-weight , color
                                 </label>
+                                <select class="field form-select mt-1">
+                                    <option value="1">Cash</option>
+                                    <option value="2">Gcash</option>
+                                </select>
                             </div>
 
                             <div class="sm:col-span-2">
-                                <label class="" for="dummy">
-                                    original label no class has fot
+                                <label
+                                    style="
+                                        display: block;
+                                        font-size: 0.875rem;
+                                        line-height: 1.25rem;
+                                    "
+                                    >no for-label class but with these css
+                                    attribute font-size , line-height ,
                                 </label>
-                                <input type="text" id="dummy" />
+                                <select class="field form-select mt-1">
+                                    <option value="1">Cash</option>
+                                    <option value="2">Gcash</option>
+                                </select>
                             </div>
 
                             <div class="sm:col-span-2">
-                                <p>paragraph tag</p>
-                                <input type="text" id="paragraph" />
+                                <label
+                                    style="
+                                        font-size: 0.875rem;
+                                        line-height: 1.25rem;
+                                        font-weight: 500;
+                                        color: red;
+                                    "
+                                    >no for-label class but with these css
+                                    attribute font-size , line-height , color
+                                    red
+                                </label>
+                                <select class="field form-select mt-1">
+                                    <option value="1">Cash</option>
+                                    <option value="2">Gcash</option>
+                                </select>
                             </div>
                         </div>
                     </div>
