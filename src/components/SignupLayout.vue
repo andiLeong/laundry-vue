@@ -1,13 +1,21 @@
 <script setup>
 import Check from '@/svg/Check.vue';
-import AppLink from '@/components/AppLink.vue';
+import router from '@/router/index.js';
+import useGoogleRecaptcha from '@/composable/useGoogleRecaptcha.js';
 
 const features = [
-    'SMS marketing',
-    'Omnichannel contact center',
-    'Call tracking',
-    'Push notifications',
+    'Each full service use downy facon and ariel',
+    'Frequently promotion',
+    'Wifi zone for self service',
+    'Free delivery and pickup',
+    'Dry clothes',
 ];
+const { removeRecaptcha } = useGoogleRecaptcha();
+
+function toLogIn() {
+    removeRecaptcha();
+    router.push({ name: 'login' });
+}
 </script>
 
 <template>
@@ -16,12 +24,12 @@ const features = [
             <nav class="md:flex items-center justify-end px-9 py-4">
                 <p class="text-white mr-4">Already have an account ?</p>
                 <div class="mt-3 md:mt-0">
-                    <AppLink
-                        :to="{ name: 'login' }"
+                    <button
+                        @click.prevent="toLogIn()"
                         class="bg-white rounded-lg px-6 py-2 text-purple-500"
                     >
                         Sign In
-                    </AppLink>
+                    </button>
                 </div>
             </nav>
             <section
@@ -37,7 +45,7 @@ const features = [
                             class="text-base font-medium mb-4"
                             style="color: #1e293b"
                         >
-                            WITH SBIN LAUNDRY YOU CAN BUILD:
+                            IN SBIN YOU CAN AVAIL :
                         </p>
                         <ul class="space-y-4">
                             <li

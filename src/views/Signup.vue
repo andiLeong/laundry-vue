@@ -9,10 +9,12 @@ import SignupLayout from '@/components/SignupLayout.vue';
 import { useSignVerifyStore } from '@/store/signupVerify.js';
 import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
 import LoadingIndicator from '@/svg/LoadingIndicator.vue';
+import useGoogleRecaptcha from '@/composable/useGoogleRecaptcha.js';
 
 const showPassword = ref(false);
 const isLoading = ref(false);
 const verifyStore = useSignVerifyStore();
+const { loadRecaptcha, removeRecaptcha } = useGoogleRecaptcha();
 
 const router = useRouter();
 const validationSchema = ref(
@@ -56,12 +58,7 @@ const { value: password } = useField('password');
 const { value: notification } = useField('notification');
 const { value: recaptcha_token } = useField('recaptcha_token');
 
-let recaptchaScript = document.createElement('script');
-recaptchaScript.setAttribute(
-    'src',
-    'https://www.google.com/recaptcha/api.js?render=6Ld0LU0pAAAAAG1DfvNrfrJBkbQH4_MJ_OkcwQV_',
-);
-document.head.appendChild(recaptchaScript);
+loadRecaptcha();
 
 let recaptchaScriptIsReady = false;
 let checkInterval = setInterval(function () {
@@ -75,7 +72,6 @@ let checkInterval = setInterval(function () {
                 })
                 .then(token => {
                     recaptcha_token.value = token;
-                    console.log(token);
                 });
         });
     }
@@ -97,6 +93,7 @@ async function signup(user) {
     axios
         .post('/api/signup', user)
         .then(() => {
+            removeRecaptcha();
             verifyStore.setPhone(user.phone);
             router.push({ name: 'verify' });
         })
