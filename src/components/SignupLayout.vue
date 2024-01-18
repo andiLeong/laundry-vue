@@ -28,7 +28,7 @@ function toLogIn() {
                         @click.prevent="toLogIn()"
                         class="bg-white rounded-lg px-6 py-2 text-purple-500"
                     >
-                        Sign In
+                        LogIn
                     </button>
                 </div>
             </nav>

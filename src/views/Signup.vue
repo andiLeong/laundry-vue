@@ -8,7 +8,6 @@ import { useRouter } from 'vue-router';
 import SignupLayout from '@/components/SignupLayout.vue';
 import { useSignVerifyStore } from '@/store/signupVerify.js';
 import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
-import LoadingIndicator from '@/svg/LoadingIndicator.vue';
 import useGoogleRecaptcha from '@/composable/useGoogleRecaptcha.js';
 
 const showPassword = ref(false);
@@ -247,12 +246,6 @@ async function signup(user) {
 
             <div class="mt-20">
                 <PrimarySubmitButton :is-loading="isLoading" name="Sign Up" />
-            </div>
-            <div v-if="isLoading" class="flex items-center justify-center mt-5">
-                <LoadingIndicator
-                    class="text-sky-500 h-7 w-7 mr-3 animate-spin"
-                />
-                <p class="text-sm text-slate-500">Signing Up...</p>
             </div>
         </form>
     </SignupLayout>
