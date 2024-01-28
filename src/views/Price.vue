@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import Phone from '@/svg/Phone.vue';
 
 const primary = ref([
     {
@@ -10,7 +11,6 @@ const primary = ref([
         item: 'dry up to 8kg',
         price: 60,
     },
-
     {
         item: 'Full service up to 8kg',
         price: 170,
@@ -34,6 +34,10 @@ const primary = ref([
 ]);
 
 const secondary = ref([
+    {
+        item: 'Fold only with perfume',
+        price: 30,
+    },
     {
         item: 'Extra dry per 10 mins',
         price: 20,
@@ -63,6 +67,8 @@ const secondary = ref([
         price: 90,
     },
 ]);
+
+let number = import.meta.env.VITE_APP_PHONE_NUMBER;
 </script>
 
 <template>
@@ -85,7 +91,7 @@ const secondary = ref([
             </div>
         </div>
 
-        <div class="content px-10">
+        <div class="content px-10 py-5">
             <div>
                 <h1 class="text-2xl font-semibold text-slate-600 uppercase">
                     primary
@@ -120,6 +126,18 @@ const secondary = ref([
                         <p class="text-xl text-slate-500">₱{{ pri.price }}</p>
                     </li>
                 </ul>
+            </div>
+
+            <div class="mt-5">
+                <h1 class="text-2xl font-semibold text-slate-600 uppercase">
+                    Pickup & delivery
+                </h1>
+                <div class="flex items-center mt-4">
+                    <Phone class="w-4 h-4 text-primary" />
+                    <p class="text-xl text-slate-500 uppercase ml-2">
+                        {{ number }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
