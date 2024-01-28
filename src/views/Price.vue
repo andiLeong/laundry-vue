@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import Phone from '@/svg/Phone.vue';
+import Facebook from '@/svg/Facebook.vue';
 
 const primary = ref([
     {
@@ -69,6 +70,7 @@ const secondary = ref([
 ]);
 
 let number = import.meta.env.VITE_APP_PHONE_NUMBER;
+let facebookName = import.meta.env.VITE_APP_FACEBOOK;
 </script>
 
 <template>
@@ -132,11 +134,19 @@ let number = import.meta.env.VITE_APP_PHONE_NUMBER;
                 <h1 class="text-2xl font-semibold text-slate-600 uppercase">
                     Pickup & delivery
                 </h1>
-                <div class="flex items-center mt-4">
-                    <Phone class="w-4 h-4 text-primary" />
-                    <p class="text-xl text-slate-500 uppercase ml-2">
-                        {{ number }}
-                    </p>
+                <div class="mt-4 space-y-1">
+                    <div class="flex items-center">
+                        <Phone class="w-4 h-4 text-primary mr-2.5" />
+                        <p class="text-xl text-slate-500 uppercase">
+                            {{ number }}
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <Facebook class="h-5 w-5 text-primary mr-2" />
+                        <p class="text-xl text-slate-500 uppercase">
+                            {{ facebookName }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
