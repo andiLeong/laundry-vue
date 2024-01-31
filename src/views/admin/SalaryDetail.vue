@@ -54,8 +54,17 @@
 
                                 <td class="table-data">
                                     [
-                                    {{ detail.shift?.to }}
-                                    {{ detail.shift?.from }}
+                                    {{
+                                        moment(detail.shift?.to).format(
+                                            'YYYY-MM-DD HH:mm',
+                                        )
+                                    }}
+                                    -
+                                    {{
+                                        moment(detail.shift?.from).format(
+                                            'YYYY-MM-DD HH:mm',
+                                        )
+                                    }}
                                     ]
                                 </td>
                             </tr>
@@ -84,6 +93,7 @@ import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import moment from 'moment';
 
 const route = useRoute();
 const router = useRouter();
