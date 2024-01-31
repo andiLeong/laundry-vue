@@ -93,6 +93,7 @@ import AppTableLayout from '@/components/AppTableLayout.vue';
 import Sorting from '@/components/Sorting.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import moment from 'moment';
 
 const route = useRoute();
 const router = useRouter();
