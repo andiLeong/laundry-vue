@@ -51,6 +51,13 @@
                                 <td class="table-data">
                                     {{ detail.description }}
                                 </td>
+
+                                <td class="table-data">
+                                    [
+                                    {{ detail.shift?.to }}
+                                    {{ detail.shift?.from }}
+                                    ]
+                                </td>
                             </tr>
                         </template>
                     </AppTable>
@@ -83,7 +90,14 @@ const router = useRouter();
 
 const endpoint = ref(`/api/admin/salary-detail/${route.params.id}`);
 const defaultSortColumn = ref('id');
-const columns = ref(['amount', 'hour', 'from', 'to', 'description']);
+const columns = ref([
+    'amount',
+    'hour',
+    'from',
+    'to',
+    'description',
+    'start/end',
+]);
 const details = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
