@@ -14,6 +14,15 @@
                         >
                             Order Detail
                         </h3>
+
+                        <button
+                            type="button"
+                            @click.prevent="editOrder"
+                            class="mr-3 inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+                        >
+                            Edit
+                        </button>
+
                         <AppLink
                             v-if="
                                 order.payment === 'gcash' &&
@@ -360,12 +369,18 @@ import useFetchOrder from '@/composable/useFetchOrder.js';
 import { useRoute } from 'vue-router';
 import AppLink from '@/components/AppLink.vue';
 import Errors from '@/model/Errors.js';
-import moment from 'moment/moment.js';
 
 const route = useRoute();
 const { loading, order, error } = useFetchOrder(
     `api/admin/order/${route.params.id}`,
 );
+
+function editOrder() {
+    router.push({
+        name: 'admin-order-edit',
+        params: { id: route.params.id },
+    });
+}
 
 function discount(dis) {
     return dis * 100;
