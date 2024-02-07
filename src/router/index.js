@@ -117,6 +117,12 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/order/edit/:id',
+        name: 'admin-order-edit',
+        component: () => import('@/views/admin/order/Edit.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/order/label',
         name: 'admin-order-label',
         component: () => import('@/components/admin/CreateOrderLabel.vue'),

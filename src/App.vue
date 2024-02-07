@@ -43,6 +43,7 @@ const adminRoutes = [
     'admin-salary',
     'admin-salary-detail',
     'admin-order-label',
+    'admin-order-edit',
 ];
 
 const route = useRoute();
