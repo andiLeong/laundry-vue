@@ -14,6 +14,7 @@ const id = ref(route.params.id);
 const endpoint = ref(`/api/admin/order/${id.value}`);
 const isLoading = ref(false);
 const errors = ref({});
+const images = ref([]);
 
 const { services } = useFetchServices();
 const { loading, order, error } = useFetchOrder(endpoint.value);
@@ -26,15 +27,26 @@ function serviceChanged(e) {
     )[0].price;
 }
 
-function update() {
-    let payload = {
-        service_id: order.value.service_id,
-        amount: order.value.amount,
-        description: order.value.description,
-    };
+function selectFile(e) {
+    console.log(e.target.files);
+    for (let i = 0; i < e.target.files.length; i++) {
+        images.value.push(e.target.files[i]);
+    }
+}
 
+function update() {
+    const payload = new FormData();
+    payload.append('service_id', order.value.service_id);
+    payload.append('amount', order.value.amount);
+    payload.append('description', order.value.description);
+    payload.append('_method', 'patch');
+    images.value.forEach(file => {
+        payload.append('image[]', file);
+    });
     axios
-        .patch(endpoint.value, payload)
+        .post(endpoint.value, payload, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+        })
         .then(() =>
             router.push({
                 name: 'admin-order-detail',
@@ -156,6 +168,8 @@ function update() {
                                                         name="file-upload"
                                                         type="file"
                                                         class="sr-only"
+                                                        @change="selectFile"
+                                                        multiple
                                                     />
                                                 </label>
                                                 <p class="pl-1">
