@@ -10,7 +10,7 @@ export default function useFetchOrder(endpoint) {
         axios
             .get(endpoint)
             .then(({ data }) => (order.value = data))
-            .catch((e) => (error.value = e))
+            .catch(e => (error.value = e))
             .finally(() => (loading.value = false));
     }
 

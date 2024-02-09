@@ -1,6 +1,6 @@
 <script setup>
 import AdminLayout from '@/components/admin/AdminLayout.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import useFetchOrder from '@/composable/useFetchOrder.js';
 import Errors from '@/model/Errors.js';
@@ -9,13 +9,22 @@ import BaseInput from '@/components/forms/BaseInput.vue';
 import ErrorManager from '@/components/validation/ErrorManager.vue';
 
 const route = useRoute();
+const router = useRouter();
 const id = ref(route.params.id);
 const endpoint = ref(`/api/admin/order/${id.value}`);
 const isLoading = ref(false);
 const errors = ref({});
 
 const { services } = useFetchServices();
-const { loading, order, error } = useFetchOrder(endpoint);
+const { loading, order, error } = useFetchOrder(endpoint.value);
+
+function serviceChanged(e) {
+    let serviceId = e.target.value;
+    order.value.service_id = serviceId;
+    order.value.amount = services.value.filter(
+        service => service.id === parseInt(serviceId),
+    )[0].price;
+}
 
 function update() {
     let payload = {
@@ -67,6 +76,7 @@ function update() {
                                     <select
                                         class="field form-select mt-1"
                                         :value="order.service_id"
+                                        @change="serviceChanged"
                                     >
                                         <option disabled value>
                                             please select
@@ -107,7 +117,7 @@ function update() {
                                     <p
                                         class="mt-3 text-sm leading-6 text-gray-600"
                                     >
-                                        Write a few sentences about the order.
+                                        Write a few words about the order.
                                     </p>
                                 </div>
 

@@ -15,26 +15,25 @@
                             Order Detail
                         </h3>
 
-                        <button
-                            type="button"
-                            @click.prevent="editOrder"
-                            class="mr-3 inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
-                        >
-                            Edit
-                        </button>
-
-                        <AppLink
-                            v-if="
-                                order.payment === 'gcash' &&
-                                order.gcash === null
-                            "
-                            class="text-sky-600 text-sm font-medium"
-                            :to="{
-                                name: 'admin-order-gcash-create',
-                                params: { id: route.params.id },
-                            }"
-                            >Create Gcash
-                        </AppLink>
+                        <div class="flex items-center">
+                            <button
+                                v-if="
+                                    order.payment === 'gcash' &&
+                                    order.gcash === null
+                                "
+                                @click.prevent="createGcash()"
+                                class="mr-3 rounded border border-gray-300 px-3 py-1 text-gray-500"
+                            >
+                                Gcash
+                            </button>
+                            <button
+                                type="button"
+                                @click.prevent="editOrder"
+                                class="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+                            >
+                                Edit
+                            </button>
+                        </div>
                     </div>
                     <div class="border-t border-gray-100">
                         <dl class="divide-y divide-gray-100">
@@ -366,11 +365,12 @@
 <script setup>
 import AdminLayout from '@/components/admin/AdminLayout.vue';
 import useFetchOrder from '@/composable/useFetchOrder.js';
-import { useRoute } from 'vue-router';
-import AppLink from '@/components/AppLink.vue';
+import { useRoute, useRouter } from 'vue-router';
 import Errors from '@/model/Errors.js';
+import moment from 'moment';
 
 const route = useRoute();
+const router = useRouter();
 const { loading, order, error } = useFetchOrder(
     `api/admin/order/${route.params.id}`,
 );
@@ -394,6 +394,13 @@ function updateOrder(column) {
             let err = new Errors(e);
             alert(err.getMessage());
         });
+}
+
+function createGcash() {
+    router.push({
+        name: 'admin-order-gcash-create',
+        params: { id: route.params.id },
+    });
 }
 </script>
 <style scoped></style>
