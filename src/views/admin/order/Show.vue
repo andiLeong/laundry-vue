@@ -354,6 +354,33 @@
                                     </ul>
                                 </dd>
                             </div>
+
+                            <Fancybox v-if="order.images">
+                                <ul
+                                    role="list"
+                                    class="px-4 py-6 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+                                >
+                                    <li
+                                        v-for="(image, index) in order.images"
+                                        :key="index"
+                                        class="relative"
+                                    >
+                                        <div
+                                            class="aspect-w-10 aspect-h-7 group block w-full overflow-hidden rounded-lg bg-gray-100"
+                                        >
+                                            <a
+                                                data-fancybox="gallery"
+                                                :href="image.path"
+                                            >
+                                                <img
+                                                    class="pointer-events-none object-cover group-hover:opacity-75"
+                                                    :src="image.path"
+                                                />
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </Fancybox>
                         </dl>
                     </div>
                 </div>
@@ -368,6 +395,7 @@ import useFetchOrder from '@/composable/useFetchOrder.js';
 import { useRoute, useRouter } from 'vue-router';
 import Errors from '@/model/Errors.js';
 import moment from 'moment';
+import Fancybox from '@/components/Fancybox.vue';
 
 const route = useRoute();
 const router = useRouter();
