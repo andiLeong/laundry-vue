@@ -395,7 +395,7 @@ import useFetchOrder from '@/composable/useFetchOrder.js';
 import { useRoute, useRouter } from 'vue-router';
 import Errors from '@/model/Errors.js';
 import moment from 'moment';
-import Fancybox from '@/components/Fancybox.vue';
+import Fancybox from '@/components/FancyBox.vue';
 
 const route = useRoute();
 const router = useRouter();
