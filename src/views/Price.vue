@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import Phone from '@/svg/Phone.vue';
 import Facebook from '@/svg/Facebook.vue';
+import Flag from '@/svg/Flag.vue';
 
 const primary = ref([
     {
@@ -145,6 +146,12 @@ let facebookName = import.meta.env.VITE_APP_FACEBOOK;
                         <Facebook class="h-5 w-5 text-primary mr-2" />
                         <p class="text-xl text-slate-500 uppercase">
                             {{ facebookName }}
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <Flag class="h-5 w-5 text-primary mr-2" />
+                        <p class="text-xl text-slate-500 uppercase">
+                            The Spex, 7682 Saint Paul Road, Makati.
                         </p>
                     </div>
                 </div>
