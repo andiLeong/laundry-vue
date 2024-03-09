@@ -63,6 +63,10 @@
                                 <td class="table-data">
                                     {{ place.delivery_fee }}
                                 </td>
+
+                                <td class="table-data">
+                                    {{ place.distance }}
+                                </td>
                             </tr>
                         </template>
                     </AppTable>
@@ -96,7 +100,7 @@ const router = useRouter();
 
 const endpoint = ref('/api/admin/place');
 const defaultSortColumn = ref('id');
-const columns = ref(['id', 'name', 'location', 'delivery fee']);
+const columns = ref(['id', 'name', 'location', 'delivery fee', 'distance']);
 const places = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
