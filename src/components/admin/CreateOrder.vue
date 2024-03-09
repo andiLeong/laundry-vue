@@ -75,6 +75,14 @@
                 <div class="sm:col-span-2">
                     <div id="products-selection"></div>
                 </div>
+
+                <div class="sm:col-span-2">
+                    <label class="form-label">Type</label>
+                    <select class="field form-select mt-1" v-model="type">
+                        <option value="2">Walk in</option>
+                        <option value="1">Online</option>
+                    </select>
+                </div>
             </div>
 
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
@@ -126,6 +134,7 @@ const service_id = ref(null);
 const payment = ref(1);
 const user_id = ref(null);
 const issued_invoice = ref(0);
+const type = ref(2);
 const paid = ref(1);
 const amount = ref(null);
 const description = ref(null);
