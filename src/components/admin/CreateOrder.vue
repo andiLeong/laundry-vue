@@ -181,6 +181,7 @@ function submit() {
         paid: paid.value,
         issued_invoice: issued_invoice.value,
         description: description.value,
+        type: type.value,
     };
 
     if (product_ids.value.length > 0) {
