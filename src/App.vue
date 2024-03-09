@@ -36,6 +36,7 @@ const adminRoutes = [
     'admin-product',
     'admin-service',
     'admin-attendance',
+    'admin-place',
     'admin-report-to-work',
     'admin-order-gcash-create',
     'admin-order-paid-record',

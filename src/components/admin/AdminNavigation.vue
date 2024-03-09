@@ -108,6 +108,11 @@ const links = shallowRef([
         route: 'admin-service',
         svg: LightBulb,
     },
+    {
+        name: 'Places',
+        route: 'admin-place',
+        svg: LightBulb,
+    },
 ]);
 
 const secondLinks = shallowRef([

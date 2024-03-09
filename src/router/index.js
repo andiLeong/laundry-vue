@@ -188,7 +188,12 @@ const routes = [
         component: () => import('@/views/admin/Service.vue'),
         meta: { staffOnly: true },
     },
-
+    {
+        path: '/admin/place',
+        name: 'admin-place',
+        component: () => import('@/views/admin/Place.vue'),
+        meta: { staffOnly: true },
+    },
     // {
     //     path: '/posts/edit/:slug',
     //     name: 'posts.edit',
