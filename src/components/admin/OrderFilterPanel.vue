@@ -100,6 +100,17 @@
                     placeholder="Search By Date"
                 />
             </div>
+
+            <div class="sm:col-span-2 flex flex-col">
+                <BaseInput
+                    labelClass="form-label"
+                    placeHolder="Search order id"
+                    class="mt-1 form-input"
+                    label="Order Id"
+                    type="text"
+                    v-model="search.id"
+                />
+            </div>
         </div>
 
         <div class="pt-1">
@@ -152,6 +163,7 @@ export default {
                 description: null,
                 filter_by_days: null,
                 date: null,
+                id: null,
             },
             startTime: [
                 { hours: 0, minutes: 0 },
@@ -177,6 +189,7 @@ export default {
                 description: null,
                 filter_by_days: null,
                 date: null,
+                id: null,
             };
 
             this.$emit('reset-query');
