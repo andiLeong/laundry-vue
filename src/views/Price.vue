@@ -33,6 +33,14 @@ const primary = ref([
         item: 'dry up to 10kg',
         price: 80,
     },
+    {
+        item: 'bedding & towel up to 5kg',
+        price: 170,
+    },
+    {
+        item: 'comforter per piece',
+        price: 170,
+    },
 ]);
 
 const secondary = ref([
@@ -72,6 +80,7 @@ const secondary = ref([
 
 let number = import.meta.env.VITE_APP_PHONE_NUMBER;
 let facebookName = import.meta.env.VITE_APP_FACEBOOK;
+let address = import.meta.env.VITE_APP_ADDRESS;
 </script>
 
 <template>
@@ -151,7 +160,7 @@ let facebookName = import.meta.env.VITE_APP_FACEBOOK;
                     <div class="flex items-center">
                         <Flag class="h-5 w-5 text-primary mr-2" />
                         <p class="text-xl text-slate-500 uppercase">
-                            The Spex, 7682 Saint Paul Road, Makati.
+                            {{ address }}
                         </p>
                     </div>
                 </div>
