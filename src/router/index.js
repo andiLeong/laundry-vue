@@ -66,7 +66,7 @@ const routes = [
         path: '/address/create',
         name: 'address-create',
         component: () => import('@/views/address/Create.vue'),
-        meta: { auth: true },
+        // meta: { auth: true },
     },
     {
         path: '/admin/home',
