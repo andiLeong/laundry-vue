@@ -22,11 +22,22 @@ onMounted(() => {
         if (google) {
             scriptIsReady = true;
             clearInterval(checkInterval);
+            const center = { lat: 14.554708943276136, lng: 121.02430021045242 };
+            const defaultBounds = {
+                north: center.lat + 0.03,
+                south: center.lat - 0.03,
+                east: center.lng + 0.03,
+                west: center.lng - 0.03,
+            };
+
             let ele = document.getElementById('autocomplete');
             var autocomplete = new google.maps.places.Autocomplete(ele, {
                 componentRestrictions: { country: 'ph' },
                 fields: ['address_components', 'place_id', 'name'],
+                strictBounds: true,
+                bounds: defaultBounds,
             });
+
             autocomplete.addListener('place_changed', () => {
                 const place = autocomplete.getPlace();
                 console.log(place);
