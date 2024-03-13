@@ -69,6 +69,11 @@ const routes = [
         // meta: { auth: true },
     },
     {
+        path: '/20pesos-off',
+        name: '20pesos-off',
+        component: () => import('@/views/PesosOff.vue'),
+    },
+    {
         path: '/admin/home',
         name: 'admin-home',
         component: () => import('@/views/admin/Home.vue'),
