@@ -10,10 +10,12 @@ const { loadPlace } = useGooglePlace();
 const placeId = ref(null);
 const province = ref(null);
 const city = ref(null);
-const address = ref(null);
+const latitude = ref(null);
+const longitude = ref(null);
 const street = ref(null);
 const room = ref(null);
 const name = ref(null);
+const isLoading = ref(false);
 
 loadPlace();
 onMounted(() => {
@@ -33,7 +35,7 @@ onMounted(() => {
             let ele = document.getElementById('autocomplete');
             var autocomplete = new google.maps.places.Autocomplete(ele, {
                 componentRestrictions: { country: 'ph' },
-                fields: ['address_components', 'place_id', 'name'],
+                fields: ['address_components', 'place_id', 'name', 'geometry'],
                 strictBounds: true,
                 bounds: defaultBounds,
             });
@@ -43,6 +45,8 @@ onMounted(() => {
                 console.log(place);
                 placeId.value = place.place_id;
                 name.value = place.name;
+                longitude.value = place.geometry.location.lng();
+                latitude.value = place.geometry.location.lat();
 
                 place.address_components.forEach(address => {
                     let type = address.types;
@@ -61,6 +65,30 @@ onMounted(() => {
         return scriptIsReady;
     }, 500);
 });
+
+function submit() {
+    isLoading.value = true;
+
+    let payload = {
+        room: room.value,
+        place_id: placeId.value,
+        latitude: latitude.value,
+        longitude: longitude.value,
+    };
+
+    axios
+        .post('/api/address', payload)
+        .then(() => console.log('success'))
+        .catch(error => {
+            // console.log(error);
+            let err = new Errors(error);
+            errors.value = err.handle();
+            console.log(errors.value);
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
+}
 </script>
 
 <template>
@@ -78,7 +106,7 @@ onMounted(() => {
                         class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                     />
 
-                    <form>
+                    <form @submit.prevent="submit">
                         <div class="space-y-12">
                             <div class="border-b border-gray-900/10 pb-12">
                                 <h2
