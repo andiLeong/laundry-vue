@@ -10,8 +10,6 @@ const { loadPlace } = useGooglePlace();
 const placeId = ref(null);
 const province = ref(null);
 const city = ref(null);
-const latitude = ref(null);
-const longitude = ref(null);
 const street = ref(null);
 const room = ref(null);
 const name = ref(null);
@@ -35,7 +33,7 @@ onMounted(() => {
             let ele = document.getElementById('autocomplete');
             var autocomplete = new google.maps.places.Autocomplete(ele, {
                 componentRestrictions: { country: 'ph' },
-                fields: ['address_components', 'place_id', 'name', 'geometry'],
+                fields: ['address_components', 'place_id', 'name'],
                 strictBounds: true,
                 bounds: defaultBounds,
             });
@@ -45,8 +43,6 @@ onMounted(() => {
                 console.log(place);
                 placeId.value = place.place_id;
                 name.value = place.name;
-                longitude.value = place.geometry.location.lng();
-                latitude.value = place.geometry.location.lat();
 
                 place.address_components.forEach(address => {
                     let type = address.types;
@@ -72,8 +68,6 @@ function submit() {
     let payload = {
         room: room.value,
         place_id: placeId.value,
-        latitude: latitude.value,
-        longitude: longitude.value,
     };
 
     axios
