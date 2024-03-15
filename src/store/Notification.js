@@ -7,6 +7,7 @@ export const useNotificationStore = defineStore({
         show: false,
         title: 'notification title',
         message: 'message',
+        type: 'primary',
     }),
     getters: {},
     actions: {},

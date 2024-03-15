@@ -5,7 +5,10 @@ import MainLayout from '@/components/MainLayout.vue';
 import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
 import { onMounted, ref } from 'vue';
 import useGooglePlace from '@/composable/useGooglePlace.js';
+import { useNotificationStore } from '@/store/Notification.js';
+import Errors from '@/model/Errors.js';
 
+const notificationStore = useNotificationStore();
 const { loadPlace } = useGooglePlace();
 const placeId = ref(null);
 const province = ref(null);
@@ -13,6 +16,7 @@ const city = ref(null);
 const street = ref(null);
 const room = ref(null);
 const name = ref(null);
+const error = ref(null);
 const isLoading = ref(false);
 
 loadPlace();
@@ -72,12 +76,20 @@ function submit() {
 
     axios
         .post('/api/address', payload)
-        .then(() => console.log('success'))
+        .then(() => {
+            notificationStore.message = 'Your address save.';
+            notificationStore.show = true;
+            placeId.value = null;
+            room.value = null;
+            street.value = null;
+            name.value = null;
+            city.value = null;
+            province.value = null;
+        })
         .catch(error => {
-            // console.log(error);
             let err = new Errors(error);
-            errors.value = err.handle();
-            console.log(errors.value);
+            error.value = err.getMessage();
+            console.log(error.value);
         })
         .finally(() => {
             isLoading.value = false;
@@ -93,25 +105,32 @@ function submit() {
             <section class="md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <AppDashboardNavigation />
                 <div class="md:col-span-2 lg:col-span-4 p-3">
-                    <input
-                        id="autocomplete"
-                        type="text"
-                        placeholder="Street"
-                        class="mt-5 bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    />
+                    <h2 class="text-base font-semibold leading-7 text-gray-900">
+                        Address Creation
+                    </h2>
+                    <p class="mt-1 text-sm leading-6 text-gray-600">
+                        Search Address from below
+                    </p>
 
-                    <form @submit.prevent="submit">
+                    <div class="my-4 grid grid-cols-2">
+                        <div class="col-span-2 md:col-span-1">
+                            <input
+                                id="autocomplete"
+                                type="text"
+                                placeholder="Street"
+                                class="bg-gray-200 border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                            />
+                            <p
+                                class="text-pink-300 text-xs font-semibold mt-1.5"
+                            >
+                                Notice: we could not deliver If a place is about
+                                1000 meter away from our shop,
+                            </p>
+                        </div>
+                    </div>
+                    <form @submit.prevent="submit" v-if="placeId">
                         <div class="space-y-12">
-                            <div class="border-b border-gray-900/10 pb-12">
-                                <h2
-                                    class="text-base font-semibold leading-7 text-gray-900"
-                                >
-                                    Address Creation
-                                </h2>
-                                <p class="mt-1 text-sm leading-6 text-gray-600">
-                                    Create Address to get laundry delivered
-                                </p>
-
+                            <div class="border-b border-gray-900/10 pb-10">
                                 <div
                                     class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                                 >
@@ -119,7 +138,7 @@ function submit() {
                                         <label
                                             for="room"
                                             class="block text-sm font-medium leading-6 text-gray-900"
-                                            >Room</label
+                                            >Room/Floor</label
                                         >
                                         <div class="mt-1">
                                             <input
@@ -218,6 +237,10 @@ function submit() {
                                         </div>
                                     </div>
                                 </div>
+
+                                <p v-if="error" class="validation-error">
+                                    {{ error }}
+                                </p>
                             </div>
                         </div>
 
