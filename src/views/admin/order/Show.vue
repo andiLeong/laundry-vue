@@ -148,22 +148,17 @@
                                 class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center"
                             >
                                 <dt class="text-sm font-medium text-gray-900">
-                                    Invoice Issued
+                                    Invoice
                                 </dt>
                                 <dd
                                     class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center ml-2 sm:ml-0"
                                 >
-                                    <p>
-                                        {{
-                                            order.issued_invoice ? 'yes' : 'no'
-                                        }}
-                                    </p>
                                     <div class="ml-2">
                                         <button
                                             @click.prevent="createInvoice()"
                                             class="rounded border border-gray-200 px-3 py-1 text-gray-600"
                                         >
-                                            Issue Invoice
+                                            Create
                                         </button>
                                     </div>
                                 </dd>
