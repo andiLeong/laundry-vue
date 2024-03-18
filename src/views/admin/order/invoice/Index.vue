@@ -65,10 +65,14 @@ watch(
 );
 
 function search() {
-    getherQuery({
-        invoice_id: invoiceId.value,
-        order_id: orderId.value,
-    });
+    let payload = {};
+    if (invoiceId.value !== null) {
+        payload.invoice_id = invoiceId.value;
+    }
+    if (orderId.value !== null) {
+        payload.order_id = orderId.value;
+    }
+    getherQuery(payload);
 }
 
 fetch(page.value, toQueryString(queryString.value));
