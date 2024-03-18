@@ -7,6 +7,7 @@ import { onMounted, ref } from 'vue';
 import useGooglePlace from '@/composable/useGooglePlace.js';
 import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
+import LoadingIndicator from '@/svg/LoadingIndicator.vue';
 
 const notificationStore = useNotificationStore();
 const { loadPlace } = useGooglePlace();
@@ -77,18 +78,17 @@ function submit() {
     axios
         .post('/api/address', payload)
         .then(() => {
-            notificationStore.message = 'Your address save.';
-            notificationStore.show = true;
             placeId.value = null;
             room.value = null;
             street.value = null;
             name.value = null;
             city.value = null;
             province.value = null;
+            notificationStore.message = 'Your address save.';
+            notificationStore.show = true;
         })
-        .catch(error => {
-            let err = new Errors(error);
-            error.value = err.getMessage();
+        .catch(er => {
+            error.value = new Errors(er).getMessage();
             console.log(error.value);
         })
         .finally(() => {
@@ -244,13 +244,32 @@ function submit() {
                             </div>
                         </div>
 
-                        <div class="mt-6 flex items-center justify-end gap-x-6">
-                            <button
-                                type="submit"
-                                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Save
-                            </button>
+                        <div class="mt-6 md:grid grid-cols-10">
+                            <div class="col-start-10 col-end-11">
+                                <button
+                                    type="submit"
+                                    :class="
+                                        isLoading
+                                            ? 'bg-slate-200'
+                                            : 'bg-primary'
+                                    "
+                                    class="w-full rounded-md px-7 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                >
+                                    <template v-if="isLoading">
+                                        <div
+                                            class="flex items-center justify-center"
+                                        >
+                                            <LoadingIndicator
+                                                class="text-primary h-4 w-4 mr-2 animate-spin"
+                                            />
+                                            <p class="text-sm text-slate-400">
+                                                Save
+                                            </p>
+                                        </div>
+                                    </template>
+                                    <template v-else> Save</template>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
