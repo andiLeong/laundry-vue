@@ -41,6 +41,7 @@ const adminRoutes = [
     'admin-order-gcash-create',
     'admin-order-invoice-create',
     'admin-order-paid-record',
+    'admin-order-invoice-record',
     'admin-shift',
     'admin-salary',
     'admin-salary-detail',

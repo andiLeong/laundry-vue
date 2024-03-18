@@ -81,6 +81,12 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/order-invoice-record',
+        name: 'admin-order-invoice-record',
+        component: () => import('@/views/admin/order/invoice/Index.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/order-gcash/create/:id',
         name: 'admin-order-gcash-create',
         component: () => import('@/views/admin/order/gcash/Create.vue'),

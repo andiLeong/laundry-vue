@@ -99,6 +99,11 @@ const links = shallowRef([
         svg: BankNotes,
     },
     {
+        name: 'Invoice',
+        route: 'admin-order-invoice-record',
+        svg: BankNotes,
+    },
+    {
         name: 'Product',
         route: 'admin-product',
         svg: ToiletCell,
