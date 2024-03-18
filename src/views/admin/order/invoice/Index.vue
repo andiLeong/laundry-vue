@@ -65,9 +65,6 @@ watch(
 );
 
 function search() {
-    if (invoiceId.value === null || orderId.value === null) {
-        return;
-    }
     getherQuery({
         invoice_id: invoiceId.value,
         order_id: orderId.value,
