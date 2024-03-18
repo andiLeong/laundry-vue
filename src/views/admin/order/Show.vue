@@ -160,17 +160,10 @@
                                     </p>
                                     <div class="ml-2">
                                         <button
-                                            @click.prevent="
-                                                updateOrder('issued_invoice')
-                                            "
+                                            @click.prevent="createInvoice()"
                                             class="rounded border border-gray-200 px-3 py-1 text-gray-600"
                                         >
-                                            <template
-                                                v-if="order.issued_invoice"
-                                            >
-                                                Unissued
-                                            </template>
-                                            <template v-else> Issued</template>
+                                            Issue Invoice
                                         </button>
                                     </div>
                                 </dd>
@@ -427,6 +420,13 @@ function updateOrder(column) {
 function createGcash() {
     router.push({
         name: 'admin-order-gcash-create',
+        params: { id: route.params.id },
+    });
+}
+
+function createInvoice() {
+    router.push({
+        name: 'admin-order-invoice-create',
         params: { id: route.params.id },
     });
 }

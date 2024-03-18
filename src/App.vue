@@ -39,6 +39,7 @@ const adminRoutes = [
     'admin-place',
     'admin-report-to-work',
     'admin-order-gcash-create',
+    'admin-order-invoice-create',
     'admin-order-paid-record',
     'admin-shift',
     'admin-salary',
