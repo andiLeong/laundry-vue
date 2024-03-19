@@ -63,6 +63,12 @@ const routes = [
         meta: { auth: true },
     },
     {
+        path: '/address',
+        name: 'address',
+        component: () => import('@/views/address/Address.vue'),
+        meta: { auth: true },
+    },
+    {
         path: '/address/create',
         name: 'address-create',
         component: () => import('@/views/address/Create.vue'),
