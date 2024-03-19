@@ -134,7 +134,9 @@ function submit() {
                                 <div
                                     class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                                 >
-                                    <div class="sm:col-start-1 sm:col-end-3">
+                                    <div
+                                        class="lg:col-start-1 lg:col-end-3 md:col-span-3"
+                                    >
                                         <label
                                             for="room"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -150,7 +152,9 @@ function submit() {
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-end-7 sm:col-span-2">
+                                    <div
+                                        class="lg:col-end-7 lg:col-span-2 md:col-span-3"
+                                    >
                                         <label
                                             for="name"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -184,7 +188,9 @@ function submit() {
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-span-1">
+                                    <div
+                                        class="sm:col-span-1 md:col-span-2 lg:col-span-1"
+                                    >
                                         <label
                                             for="city"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -201,7 +207,9 @@ function submit() {
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-span-1">
+                                    <div
+                                        class="sm:col-span-1 md:col-span-2 lg:col-span-1"
+                                    >
                                         <label
                                             for="province"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -245,7 +253,7 @@ function submit() {
                         </div>
 
                         <div class="mt-6 md:grid grid-cols-10">
-                            <div class="col-start-10 col-end-11">
+                            <div class="col-start-9 col-end-11 lg:col-start-10">
                                 <button
                                     type="submit"
                                     :class="
@@ -253,7 +261,7 @@ function submit() {
                                             ? 'bg-slate-200'
                                             : 'bg-primary'
                                     "
-                                    class="w-full rounded-md px-7 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                    class="w-full rounded-md px-2 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
                                     <template v-if="isLoading">
                                         <div
