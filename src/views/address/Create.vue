@@ -7,6 +7,7 @@ import { onMounted, ref } from 'vue';
 import useGooglePlace from '@/composable/useGooglePlace.js';
 import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
+import LoadingIndicator from '@/svg/LoadingIndicator.vue';
 
 const notificationStore = useNotificationStore();
 const { loadPlace } = useGooglePlace();
@@ -77,18 +78,17 @@ function submit() {
     axios
         .post('/api/address', payload)
         .then(() => {
-            notificationStore.message = 'Your address save.';
-            notificationStore.show = true;
             placeId.value = null;
             room.value = null;
             street.value = null;
             name.value = null;
             city.value = null;
             province.value = null;
+            notificationStore.message = 'Your address save.';
+            notificationStore.show = true;
         })
-        .catch(error => {
-            let err = new Errors(error);
-            error.value = err.getMessage();
+        .catch(er => {
+            error.value = new Errors(er).getMessage();
             console.log(error.value);
         })
         .finally(() => {
@@ -104,7 +104,7 @@ function submit() {
 
             <section class="md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <AppDashboardNavigation />
-                <div class="md:col-span-2 lg:col-span-4 p-3">
+                <div class="md:col-span-2 lg:col-span-4 p-3" v-auto-animate>
                     <h2 class="text-base font-semibold leading-7 text-gray-900">
                         Address Creation
                     </h2>
@@ -134,7 +134,9 @@ function submit() {
                                 <div
                                     class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6"
                                 >
-                                    <div class="sm:col-start-1 sm:col-end-3">
+                                    <div
+                                        class="lg:col-start-1 lg:col-end-3 md:col-span-3"
+                                    >
                                         <label
                                             for="room"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -150,7 +152,9 @@ function submit() {
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-end-7 sm:col-span-2">
+                                    <div
+                                        class="lg:col-end-7 lg:col-span-2 md:col-span-3"
+                                    >
                                         <label
                                             for="name"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -184,7 +188,9 @@ function submit() {
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-span-1">
+                                    <div
+                                        class="sm:col-span-1 md:col-span-2 lg:col-span-1"
+                                    >
                                         <label
                                             for="city"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -201,7 +207,9 @@ function submit() {
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-span-1">
+                                    <div
+                                        class="sm:col-span-1 md:col-span-2 lg:col-span-1"
+                                    >
                                         <label
                                             for="province"
                                             class="block text-sm font-medium leading-6 text-gray-900"
@@ -244,13 +252,32 @@ function submit() {
                             </div>
                         </div>
 
-                        <div class="mt-6 flex items-center justify-end gap-x-6">
-                            <button
-                                type="submit"
-                                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                            >
-                                Save
-                            </button>
+                        <div class="mt-6 md:grid grid-cols-10">
+                            <div class="col-start-9 col-end-11 lg:col-start-10">
+                                <button
+                                    type="submit"
+                                    :class="
+                                        isLoading
+                                            ? 'bg-slate-200'
+                                            : 'bg-primary'
+                                    "
+                                    class="w-full rounded-md px-2 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                >
+                                    <template v-if="isLoading">
+                                        <div
+                                            class="flex items-center justify-center"
+                                        >
+                                            <LoadingIndicator
+                                                class="text-primary h-4 w-4 mr-2 animate-spin"
+                                            />
+                                            <p class="text-sm text-slate-400">
+                                                Save
+                                            </p>
+                                        </div>
+                                    </template>
+                                    <template v-else> Save</template>
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
