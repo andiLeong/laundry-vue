@@ -24,11 +24,17 @@ export default function useDashboardNavigationLink() {
             svg: Cog6Tooth,
             active: false,
         },
+        {
+            name: 'Address',
+            route: 'address',
+            svg: Cog6Tooth,
+            active: false,
+        },
     ]);
 
     function setActiveLink() {
         let routeName = useRoute().name;
-        links.value = links.value.map((link) => {
+        links.value = links.value.map(link => {
             if (routeName === link.route) {
                 link.active = true;
             }
@@ -36,6 +42,11 @@ export default function useDashboardNavigationLink() {
             if (link.route === 'order' && routeName === 'order-detail') {
                 link.active = true;
             }
+
+            if (link.route === 'address' && routeName === 'address-create') {
+                link.active = true;
+            }
+
             return link;
         });
     }
