@@ -104,7 +104,7 @@ function submit() {
 
             <section class="md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
                 <AppDashboardNavigation />
-                <div class="md:col-span-2 lg:col-span-4 p-3">
+                <div class="md:col-span-2 lg:col-span-4 p-3" v-auto-animate>
                     <h2 class="text-base font-semibold leading-7 text-gray-900">
                         Address Creation
                     </h2>

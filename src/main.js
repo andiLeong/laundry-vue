@@ -5,6 +5,7 @@ import { createPinia } from 'pinia';
 import router from '@/router';
 import axios from 'axios';
 import { useUserStore } from '@/store/user.js';
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 
 window.axios = axios;
 axios.defaults.withCredentials = true;
@@ -15,7 +16,7 @@ pinia.use(({ store }) => {
     store.router = markRaw(router);
 });
 
-const app = createApp(App).use(pinia);
+const app = createApp(App).use(pinia).use(autoAnimatePlugin);
 
 const userStore = useUserStore();
 userStore.fetchUser(app, router);

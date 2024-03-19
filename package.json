@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@fancyapps/ui": "^5.0.33",
+        "@formkit/auto-animate": "^0.8.1",
         "@vuepic/vue-datepicker": "^7.0.0",
         "axios": "^1.4.0",
         "chart.js": "^4.3.0",
