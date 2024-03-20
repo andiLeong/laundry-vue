@@ -27,8 +27,7 @@ function create() {
         })
         .then(() =>
             router.push({
-                name: 'admin-order-detail',
-                params: { id: route.params.id },
+                name: 'admin-order-invoice-record',
             }),
         )
         .catch(e => {
