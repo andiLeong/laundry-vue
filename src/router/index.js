@@ -100,7 +100,7 @@ const routes = [
     {
         path: '/admin/order-invoice-record',
         name: 'admin-order-invoice-record',
-        component: () => import('@/views/admin/order/invoice/Index.vue'),
+        component: () => import('@/views/admin/order/invoice/Invoice.vue'),
         meta: { staffOnly: true },
     },
     {

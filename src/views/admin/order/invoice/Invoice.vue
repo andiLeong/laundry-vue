@@ -76,10 +76,23 @@ function search() {
 }
 
 fetch(page.value, toQueryString(queryString.value));
+
+function goToCreateInvoice() {
+    router.push({ name: 'admin-order-invoice-create' });
+}
 </script>
 
 <template>
     <AdminLayout>
+        <template v-slot:right-button>
+            <button
+                type="button"
+                @click.prevent="goToCreateInvoice"
+                class="inline-flex items-center rounded-md bg-cyan-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600"
+            >
+                Create Invoice
+            </button>
+        </template>
         <main class="flex-1 pb-8">
             <section class="max-w-6xl mx-auto mt-10">
                 <AppTableLayout>
