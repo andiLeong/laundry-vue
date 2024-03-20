@@ -88,8 +88,9 @@ function submit() {
             notificationStore.show = true;
         })
         .catch(er => {
-            error.value = new Errors(er).getMessage();
-            console.log(error.value);
+            notificationStore.message = new Errors(er).getMessage();
+            notificationStore.show = true;
+            notificationStore.type = 'warning';
         })
         .finally(() => {
             isLoading.value = false;
