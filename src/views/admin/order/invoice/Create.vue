@@ -11,16 +11,19 @@ const router = useRouter();
 const route = useRoute();
 const error = ref(null);
 const invoice_id = ref(null);
+const order_id = ref(null);
 const amount = ref(null);
+const name = ref(null);
 const loading = ref(false);
 
 function create() {
     loading.value = true;
     axios
-        .post('api/admin/order-invoice', {
-            order_id: route.params.id,
+        .post('api/admin/invoice', {
+            order_id: order_id.value,
             invoice_id: invoice_id.value,
             amount: amount.value,
+            name: name.value,
         })
         .then(() =>
             router.push({
@@ -48,11 +51,13 @@ function create() {
                     </div>
 
                     <div>
-                        <label class="form-label">Order ID</label>
-                        <input
-                            :value="$route.params.id"
-                            class="form-input bg-gray-200 cursor-not-allowed mt-1"
-                            disabled
+                        <BaseInput
+                            labelClass="form-label"
+                            placeHolder="System Order Ids"
+                            class="mt-1 form-input"
+                            label="Order Ids"
+                            type="text"
+                            v-model="order_id"
                         />
                     </div>
 
@@ -75,6 +80,17 @@ function create() {
                             label="Amount"
                             type="text"
                             v-model="amount"
+                        />
+                    </div>
+
+                    <div>
+                        <BaseInput
+                            labelClass="form-label"
+                            placeHolder="Name"
+                            class="mt-1 form-input"
+                            label="Name"
+                            type="text"
+                            v-model="name"
                         />
                     </div>
 

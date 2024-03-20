@@ -148,26 +148,6 @@
                                 class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center"
                             >
                                 <dt class="text-sm font-medium text-gray-900">
-                                    Invoice
-                                </dt>
-                                <dd
-                                    class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0 flex items-center ml-2 sm:ml-0"
-                                >
-                                    <div class="ml-2">
-                                        <button
-                                            @click.prevent="createInvoice()"
-                                            class="rounded border border-gray-200 px-3 py-1 text-gray-600"
-                                        >
-                                            Create
-                                        </button>
-                                    </div>
-                                </dd>
-                            </div>
-
-                            <div
-                                class="p-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 flex items-center"
-                            >
-                                <dt class="text-sm font-medium text-gray-900">
                                     Payment
                                 </dt>
                                 <dd
@@ -415,13 +395,6 @@ function updateOrder(column) {
 function createGcash() {
     router.push({
         name: 'admin-order-gcash-create',
-        params: { id: route.params.id },
-    });
-}
-
-function createInvoice() {
-    router.push({
-        name: 'admin-order-invoice-create',
         params: { id: route.params.id },
     });
 }

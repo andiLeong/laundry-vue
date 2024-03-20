@@ -11,9 +11,9 @@ import BaseInput from '@/components/forms/BaseInput.vue';
 const route = useRoute();
 const router = useRouter();
 
-const endpoint = ref('/api/admin/order-invoice');
+const endpoint = ref('/api/admin/invoice');
 const defaultSortColumn = ref('id');
-const columns = ref(['Order Id', 'Invoice Id', 'Amt']);
+const columns = ref(['Invoice Id', 'Amt', 'Name']);
 const invoices = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
@@ -98,16 +98,6 @@ fetch(page.value, toQueryString(queryString.value));
                                         v-model="invoiceId"
                                     />
                                 </div>
-                                <div class="">
-                                    <BaseInput
-                                        labelClass="form-label"
-                                        placeHolder="Search Order Id"
-                                        class="mt-1 form-input"
-                                        label="Order Id"
-                                        type="text"
-                                        v-model="orderId"
-                                    />
-                                </div>
                                 <button
                                     type="submit"
                                     class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
@@ -139,15 +129,15 @@ fetch(page.value, toQueryString(queryString.value));
                                 :key="invoice.id"
                             >
                                 <td class="table-data">
-                                    {{ invoice.order_id }}
-                                </td>
-
-                                <td class="table-data">
                                     {{ invoice.invoice_id }}
                                 </td>
 
                                 <td class="table-data">
                                     {{ invoice.amount }}
+                                </td>
+
+                                <td class="table-data">
+                                    {{ invoice.name }}
                                 </td>
                             </tr>
                         </template>
