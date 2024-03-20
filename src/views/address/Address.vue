@@ -1,11 +1,8 @@
 <script setup>
 import AppFooter from '@/components/AppFooter.vue';
 import MainLayout from '@/components/MainLayout.vue';
-import Paginator from '@/components/Paginator.vue';
-import AppTableLayout from '@/components/AppTableLayout.vue';
-import AppTable from '@/components/AppTable.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
 import Spinner from '@/svg/Spinner.vue';
 import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue';
@@ -15,31 +12,16 @@ const router = useRouter();
 const endpoint = ref('/api/address');
 const columns = ref(['room', 'name', 'address']);
 const addresses = ref([]);
-const pagination = ref({});
-const page = ref(route.query.page || 1);
 const error = ref(null);
 const loading = ref(false);
 const displayPagination = ref(true);
 
-watch(
-    () => route.query.page,
-    page => fetch(page),
-);
-
-function fetch(page) {
+function fetch() {
     loading.value = true;
     return axios
-        .get(`${endpoint.value}?page=${page}`)
+        .get(`${endpoint.value}`)
         .then(response => {
-            addresses.value = response.data.data;
-            if (
-                response.data.next_page_url === null &&
-                response.data.prev_page_url === null
-            ) {
-                displayPagination.value = false;
-            }
-            pagination.value = response.data;
-            delete pagination.value.data;
+            addresses.value = response.data;
         })
         .catch(() => {
             error.value = 'please try again later server error';
@@ -49,16 +31,7 @@ function fetch(page) {
         });
 }
 
-function switchPage(page) {
-    router.replace({
-        name: 'address',
-        query: {
-            page,
-        },
-    });
-}
-
-fetch(page.value);
+fetch();
 </script>
 
 <template>
@@ -88,64 +61,59 @@ fetch(page.value);
                         </p>
                         <template v-else>
                             <section v-if="addresses.length > 0" class="mt-10">
-                                <AppTableLayout class="mb-20">
-                                    <AppTable>
-                                        <template v-slot:th>
-                                            <th
-                                                v-for="column in columns"
-                                                :key="column"
-                                                class="table-heading"
-                                                scope="col"
+                                <ul
+                                    v-for="(address, index) in addresses"
+                                    :key="index"
+                                    role="list"
+                                    class="divide-y divide-gray-100"
+                                >
+                                    <li
+                                        class="flex items-center justify-between gap-x-6 py-5"
+                                    >
+                                        <div class="min-w-0">
+                                            <div
+                                                class="flex items-start gap-x-3"
                                             >
-                                                <p>{{ column }}</p>
-                                            </th>
-                                            <th
-                                                class="table-heading"
-                                                scope="col"
+                                                <p
+                                                    class="text-sm font-semibold leading-6 text-gray-900"
+                                                >
+                                                    {{ address.place.name }}
+                                                </p>
+                                                <p
+                                                    class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"
+                                                >
+                                                    Complete
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500"
                                             >
-                                                Detail
-                                            </th>
-                                        </template>
-
-                                        <template v-slot:tb>
-                                            <tr
-                                                v-for="(
-                                                    address, index
-                                                ) in addresses"
-                                                :key="address.id"
-                                                :class="
-                                                    index % 2 == 0
-                                                        ? 'bg-white'
-                                                        : 'bg-gray-100'
-                                                "
-                                            >
-                                                <td class="table-data">
+                                                <p class="whitespace-nowrap">
                                                     {{ address.room }}
-                                                </td>
-
-                                                <td class="table-data">
-                                                    {{ address.name }}
-                                                </td>
-
-                                                <td class="table-data">
-                                                    {{ address.address }}
-                                                </td>
-                                            </tr>
-                                        </template>
-                                    </AppTable>
-                                </AppTableLayout>
-
-                                <div class="my-4">
-                                    <Paginator
-                                        v-if="
-                                            pagination.current_page &&
-                                            displayPagination
-                                        "
-                                        :pagination="pagination"
-                                        :perSection="3"
-                                        @switched-page="switchPage"
-                                    />
-                                </div>
+                                                    <template
+                                                        v-if="address.room"
+                                                    >
+                                                        <span> - </span>
+                                                    </template>
+                                                    {{ address.place.address }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex flex-none items-center gap-x-4"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900"
+                                                id="options-menu-0-button"
+                                                aria-expanded="false"
+                                                aria-haspopup="true"
+                                            >
+                                                Edit
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
                             </section>
                             <p v-else class="validation-error mt-10">
                                 Create Address now and start laundry
