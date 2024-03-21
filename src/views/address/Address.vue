@@ -21,7 +21,7 @@ function fetch() {
     return axios
         .get(`${endpoint.value}`)
         .then(response => {
-            addresses.value = response.data;
+            addresses.value = response.data.data;
         })
         .catch(() => {
             error.value = 'please try again later server error';
