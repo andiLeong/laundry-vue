@@ -13,7 +13,7 @@ const router = useRouter();
 
 const endpoint = ref('/api/admin/invoice');
 const defaultSortColumn = ref('id');
-const columns = ref(['Invoice Id', 'Amt', 'Name']);
+const columns = ref(['Invoice Id', 'date', 'Amt', 'Name']);
 const invoices = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
@@ -143,6 +143,10 @@ function goToCreateInvoice() {
                             >
                                 <td class="table-data">
                                     {{ invoice.invoice_id }}
+                                </td>
+
+                                <td class="table-data">
+                                    {{ invoice.date }}
                                 </td>
 
                                 <td class="table-data">
