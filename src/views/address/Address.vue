@@ -21,7 +21,7 @@ function fetch() {
     return axios
         .get(`${endpoint.value}`)
         .then(response => {
-            addresses.value = response.data;
+            addresses.value = response.data.data;
         })
         .catch(() => {
             error.value = 'please try again later server error';
@@ -77,7 +77,11 @@ fetch();
                                                 <p
                                                     class="text-sm font-semibold leading-6 text-gray-900"
                                                 >
+                                                    <<<<<<< HEAD
                                                     {{ address.place.name }}
+                                                    =======
+                                                    {{ address.name }}
+                                                    >>>>>>> main
                                                 </p>
                                                 <p
                                                     class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"
@@ -95,7 +99,11 @@ fetch();
                                                     >
                                                         <span> - </span>
                                                     </template>
+                                                    <<<<<<< HEAD
                                                     {{ address.place.address }}
+                                                    =======
+                                                    {{ address.address }}
+                                                    >>>>>>> main
                                                 </p>
                                             </div>
                                         </div>

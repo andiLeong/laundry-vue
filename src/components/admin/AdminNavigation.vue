@@ -69,8 +69,6 @@
 <script setup>
 import HomeSvg from '@/svg/Home.vue';
 import LightBulb from '@/svg/LightBulb.vue';
-import Gift from '@/svg/Gift.vue';
-import ToiletCell from '@/svg/ToiletCell.vue';
 import People from '@/svg/People.vue';
 import CircusStack from '@/svg/CircusStack.vue';
 import PencilSquare from '@/svg/PencilSquare.vue';
@@ -103,16 +101,16 @@ const links = shallowRef([
         route: 'admin-order-invoice-record',
         svg: BankNotes,
     },
-    {
-        name: 'Product',
-        route: 'admin-product',
-        svg: ToiletCell,
-    },
-    {
-        name: 'Service',
-        route: 'admin-service',
-        svg: LightBulb,
-    },
+    // {
+    //     name: 'Product',
+    //     route: 'admin-product',
+    //     svg: ToiletCell,
+    // },
+    // {
+    //     name: 'Service',
+    //     route: 'admin-service',
+    //     svg: LightBulb,
+    // },
     {
         name: 'Places',
         route: 'admin-place',
@@ -121,11 +119,11 @@ const links = shallowRef([
 ]);
 
 const secondLinks = shallowRef([
-    {
-        name: 'Promotion',
-        route: 'admin-promotion',
-        svg: Gift,
-    },
+    // {
+    //     name: 'Promotion',
+    //     route: 'admin-promotion',
+    //     svg: Gift,
+    // },
     {
         name: 'Attendance',
         route: 'admin-attendance',
