@@ -1,5 +1,8 @@
 <script setup>
 import { ref } from 'vue';
+import Phone from '@/svg/Phone.vue';
+import Facebook from '@/svg/Facebook.vue';
+import Flag from '@/svg/Flag.vue';
 
 const primary = ref([
     {
@@ -10,7 +13,6 @@ const primary = ref([
         item: 'dry up to 8kg',
         price: 60,
     },
-
     {
         item: 'Full service up to 8kg',
         price: 170,
@@ -31,9 +33,21 @@ const primary = ref([
         item: 'dry up to 10kg',
         price: 80,
     },
+    {
+        item: 'bedding & towel up to 5kg',
+        price: 170,
+    },
+    {
+        item: 'comforter per piece',
+        price: 170,
+    },
 ]);
 
 const secondary = ref([
+    {
+        item: 'Fold only with perfume',
+        price: 30,
+    },
     {
         item: 'Extra dry per 10 mins',
         price: 20,
@@ -63,6 +77,10 @@ const secondary = ref([
         price: 90,
     },
 ]);
+
+let number = import.meta.env.VITE_APP_PHONE_NUMBER;
+let facebookName = import.meta.env.VITE_APP_FACEBOOK;
+let address = import.meta.env.VITE_APP_ADDRESS;
 </script>
 
 <template>
@@ -85,7 +103,7 @@ const secondary = ref([
             </div>
         </div>
 
-        <div class="content px-10">
+        <div class="content px-10 py-5">
             <div>
                 <h1 class="text-2xl font-semibold text-slate-600 uppercase">
                     primary
@@ -120,6 +138,32 @@ const secondary = ref([
                         <p class="text-xl text-slate-500">₱{{ pri.price }}</p>
                     </li>
                 </ul>
+            </div>
+
+            <div class="mt-5">
+                <h1 class="text-2xl font-semibold text-slate-600 uppercase">
+                    Pickup & delivery
+                </h1>
+                <div class="mt-4 space-y-1">
+                    <div class="flex items-center">
+                        <Phone class="w-4 h-4 text-primary mr-2.5" />
+                        <p class="text-xl text-slate-500 uppercase">
+                            {{ number }}
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <Facebook class="h-5 w-5 text-primary mr-2" />
+                        <p class="text-xl text-slate-500 uppercase">
+                            {{ facebookName }}
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <Flag class="h-5 w-5 text-primary mr-2" />
+                        <p class="text-xl text-slate-500 uppercase">
+                            {{ address }}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

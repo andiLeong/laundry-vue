@@ -36,12 +36,17 @@ const adminRoutes = [
     'admin-product',
     'admin-service',
     'admin-attendance',
+    'admin-place',
     'admin-report-to-work',
     'admin-order-gcash-create',
+    'admin-order-invoice-create',
     'admin-order-paid-record',
+    'admin-order-invoice-record',
     'admin-shift',
     'admin-salary',
     'admin-salary-detail',
+    'admin-order-label',
+    'admin-order-edit',
 ];
 
 const route = useRoute();

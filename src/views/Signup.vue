@@ -8,10 +8,12 @@ import { useRouter } from 'vue-router';
 import SignupLayout from '@/components/SignupLayout.vue';
 import { useSignVerifyStore } from '@/store/signupVerify.js';
 import PrimarySubmitButton from '@/components/forms/PrimarySubmitButton.vue';
+import useGoogleRecaptcha from '@/composable/useGoogleRecaptcha.js';
 
 const showPassword = ref(false);
 const isLoading = ref(false);
 const verifyStore = useSignVerifyStore();
+const { loadRecaptcha, removeRecaptcha } = useGoogleRecaptcha();
 
 const router = useRouter();
 const validationSchema = ref(
@@ -52,6 +54,28 @@ const { value: first_name } = useField('first_name');
 const { value: middle_name } = useField('middle_name');
 const { value: last_name } = useField('last_name');
 const { value: password } = useField('password');
+const { value: notification } = useField('notification');
+const { value: recaptcha_token } = useField('recaptcha_token');
+
+loadRecaptcha();
+
+let recaptchaScriptIsReady = false;
+let checkInterval = setInterval(function () {
+    if (grecaptcha) {
+        recaptchaScriptIsReady = true;
+        clearInterval(checkInterval);
+        grecaptcha.ready(function () {
+            grecaptcha
+                .execute('6Ld0LU0pAAAAAG1DfvNrfrJBkbQH4_MJ_OkcwQV_', {
+                    action: 'signup',
+                })
+                .then(token => {
+                    recaptcha_token.value = token;
+                });
+        });
+    }
+    return recaptchaScriptIsReady;
+}, 500);
 
 const submit = ref(
     handleSubmit(values => {
@@ -68,6 +92,7 @@ async function signup(user) {
     axios
         .post('/api/signup', user)
         .then(() => {
+            removeRecaptcha();
             verifyStore.setPhone(user.phone);
             router.push({ name: 'verify' });
         })
@@ -105,6 +130,8 @@ async function signup(user) {
 
         <form @submit.prevent="submit">
             <div class="space-y-5">
+                <input type="text" v-model="notification" class="hidden" />
+                <input type="text" v-model="recaptcha_token" class="hidden" />
                 <div class="flex flex-col">
                     <label
                         class="mb-2.5 text-base font-medium label-color"

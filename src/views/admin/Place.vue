@@ -4,7 +4,28 @@
             <section class="max-w-6xl mx-auto mt-10">
                 <AppTableLayout>
                     <template v-slot:title>
-                        <h2 class="text-gray-600">Salary Detail</h2>
+                        <h2 class="text-gray-600">Place</h2>
+
+                        <form @submit.prevent="search" action="">
+                            <div class="my-6 flex items-center justify-between">
+                                <div class="">
+                                    <BaseInput
+                                        labelClass="form-label"
+                                        placeHolder="Search place name"
+                                        class="mt-1 form-input"
+                                        label="name"
+                                        type="text"
+                                        v-model="name"
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-sky-600 hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
+                                >
+                                    Search
+                                </button>
+                            </div>
+                        </form>
                     </template>
 
                     <AppTable>
@@ -15,57 +36,36 @@
                                 v-for="column in columns"
                                 :key="column"
                             >
-                                <Sorting
-                                    :column="column"
-                                    :sortedColumn="defaultSortColumn"
-                                    @sort="orderQuery"
-                                    @sortedColumn="setDefaultSortColumn"
-                                />
+                                {{ column }}
                             </th>
                         </template>
 
                         <template v-slot:tb>
                             <tr
                                 :class="
-                                    index % 2 === 0 ? 'bg-white' : 'bg-gray-100'
+                                    index % 2 == 0 ? 'bg-white' : 'bg-gray-100'
                                 "
-                                v-for="(detail, index) in details"
-                                :key="detail.id"
+                                v-for="(place, index) in places"
+                                :key="place.id"
                             >
                                 <td class="table-data">
-                                    {{ detail.amount }}
+                                    {{ place.id }}
                                 </td>
 
                                 <td class="table-data">
-                                    {{ detail.hour }}
+                                    {{ place.name }}
+                                </td>
+
+                                <!--                                <td class="table-data">-->
+                                <!--                                    {{ place.address }}-->
+                                <!--                                </td>-->
+
+                                <td class="table-data">
+                                    {{ place.delivery_fee }}
                                 </td>
 
                                 <td class="table-data">
-                                    {{ detail.from }}
-                                </td>
-
-                                <td class="table-data">
-                                    {{ detail.to }}
-                                </td>
-
-                                <td class="table-data">
-                                    {{ detail.description }}
-                                </td>
-
-                                <td class="table-data">
-                                    [
-                                    {{
-                                        moment(detail.shift?.from).format(
-                                            'YYYY-MM-DD HH:mm',
-                                        )
-                                    }}
-                                    -
-                                    {{
-                                        moment(detail.shift?.to).format(
-                                            'YYYY-MM-DD HH:mm',
-                                        )
-                                    }}
-                                    ]
+                                    {{ place.distance }}
                                 </td>
                             </tr>
                         </template>
@@ -90,43 +90,31 @@ import AdminLayout from '@/components/admin/AdminLayout.vue';
 import Paginator from '@/components/Paginator.vue';
 import AppTable from '@/components/AppTable.vue';
 import AppTableLayout from '@/components/AppTableLayout.vue';
-import Sorting from '@/components/Sorting.vue';
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import moment from 'moment';
+import '@vuepic/vue-datepicker/dist/main.css';
+import BaseInput from '@/components/forms/BaseInput.vue';
 
 const route = useRoute();
 const router = useRouter();
 
-const endpoint = ref(`/api/admin/salary-detail/${route.params.id}`);
+const endpoint = ref('/api/admin/place');
 const defaultSortColumn = ref('id');
-const columns = ref([
-    'amount',
-    'hour',
-    'from',
-    'to',
-    'description',
-    'start/end',
-]);
-const details = ref([]);
+const columns = ref(['id', 'name', 'delivery fee', 'distance']);
+const places = ref([]);
 const pagination = ref({});
 const page = ref(route.query.page || 1);
 const queryString = ref({});
 const sortQuery = ref('order_by[]=id&direction[]=desc');
+const name = ref('');
 
 function fetch(page, query = '') {
-    return axios
-        .get(`${endpoint.value}?page=${page}&${query}`)
-        .then(response => {
-            details.value = response.data.data;
-            pagination.value = response.data;
-            delete pagination.value.data;
-        });
-}
-
-function orderQuery(query) {
-    sortQuery.value = query;
-    fetch(page.value, toQueryString(queryString.value));
+    let url = `${endpoint.value}?page=${page}&${query}`;
+    return axios.get(url).then(response => {
+        places.value = response.data.data;
+        pagination.value = response.data;
+        delete pagination.value.data;
+    });
 }
 
 function getherQuery(query) {
@@ -138,12 +126,15 @@ function toQueryString(query) {
     if (sortQuery.value === '') {
         return new URLSearchParams(query).toString();
     }
+    if (new URLSearchParams(query).toString() === '') {
+        return sortQuery.value;
+    }
     return new URLSearchParams(query).toString() + '&' + sortQuery.value;
 }
 
 function switchPage(page) {
     router.replace({
-        name: 'admin-salary',
+        name: 'admin-place',
         query: {
             page,
         },
@@ -159,7 +150,14 @@ watch(
     page => fetch(page, toQueryString(queryString.value)),
 );
 
+function search() {
+    if (name.value === null) {
+        return;
+    }
+    getherQuery({
+        name: name.value,
+    });
+}
+
 fetch(page.value, toQueryString(queryString.value));
 </script>
-
-<style scoped></style>

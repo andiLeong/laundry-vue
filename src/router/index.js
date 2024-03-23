@@ -63,6 +63,23 @@ const routes = [
         meta: { auth: true },
     },
     {
+        path: '/address',
+        name: 'address',
+        component: () => import('@/views/address/Address.vue'),
+        meta: { auth: true },
+    },
+    {
+        path: '/address/create',
+        name: 'address-create',
+        component: () => import('@/views/address/Create.vue'),
+        // meta: { auth: true },
+    },
+    {
+        path: '/20pesos-off',
+        name: '20pesos-off',
+        component: () => import('@/views/PesosOff.vue'),
+    },
+    {
         path: '/admin/home',
         name: 'admin-home',
         component: () => import('@/views/admin/Home.vue'),
@@ -81,9 +98,21 @@ const routes = [
         meta: { staffOnly: true },
     },
     {
+        path: '/admin/order-invoice-record',
+        name: 'admin-order-invoice-record',
+        component: () => import('@/views/admin/order/invoice/Invoice.vue'),
+        meta: { staffOnly: true },
+    },
+    {
         path: '/admin/order-gcash/create/:id',
         name: 'admin-order-gcash-create',
         component: () => import('@/views/admin/order/gcash/Create.vue'),
+        meta: { staffOnly: true },
+    },
+    {
+        path: '/admin/order-invoice/create',
+        name: 'admin-order-invoice-create',
+        component: () => import('@/views/admin/order/invoice/Create.vue'),
         meta: { staffOnly: true },
     },
     {
@@ -114,6 +143,18 @@ const routes = [
         path: '/admin/order/create',
         name: 'admin-order-create',
         component: () => import('@/views/admin/order/Create.vue'),
+        meta: { staffOnly: true },
+    },
+    {
+        path: '/admin/order/edit/:id',
+        name: 'admin-order-edit',
+        component: () => import('@/views/admin/order/Edit.vue'),
+        meta: { staffOnly: true },
+    },
+    {
+        path: '/admin/order/label',
+        name: 'admin-order-label',
+        component: () => import('@/components/admin/CreateOrderLabel.vue'),
         meta: { staffOnly: true },
     },
     {
@@ -176,7 +217,12 @@ const routes = [
         component: () => import('@/views/admin/Service.vue'),
         meta: { staffOnly: true },
     },
-
+    {
+        path: '/admin/place',
+        name: 'admin-place',
+        component: () => import('@/views/admin/Place.vue'),
+        meta: { staffOnly: true },
+    },
     // {
     //     path: '/posts/edit/:slug',
     //     name: 'posts.edit',
