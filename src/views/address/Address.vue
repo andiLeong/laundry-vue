@@ -68,7 +68,7 @@ fetch();
                                     class="divide-y divide-gray-100"
                                 >
                                     <li
-                                        class="flex items-center justify-between gap-x-6 py-5"
+                                        class="md:flex items-center justify-between gap-x-6 py-5"
                                     >
                                         <div class="min-w-0">
                                             <div
@@ -88,7 +88,7 @@ fetch();
                                             <div
                                                 class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500"
                                             >
-                                                <p class="whitespace-nowrap">
+                                                <div class="">
                                                     {{ address.room }}
                                                     <template
                                                         v-if="address.room"
@@ -96,7 +96,7 @@ fetch();
                                                         <span> - </span>
                                                     </template>
                                                     {{ address.address }}
-                                                </p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div
