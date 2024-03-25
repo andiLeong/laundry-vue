@@ -139,6 +139,11 @@ const secondLinks = shallowRef([
         route: 'admin-salary',
         svg: BankNotes,
     },
+    {
+        name: 'Home',
+        route: 'home',
+        svg: HomeSvg,
+    },
 ]);
 
 if (user.isAdmin) {

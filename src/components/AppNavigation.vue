@@ -78,15 +78,18 @@ function logout() {
                     </template>
 
                     <div class="p-2 space-y-2">
-                        <!-- Active: "bg-gray-100", Not Active: "" -->
-                        <div class="flex items-center p-1">
-                            <UserCircle class="h-5 w-5 text-slate-400 mr-2" />
-                            <router-link
-                                :to="{ name: 'admin-profile' }"
-                                class="block text-sm text-slate-500"
-                                >Profile
-                            </router-link>
-                        </div>
+                        <template v-if="userStore.canAccessDashboard">
+                            <div class="flex items-center p-1">
+                                <UserCircle
+                                    class="h-5 w-5 text-slate-400 mr-2"
+                                />
+                                <router-link
+                                    :to="{ name: 'admin-profile' }"
+                                    class="block text-sm text-slate-500"
+                                    >Profile
+                                </router-link>
+                            </div>
+                        </template>
 
                         <template v-if="userStore.canAccessDashboard">
                             <div class="flex items-center p-1">
@@ -94,10 +97,19 @@ function logout() {
                                 <router-link
                                     :to="{ name: 'admin-home' }"
                                     class="block text-sm text-slate-500"
-                                    >Dashboard
+                                    >Admin Dashboard
                                 </router-link>
                             </div>
                         </template>
+
+                        <div class="flex items-center p-1">
+                            <UserCircle class="h-5 w-5 text-slate-400 mr-2" />
+                            <router-link
+                                :to="{ name: 'order' }"
+                                class="block text-sm text-slate-500"
+                                >Dashboard
+                            </router-link>
+                        </div>
 
                         <div class="flex items-center p-1">
                             <ArrowLeftOnRectangle
@@ -161,17 +173,18 @@ function logout() {
                             </div>
                         </template>
                         <div class="p-2 space-y-2">
-                            <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <div class="flex items-center p-1">
-                                <UserCircle
-                                    class="h-5 w-5 text-slate-400 mr-2"
-                                />
-                                <router-link
-                                    :to="{ name: 'admin-profile' }"
-                                    class="block text-sm text-slate-500"
-                                    >Profile
-                                </router-link>
-                            </div>
+                            <template v-if="userStore.canAccessDashboard">
+                                <div class="flex items-center p-1">
+                                    <UserCircle
+                                        class="h-5 w-5 text-slate-400 mr-2"
+                                    />
+                                    <router-link
+                                        :to="{ name: 'admin-profile' }"
+                                        class="block text-sm text-slate-500"
+                                        >Profile
+                                    </router-link>
+                                </div>
+                            </template>
 
                             <template v-if="userStore.canAccessDashboard">
                                 <div class="flex items-center p-1">
@@ -179,10 +192,21 @@ function logout() {
                                     <router-link
                                         :to="{ name: 'admin-home' }"
                                         class="block text-sm text-slate-500"
-                                        >Dashboard
+                                        >Admin Dashboard
                                     </router-link>
                                 </div>
                             </template>
+
+                            <div class="flex items-center p-1">
+                                <UserCircle
+                                    class="h-5 w-5 text-slate-400 mr-2"
+                                />
+                                <router-link
+                                    :to="{ name: 'order' }"
+                                    class="block text-sm text-slate-500"
+                                    >Dashboard
+                                </router-link>
+                            </div>
 
                             <div class="flex items-center p-1">
                                 <ArrowLeftOnRectangle
