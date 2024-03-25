@@ -6,6 +6,10 @@ import { ref } from 'vue';
 import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
 import Spinner from '@/svg/Spinner.vue';
 import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue';
+import AppModal from '@/components/AppModal.vue';
+import HomeSolid from '@/svg/HomeSolid.vue';
+import { useNotificationStore } from '@/store/Notification.js';
+import Errors from '@/model/Errors.js';
 
 const route = useRoute();
 const router = useRouter();
@@ -14,7 +18,13 @@ const columns = ref(['room', 'name', 'address']);
 const addresses = ref([]);
 const error = ref(null);
 const loading = ref(false);
+const updateLoading = ref(false);
 const displayPagination = ref(true);
+
+const open = ref(false);
+const selected = ref(null);
+
+const notificationStore = useNotificationStore();
 
 function fetch() {
     loading.value = true;
@@ -28,6 +38,39 @@ function fetch() {
         })
         .finally(() => {
             loading.value = false;
+        });
+}
+
+function openModal(address) {
+    selected.value = {
+        name: address.name,
+        room: address.room,
+        address: address.address,
+        id: address.id,
+    };
+    open.value = true;
+}
+
+function update() {
+    updateLoading.value = true;
+    axios
+        .patch(`api/address/${selected.value.id}`, {
+            room: selected.value.room,
+        })
+        .then(response => {
+            open.value = false;
+            notificationStore.message = 'Your address updated.';
+            notificationStore.show = true;
+            // fetch();
+        })
+        .catch(er => {
+            open.value = false;
+            notificationStore.message = new Errors(er).getMessage();
+            notificationStore.show = true;
+            notificationStore.type = 'warning';
+        })
+        .finally(() => {
+            updateLoading.value = false;
         });
 }
 
@@ -60,7 +103,7 @@ fetch();
                             {{ error }}
                         </p>
                         <template v-else>
-                            <section v-if="addresses.length > 0" class="mt-10">
+                            <section v-if="addresses.length > 0" class="mt-3">
                                 <ul
                                     v-for="(address, index) in addresses"
                                     :key="index"
@@ -68,27 +111,29 @@ fetch();
                                     class="divide-y divide-gray-100"
                                 >
                                     <li
-                                        class="flex items-center justify-between gap-x-6 py-5"
+                                        class="md:flex items-center justify-between gap-x-6 py-5"
                                     >
                                         <div class="min-w-0">
                                             <div
-                                                class="flex items-start gap-x-3"
+                                                class="flex items-start justify-between gap-x-3"
                                             >
                                                 <p
                                                     class="text-sm font-semibold leading-6 text-gray-900"
                                                 >
                                                     {{ address.name }}
                                                 </p>
-                                                <p
-                                                    class="rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"
-                                                >
-                                                    Complete
-                                                </p>
+                                                <div class="md:hidden">
+                                                    <button
+                                                        class="rounded-md bg-white px-2 py-1 text-xs text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+                                                    >
+                                                        Edit
+                                                    </button>
+                                                </div>
                                             </div>
                                             <div
                                                 class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500"
                                             >
-                                                <p class="whitespace-nowrap">
+                                                <div class="">
                                                     {{ address.room }}
                                                     <template
                                                         v-if="address.room"
@@ -96,18 +141,17 @@ fetch();
                                                         <span> - </span>
                                                     </template>
                                                     {{ address.address }}
-                                                </p>
+                                                </div>
                                             </div>
                                         </div>
                                         <div
-                                            class="flex flex-none items-center gap-x-4"
+                                            class="hidden md:flex justify-end items-center mt-3 md:mt-0"
                                         >
                                             <button
-                                                type="button"
-                                                class="-m-2.5 block p-2.5 text-gray-500 hover:text-gray-900"
-                                                id="options-menu-0-button"
-                                                aria-expanded="false"
-                                                aria-haspopup="true"
+                                                @click.prevent="
+                                                    openModal(address)
+                                                "
+                                                class="rounded-md bg-white px-2 py-1 md:px-2.5 md:py-1.5 text-xs md:font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
                                             >
                                                 Edit
                                             </button>
@@ -124,6 +168,51 @@ fetch();
             </section>
         </main>
         <AppFooter />
+        <AppModal :show="open" @closed="() => (open = false)">
+            <div>
+                <div class="mt-3 text-center sm:mt-5">
+                    <div
+                        class="max-w-xs mx-auto relative mt-2 rounded-md shadow-sm"
+                    >
+                        <div
+                            class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+                        >
+                            <HomeSolid class="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                            type="text"
+                            class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6"
+                            v-model="selected.room"
+                            placeholder="Room/street #"
+                        />
+                    </div>
+                    <div class="mt-2">
+                        <p class="text-sm text-gray-500">
+                            {{ selected.name }} @ {{ selected.address }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3"
+            >
+                <button
+                    type="button"
+                    class="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 sm:col-start-2"
+                    @click.prevent="update"
+                >
+                    Update
+                </button>
+                <button
+                    type="button"
+                    class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0"
+                    @click.prevent="open = false"
+                    ref="cancelButtonRef"
+                >
+                    Cancel
+                </button>
+            </div>
+        </AppModal>
     </MainLayout>
 </template>
 
