@@ -4,12 +4,13 @@ import MainLayout from '@/components/MainLayout.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
-import Spinner from '@/svg/Spinner.vue';
 import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue';
 import AppModal from '@/components/AppModal.vue';
 import HomeSolid from '@/svg/HomeSolid.vue';
 import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
+import AppLink from '@/components/AppLink.vue';
+import AddressSkeleton from '@/components/skeleton/AddressSkeleton.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -88,15 +89,27 @@ fetch();
             >
                 <AppDashboardNavigation />
                 <div class="md:col-span-2 lg:col-span-4 p-3">
-                    <h3 class="text-gray-900 text-lg font-medium">Address</h3>
-                    <p class="font-normal text-gray-400 text-sm">
-                        Service you have ordered
-                    </p>
+                    <div class="md:flex items-center justify-between">
+                        <div>
+                            <h3 class="text-gray-900 text-lg font-medium">
+                                Address
+                            </h3>
+                            <p class="font-normal text-gray-400 text-sm">
+                                Service you have ordered
+                            </p>
+                        </div>
+                        <div class="mt-3 md:mt-0">
+                            <AppLink
+                                :to="{ name: 'address-create' }"
+                                class="rounded-md text-white py-1.5 md:py-2 px-3 bg-primary text-sm"
+                            >
+                                Create
+                            </AppLink>
+                        </div>
+                    </div>
 
                     <template v-if="loading">
-                        <Spinner
-                            class="text-sky-500 h-6 w-6 animate-spin mt-4"
-                        />
+                        <AddressSkeleton />
                     </template>
                     <template v-else>
                         <p v-if="error" class="validation-error mt-10">
@@ -151,7 +164,7 @@ fetch();
                                                 @click.prevent="
                                                     openModal(address)
                                                 "
-                                                class="rounded-md bg-white px-2 py-1 md:px-2.5 md:py-1.5 text-xs md:font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
+                                                class="rounded-md bg-white px-2.5 py-1.5 text-xs md:font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
                                             >
                                                 Edit
                                             </button>
