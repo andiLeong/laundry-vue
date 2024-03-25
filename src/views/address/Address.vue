@@ -4,13 +4,13 @@ import MainLayout from '@/components/MainLayout.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { default as AppDashboardNavigation } from '@/components/dashboard/Navigation.vue';
-import Spinner from '@/svg/Spinner.vue';
 import Breadcrumbs from '@/components/dashboard/Breadcrumbs.vue';
 import AppModal from '@/components/AppModal.vue';
 import HomeSolid from '@/svg/HomeSolid.vue';
 import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
 import AppLink from '@/components/AppLink.vue';
+import AddressSkeleton from '@/components/skeleton/AddressSkeleton.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -109,9 +109,7 @@ fetch();
                     </div>
 
                     <template v-if="loading">
-                        <Spinner
-                            class="text-sky-500 h-6 w-6 animate-spin mt-4"
-                        />
+                        <AddressSkeleton />
                     </template>
                     <template v-else>
                         <p v-if="error" class="validation-error mt-10">
