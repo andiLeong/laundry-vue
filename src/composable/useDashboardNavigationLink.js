@@ -19,12 +19,6 @@ export default function useDashboardNavigationLink() {
             active: false,
         },
         {
-            name: 'Setting',
-            route: 'home',
-            svg: Cog6Tooth,
-            active: false,
-        },
-        {
             name: 'Address',
             route: 'address',
             svg: Cog6Tooth,
