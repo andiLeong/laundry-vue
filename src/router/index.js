@@ -75,6 +75,12 @@ const routes = [
         meta: { auth: true },
     },
     {
+        path: '/order/create',
+        name: 'order-create',
+        component: () => import('@/views/order/Create.vue'),
+        // meta: { auth: true },
+    },
+    {
         path: '/20pesos-off',
         name: '20pesos-off',
         component: () => import('@/views/PesosOff.vue'),
