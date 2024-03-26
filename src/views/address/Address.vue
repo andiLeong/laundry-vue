@@ -11,6 +11,7 @@ import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
 import AppLink from '@/components/AppLink.vue';
 import AddressSkeleton from '@/components/skeleton/AddressSkeleton.vue';
+import AddressEmptyState from '@/components/emptyState/AddressEmptyState.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -100,6 +101,7 @@ fetch();
                         </div>
                         <div class="mt-3 md:mt-0">
                             <AppLink
+                                v-if="addresses.length > 0"
                                 :to="{ name: 'address-create' }"
                                 class="rounded-md text-white py-1.5 md:py-2 px-3 bg-primary text-sm"
                             >
@@ -172,9 +174,7 @@ fetch();
                                     </li>
                                 </ul>
                             </section>
-                            <p v-else class="validation-error mt-10">
-                                Create Address now and start laundry
-                            </p>
+                            <AddressEmptyState class="mt-10" />
                         </template>
                     </template>
                 </div>
