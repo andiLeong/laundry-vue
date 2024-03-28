@@ -11,10 +11,7 @@ import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
 import AppLink from '@/components/AppLink.vue';
 import AddressSkeleton from '@/components/skeleton/AddressSkeleton.vue';
-<<<<<<< HEAD
 import AddressEmptyState from '@/components/emptyState/AddressEmptyState.vue';
-=======
->>>>>>> feature/customer-address-management
 
 const route = useRoute();
 const router = useRouter();
