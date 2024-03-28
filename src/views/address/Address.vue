@@ -11,7 +11,10 @@ import { useNotificationStore } from '@/store/Notification.js';
 import Errors from '@/model/Errors.js';
 import AppLink from '@/components/AppLink.vue';
 import AddressSkeleton from '@/components/skeleton/AddressSkeleton.vue';
+<<<<<<< HEAD
 import AddressEmptyState from '@/components/emptyState/AddressEmptyState.vue';
+=======
+>>>>>>> feature/customer-address-management
 
 const route = useRoute();
 const router = useRouter();
@@ -139,6 +142,9 @@ fetch();
                                                 </p>
                                                 <div class="md:hidden">
                                                     <button
+                                                        @click.prevent="
+                                                            openModal(address)
+                                                        "
                                                         class="rounded-md bg-white px-2 py-1 text-xs text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:block"
                                                     >
                                                         Edit
