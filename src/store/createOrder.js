@@ -13,6 +13,8 @@ export const useCreateOrderStore = defineStore({
         total_amount: 0,
         amount: 0,
         addresses: null,
+        product: null,
+        product_total_amount: null,
     }),
     getters: {
         isLoggedIn: state => state.user !== null,

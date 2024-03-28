@@ -52,7 +52,7 @@ setStep();
             ></div>
         </div>
         <div
-            class="mt-6 hidden grid-cols-4 text-sm font-medium text-gray-600 sm:grid"
+            class="mt-3 hidden grid-cols-4 text-sm font-medium text-gray-600 sm:grid"
         >
             <div :class="step === 1 ? 'text-indigo-600' : ''">
                 Basic Information
